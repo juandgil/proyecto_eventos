@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://usuario:contraseña@db:5432/nombre_db
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=usuario
+      - POSTGRES_PASSWORD=contraseña
+      - POSTGRES_DB=nombre_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
