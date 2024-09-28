@@ -1,4 +1,7 @@
-FROM node:14
+FROM node:18
+
+# Instalar nodemon
+RUN yarn global add nodemon
 
 WORKDIR /usr/src/app
 
@@ -8,4 +11,8 @@ RUN yarn install
 
 COPY . .
 
-CMD [ "yarn", "start" ]
+RUN yarn build
+
+EXPOSE 8081
+
+CMD ["nodemon", "--watch", "src", "--ext", "ts,json", "--exec", "ts-node", "src/index.ts"]

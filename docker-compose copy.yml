@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "${PORT:-8081}:${PORT:-8081}"
+    environment:
+      - POSTGRES_HOST=${POSTGRES_HOST:-localhost}
+      - PG_PORT=${PG_PORT:-5433}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASS=${POSTGRES_PASS:-123456}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE:-eventos}
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=usuario
+      - POSTGRES_PASSWORD=contraseña
+      - POSTGRES_DB=nombre_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

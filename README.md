@@ -132,7 +132,6 @@ En este repositorio se encuentran la estructura de carpetas y todos los archivos
 │   │   │   |   ├── index.ts
 │   │   │   ├──  index.ts
 │   │   ├── index.ts
-│   ├── index.ts
 └── test
 │   ├── Application.test.ts
 ```
@@ -301,3 +300,101 @@ Se utiliza la convención estandar para escribir el mensaje en el commit
 [Commit Message Convention](https://github.com/conventional-changelog/commitlint)
 
 ---
+
+## Configuración y ejecución con Docker
+
+Para ejecutar este proyecto utilizando Docker y PostgreSQL, sigue estos pasos:
+
+### Prerrequisitos
+
+- Docker
+- Docker Compose
+
+### Pasos para ejecutar
+
+1. Asegúrate de tener un archivo `.env` en la raíz del proyecto con las siguientes variables (ajusta los valores según sea necesario):
+
+   ```
+   POSTGRES_HOST=localhost
+   PG_PORT=5433
+   POSTGRES_USER=postgres
+   POSTGRES_PASS=123456
+   POSTGRES_DATABASE=eventos
+   PORT=8081
+   ```
+
+2. Construye y ejecuta los contenedores:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+   Este comando construirá la imagen de Docker y iniciará los servicios definidos en `docker-compose.yml`.
+
+3. Una vez que los contenedores estén en ejecución, la aplicación estará disponible en `http://localhost:8081`.
+
+### Verificación de la conexión con PostgreSQL
+
+Para verificar que la aplicación se está comunicando correctamente con PostgreSQL:
+
+1. Accede al contenedor de la aplicación:
+
+   ```bash
+   docker exec -it proyecto-events-app-1 /bin/bash
+   ```
+
+2. Dentro del contenedor, conéctate a PostgreSQL:
+
+   ```bash
+   psql -U postgres -d eventos -h localhost
+   ```
+
+3. Ingresa la contraseña cuando se te solicite (por defecto es '123456').
+
+4. Una vez conectado, puedes ejecutar una consulta de prueba:
+
+   ```sql
+   SELECT NOW();
+   ```
+
+   Si ves la fecha y hora actuales, significa que la conexión a PostgreSQL está funcionando correctamente.
+
+5. Para salir de psql, escribe:
+
+   ```
+   \q
+   ```
+
+6. Para salir del contenedor, escribe:
+
+   ```
+   exit
+   ```
+
+### Detener los contenedores
+
+Para detener y eliminar los contenedores, ejecuta:
+
+```bash
+docker-compose down
+```
+
+### Notas para el desarrollo
+
+- Los cambios en los archivos fuera del directorio `src` (como package.json) requerirán reconstruir la imagen de Docker.
+- Para ver los logs de la aplicación en tiempo real, puedes usar:
+
+  ```bash
+  docker-compose logs -f app
+  ```
+
+- Si necesitas ejecutar comandos adicionales dentro del contenedor (como instalar nuevas dependencias), puedes hacerlo con:
+
+  ```bash
+  docker-compose exec app yarn add <package-name>
+  ```
+Ejecuta docker-compose down -v para limpiar todo.
+Luego, ejecuta docker-compose up --build para reconstruir y iniciar los contenedores.
+
+Esto eliminará los contenedores y los volúmenes asociados.
+docker-compose down -v
