@@ -13,31 +13,35 @@ import TokenUsuarios from '@modules/Usuarioas/domain/entities/TokenUsuarios';
 @injectable()
 export default class PostgresUsuariosRepository implements UsuariosRepository {
     get db(): IDatabase<IMain> {
-        return DEPENDENCY_CONTAINER.get<IDatabase<IMain>>(TYPESDEPENDENCIES.dbCm);
+        return DEPENDENCY_CONTAINER.get<IDatabase<IMain>>(TYPESDEPENDENCIES.db);
     }
 
     schema = '"public"';
 
-    async guardar(data: Usuarios): Promise<Usuarios> {
+    async guardar(data: Usuarios): Promise<void> {
         try {
             const sqlQuery = `
-            INSERT INTO ${this.schema}.usuarios (correo, activo, sincronizacion_suite, estado_sincronizacion, id_perfil)
-            VALUES ($/correo/, $/activo/, $/sincronizacionSuite/, $/estadoSincronizacion/, $/idPerfil/) RETURNING *`;
-            const usuario = await this.db.oneOrNone(sqlQuery, data);
-            return new Usuarios(usuario);
+            INSERT INTO Usuarios (nombre_usuario, correo, hash_contrasena, perfil_id)
+            VALUES ($/nombre_usuario/, $/correo/, $/hash_contrasena/, $/perfil_id/)`;
+            await this.db.query(sqlQuery, {
+                nombre_usuario: data.nombreUsuario,
+                correo: data.correo,
+                hash_contrasena: data.hashContrasena,
+                perfil_id: data.perfilId,
+            });
         } catch (error) {
-            logger.error('USUARIOS', 'guardar', [`Error creando usuario: ${error.message}`]);
+            logger.error('USUARIOS', 'guardar', [`Error creando usuario: ${error}`]);
             throw new PostgresException(500, `Error en insercion de postgres guardar: ${error.message}`);
         }
     }
 
-    async consultarUsuarioPorCorreos(correo: string): Promise<Usuarios | null> {
+    async consultarUsuarioPorCorreo(correo: string): Promise<Usuarios | null> {
         try {
             const sqlQuery = `SELECT * FROM usuarios WHERE correo = $/correo/ LIMIT 1`;
             const usuario = await this.db.oneOrNone(sqlQuery, { correo });
             return usuario ? new Usuarios(usuario) : null;
         } catch (error) {
-            logger.error('USUARIOS', '798779654315', [`Error consultando el usuario: ${error.message}`]);
+            logger.error('USUARIOS', 'consultarUsuarioPorCorreo', [`Error consultando el usuario: ${error}`]);
             throw new PostgresException(500, `Error al consultar el usuario de postgres: ${error.message}`);
         }
     }
@@ -48,7 +52,7 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
             await this.db.none(sqlQuery, { correo, estado });
         } catch (error) {
             logger.error('USUARIOS', 'actualizarEstadoSincronizacion', [
-                `Error actualizando el estado de sincronizacion: ${error.message}`,
+                `Error actualizando el estado de sincronizacion: ${error}`,
             ]);
             throw new PostgresException(
                 500,
@@ -65,7 +69,7 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
             const usuario = await this.db.oneOrNone(sqlQuery, crearTokenUsuario);
             return usuario;
         } catch (error) {
-            logger.error('USUARIOS', 'crearTokenUsuario', [`Error creando token: ${error.message}`]);
+            logger.error('USUARIOS', 'crearTokenUsuario', [`Error creando token: ${error}`]);
             throw new PostgresException(500, `Error en insercion de postgres crearTokenUsuario: ${error.message}`);
         }
     }
@@ -79,7 +83,7 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
             });
             return usuario;
         } catch (error) {
-            logger.error('USUARIOS', '798779654316', [`Error actualizando perfil: ${error.message}`]);
+            logger.error('USUARIOS', '798779654316', [`Error actualizando perfil: ${error}`]);
             throw new PostgresException(500, `Error actualizando perfil: ${error.message}`);
         }
     }
@@ -90,7 +94,7 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
             const usuario = await this.db.oneOrNone(sqlQuery, { idUsuario });
             return usuario;
         } catch (error) {
-            logger.error('USUARIOS', '798779654317', [`Error consultando el usuario: ${error.message}`]);
+            logger.error('USUARIOS', '798779654317', [`Error consultando el usuario: ${error}`]);
             throw new PostgresException(500, `Error al consultar el usuario de postgres: ${error.message}`);
         }
     }

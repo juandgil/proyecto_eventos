@@ -1,18 +1,8 @@
 export interface ICrearUsuariosIn {
-    activo?: boolean;
-    sincronizacion_suite?: boolean;
-    estado_sincronizacion?: string;
+    nombre_usuario: string;
     correo: string;
-    id_perfil?: number;
-    id_usuario?: number;
-}
-export interface IGuardarUsuariosFIn {
-    nombres: string;
-    apellidos: string;
-    tipo_identificacion: string;
-    identificacion: string;
-    telefono?: string;
-    correo: string;
-    id_perfil?: number | null;
-    id_usuario?: number;
+    contrasena: string;
+    perfil_id: number;
+    hash_contrasena?: string;
+    id?: number;
 }

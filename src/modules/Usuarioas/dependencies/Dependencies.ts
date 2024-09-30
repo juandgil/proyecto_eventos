@@ -9,8 +9,8 @@ import UsuariosController from '../controllers/UsuariosController';
 import CrearUsuariosUseCase from '../usecase/services/CrearUsuariosUseCase';
 import { UsuariosRepository } from '../domain/repositories/UsuariosRepository';
 import { ClientesRepository } from '../domain/repositories/ClientesRepository';
-import CrearUsuariosSuiteUseCase from '../usecase/services/CrearUsuariosSuiteUseCase';
 import AsociarPerfilUseCase from '../usecase/services/AsociarPerfilUseCase';
+import GenerarTokenUseCase from '../usecase/services/GenerarTokenUseCase';
 
 const createDependencies = (): void => {
     DEPENDENCY_CONTAINER.bind<UsuariosController>(TYPESDEPENDENCIES.UsuariosController)
@@ -18,15 +18,12 @@ const createDependencies = (): void => {
         .inSingletonScope();
     DEPENDENCY_CONTAINER.bind<CrearUsuariosUseCase>(TYPESDEPENDENCIES.CrearUsuariosUseCase)
         .toDynamicValue(() => {
-            return new CrearUsuariosUseCase();
+            return new CrearUsuariosUseCase(
+                DEPENDENCY_CONTAINER.get<UsuariosRepository>(TYPESDEPENDENCIES.UsuariosRepository),
+            );
         })
         .inSingletonScope();
-
-    DEPENDENCY_CONTAINER.bind<CrearUsuariosSuiteUseCase>(TYPESDEPENDENCIES.CrearUsuariosSuiteUseCase)
-        .toDynamicValue(() => {
-            return new CrearUsuariosSuiteUseCase();
-        })
-        .inSingletonScope();
+    DEPENDENCY_CONTAINER.bind<GenerarTokenUseCase>(TYPESDEPENDENCIES.GenerarTokenUseCase).to(GenerarTokenUseCase);
 
     DEPENDENCY_CONTAINER.bind<AsociarPerfilUseCase>(TYPESDEPENDENCIES.AsociarPerfilUseCase)
         .toDynamicValue(() => {

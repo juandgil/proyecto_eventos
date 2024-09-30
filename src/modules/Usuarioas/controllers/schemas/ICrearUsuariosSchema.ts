@@ -1,14 +1,11 @@
 import CustomJoi from '@common/util/JoiMessage';
-import { IGuardarUsuariosFIn } from '@modules/Usuarioas/usecase/dto/in';
+import { ICrearUsuariosIn } from '@modules/Usuarioas/usecase/dto/in';
 
-const ICrearUsuariosSchema = CustomJoi.object<IGuardarUsuariosFIn>({
-    nombres: CustomJoi.string().required(),
-    apellidos: CustomJoi.string().required(),
-    tipo_identificacion: CustomJoi.string().required(),
-    identificacion: CustomJoi.string().required(),
-    telefono: CustomJoi.optional(),
-    id_perfil: CustomJoi.number().allow(null).optional().default(null),
+const ICrearUsuariosSchema = CustomJoi.object<ICrearUsuariosIn>({
+    nombre_usuario: CustomJoi.string().required(),
     correo: CustomJoi.string().email().required(),
+    contrasena: CustomJoi.string().required(),
+    perfil_id: CustomJoi.number().required(),
 });
 
 export default ICrearUsuariosSchema;

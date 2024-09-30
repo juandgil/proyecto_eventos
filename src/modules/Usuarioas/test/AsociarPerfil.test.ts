@@ -28,12 +28,8 @@ beforeAll(async () => {
         .to(PostgresPerfilesRepository)
         .inSingletonScope();
 
-    DEPENDENCY_CONTAINER.bind<IDatabase<IMain>>(TYPESDEPENDENCIESGLOBAL.dbConfiguraciones).toConstantValue(db);
-    DEPENDENCY_CONTAINER.bind<string>(TYPESDEPENDENCIESGLOBAL.TenantID).toConstantValue('01');
-    DEPENDENCY_CONTAINER.bind<IDatabase<IMain>>(TYPESDEPENDENCIESGLOBAL.dbCm).toDynamicValue((context) => {
-        const tenantId = context.container.get<string>(TYPESDEPENDENCIESGLOBAL.TenantID);
-        return mockTenantDB(tenantId);
-    });
+    DEPENDENCY_CONTAINER.bind<IDatabase<IMain>>(TYPESDEPENDENCIESGLOBAL.db).toConstantValue(db);
+    
 
     usuariosController = new UsuariosController();
 });

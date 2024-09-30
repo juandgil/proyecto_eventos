@@ -4,8 +4,8 @@ import Usuarios from '../entities/Usuarios';
 import TokenUsuarios from '../entities/TokenUsuarios';
 
 export interface UsuariosRepository {
-    guardar(usuarios: Usuarios): Promise<Usuarios>;
-    consultarUsuarioPorCorreos(correoUsuario: string): Promise<Usuarios | null>;
+    guardar(usuarios: Usuarios): Promise<void>;
+    consultarUsuarioPorCorreo(correoUsuario: string): Promise<Usuarios | null>;
     actualizarEstadoSincronizacion(correoUsuario: string, estado: string): Promise<void>;
     crearTokenUsuario(crearTokenUsuario: TokenUsuarios): Promise<TokenUsuario>;
     consultarUsuarioPorIdUsuario(idUsuario: number): Promise<IConstultarUsuariosOut>;

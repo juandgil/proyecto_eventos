@@ -1,6 +1,7 @@
 import { IModule } from '@common/modules/IModule';
 import { HTTPMETODO, Ruta } from '@common/modules/Ruta';
 import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
+import authMiddleware from '@modules/auth/middleware/authMiddleware';
 import TYPESDEPENDENCIES from './dependencies/TypesDependencies';
 import createDependencies from './dependencies/Dependencies';
 import UsuariosController from './controllers/UsuariosController';
@@ -18,19 +19,23 @@ export default class UsuariosModules implements IModule {
         return [
             {
                 metodo: HTTPMETODO.POST,
-                url: '/:tenantId/usuarios',
+                url: '/crear_usuario',
                 evento: usuariosController.crearUsuario.bind(usuariosController),
                 schema: UsuariosShema.crearUsuario,
             },
             {
                 metodo: HTTPMETODO.POST,
-                url: '/usuarios/admin/suite',
-                evento: usuariosController.crearUsuarioSuite.bind(usuariosController),
+                url: '/iniciar_sesion',
+                evento: usuariosController.iniciarSesion.bind(usuariosController),
+                schema: UsuariosShema.iniciarSesion,
             },
             {
                 metodo: HTTPMETODO.PUT,
                 url: '/:tenantId/usuarios/:idUsuario/perfil',
                 evento: usuariosController.asociarPerfil.bind(usuariosController),
+                handler: {
+                    preHandler: [authMiddleware],
+                },
             },
         ];
     };

@@ -1,5 +1,6 @@
 const TYPESDEPENDENCIES = {
     CrearUsuariosUseCase: Symbol.for('CrearUsuariosUseCase'),
+    GenerarTokenUseCase: Symbol.for('GenerarTokenUseCase'),
     ColasUsuarioSuiteUseCase: Symbol.for('ColasUsuarioSuiteUseCase'),
     UsuariosController: Symbol.for('UsuariosController'),
     UsuariosRepository: Symbol.for('UsuariosRepository'),

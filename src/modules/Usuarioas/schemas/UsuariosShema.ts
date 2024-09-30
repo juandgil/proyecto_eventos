@@ -7,13 +7,10 @@ const UsuariosShema = {
         body: {
             type: 'object',
             properties: {
-                nombres: { type: 'string', example: 'juan' },
-                apellidos: { type: 'string', example: 'Usuario' },
-                tipo_identificacion: { type: 'string', example: 'CC' },
-                identificacion: { type: 'string', example: '123456789012349' },
-                telefono: { type: 'string', example: '123456789' },
-                correo: { type: 'string', example: 'juan.gil@coordinadora.com' },
-                id_perfil: { type: 'string', example: null },
+                nombre_usuario: { type: 'string', example: 'juan' }, // Cambiado de nombres a nombre_usuario
+                correo: { type: 'string', example: 'juan.gil@coordinadora.com' }, // Sin cambios
+                hash_contrasena: { type: 'string', example: 'hashed_password' }, // Agregado
+                perfil_id: { type: 'integer', example: 1 }, // Cambiado de id_perfil a perfil_id
             },
         },
         response: {
@@ -45,7 +42,7 @@ const UsuariosShema = {
             500: RepositoryErrorSchema,
         },
     },
-    crearUsuarioSuiteYNotifica: {
+    iniciarSesion: {
         description: 'Crear un usuario en suite y notifica',
         tags: ['Usuarios'],
         body: {

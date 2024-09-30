@@ -7,7 +7,7 @@ const configuracionesBD: IConnectionParameters = {
     port: +ENV.PG_PORT,
     user: ENV.POSTGRES_USER,
     password: ENV.POSTGRES_PASS,
-    database: 'configuraciones',
+    database: 'postgres',
     connectionTimeoutMillis: 10000000,
     max: 30,
     idleTimeoutMillis: 30000000,
@@ -19,11 +19,11 @@ pgp.pg.types.setTypeParser(pgp.pg.types.builtins.NUMERIC, (value: string) => par
 
 const connectionCache: { [tenantId: string]: IDatabase<IMain> } = {};
 
-const connectToConfiguracionesDB = (): IDatabase<IMain> => {
+const connectToDB = (): IDatabase<IMain> => {
     if (!connectionCache.configuraciones) {
         connectionCache.configuraciones = pgp(configuracionesBD);
     }
     return connectionCache.configuraciones;
 };
 
-export default connectToConfiguracionesDB;
+export default connectToDB;

@@ -5,10 +5,9 @@ import { randomBytes } from 'crypto';
 import CustomError from '@common/util/CustomError';
 import { logger } from '@common/logger/Logger';
 import ENV from '@common/envs/Envs';
-import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
-import TYPESDEPENDENCIES from '@common/dependencies/TypesDependencies';
 import swagger from '@fastify/swagger';
 import swaggerConfig from '@common/swagger/swaggerConfig';
+import fastifyJwt from '@fastify/jwt';
 import { IServer } from '../IServer';
 import { DefaultErrorModel } from './DefaultError';
 
@@ -22,6 +21,9 @@ export default class FastifyServer implements IServer {
     constructor() {
         this.app = fastify({
             genReqId: (_) => randomBytes(20).toString('hex'),
+        });
+        this.app.register(fastifyJwt, {
+            secret: process.env.JWT_SECRET || 'tu_clave_secreta',
         });
         this.app.register(swagger, swaggerConfig);
         this.printRoutes();
@@ -47,22 +49,11 @@ export default class FastifyServer implements IServer {
         this.app.addHook(
             'preHandler',
             async (
-                request: FastifyRequest<{
+                _request: FastifyRequest<{
                     Params: Record<string, string>;
                 }>,
-                reply: FastifyReply,
-            ): Promise<void> => {
-                const { tenantId } = request.params;
-
-                if (tenantId) {
-                    try {
-                        DEPENDENCY_CONTAINER.rebind<string>(TYPESDEPENDENCIES.TenantID).toConstantValue(tenantId);
-                    } catch (err) {
-                        logger.error('Database error', 'Failed to connect to tenant database', err);
-                        reply.code(500).send('Internal Server Error');
-                    }
-                }
-            },
+                _reply: FastifyReply,
+            ): Promise<void> => {},
         );
     };
 
@@ -107,7 +98,7 @@ export default class FastifyServer implements IServer {
                     const request = {
                         body: req.body || {},
                         params: req.params || {},
-                        tenantId: req.params.tenantId,
+                        data: req.user,
                     };
                     const result = await evento(request);
                     reply.header('Content-Type', 'application/json');
@@ -141,7 +132,7 @@ export default class FastifyServer implements IServer {
     start = async (): Promise<void> => {
         try {
             await this.app.listen({ port: this.port });
-            logger.info('FASTIFY', `Application running on port ${this.port}`, { rutas: this.routes });
+            // logger.info('FASTIFY', `Application running on port ${this.port}`, { rutas: this.routes });
         } catch (err) {
             console.log(err);
             logger.error('Fastify error', 'Error al crear la instancia de fastify', err);

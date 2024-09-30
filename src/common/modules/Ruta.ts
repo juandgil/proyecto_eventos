@@ -1,3 +1,5 @@
+import { FastifyRequest, FastifyReply } from 'fastify';
+
 export interface Ruta {
     metodo: HTTPMETODOTYPE;
     url: string;

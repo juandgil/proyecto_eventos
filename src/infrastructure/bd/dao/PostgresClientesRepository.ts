@@ -10,7 +10,7 @@ import Clientes from '@modules/Usuarioas/domain/entities/Clientes';
 @injectable()
 export default class PostgresClientesRepository implements ClientesRepository {
     get db(): IDatabase<IMain> {
-        return DEPENDENCY_CONTAINER.get<IDatabase<IMain>>(TYPESDEPENDENCIES.dbConfiguraciones);
+        return DEPENDENCY_CONTAINER.get<IDatabase<IMain>>(TYPESDEPENDENCIES.db);
     }
 
     schema = '"public"';

@@ -5,16 +5,15 @@ export const swaggerConfig: FastifyDynamicSwaggerOptions = {
     routePrefix: `/${ENV.DOMAIN}/${ENV.SERVICE_NAME}/docs`,
     swagger: {
         info: {
-            title: 'Microservice wms usuarios',
-            description: 'Este microservicio se encarga todo lo relacionado con los usuarios de wms',
+            title: 'Proyecto Eventos',
+            description: 'Este servicio se encarga todo lo relacionado con el manejo de los eventos',
             version: '0.1.0',
             contact: {
-                name: 'Coordinadora Mercantil S.A',
-                url: 'http://www.coordinadora.com/',
-                email: 'it@coordinadora.com',
+                name: 'juan david gil alvarez',
+                email: 'juandavidgilalvarez@gmail.com',
             },
         },
-        host: ENV.ENV === 'local' ? ':8080' : '',
+        host: ENV.ENV === 'local' ? ':8081' : '',
         schemes: ENV.ENV === 'local' ? ['http'] : ['https'],
         consumes: ['application/json'],
         produces: ['application/json'],

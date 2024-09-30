@@ -1,62 +1,39 @@
-import { UsuariosRepository } from '@modules/Usuarioas/domain/repositories/UsuariosRepository';
-import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
-import TYPESDEPENDENCIES from '@modules/Usuarioas/dependencies/TypesDependencies';
-import Usuario from '@modules/Usuarioas/domain/entities/Usuarios';
+import { injectable, inject } from 'inversify';
 import BadMessageException from '@common/http/exceptions/BadMessageException';
-import { PerfilesRepository } from '@modules/Perfiles/domain/repositories/PerfilesRepository';
-import { generarClaveAleatoria } from '@common/util/Funciones';
-import { IGuardarUsuariosFIn } from '../dto/in';
-import NotificacionUsuarioCreado from '../../domain/entities/NotificacionUsuarioCreado';
+import bcrypt from 'bcrypt';
+import { UsuariosRepository } from '../../domain/repositories/UsuariosRepository';
+import Usuarios from '../../domain/entities/Usuarios';
+import { ICrearUsuariosIn } from '../dto/in';
+import TYPESDEPENDENCIES from '../../dependencies/TypesDependencies';
 
+/**
+ * @description: Crear un nuevo usuario
+ * @param {ICrearUsuariosIn} data
+ * @returns {Promise<Usuarios>}
+ */
+@injectable()
 export default class CrearUsuariosUseCase {
-    private usuariosRepository = DEPENDENCY_CONTAINER.get<UsuariosRepository>(TYPESDEPENDENCIES.UsuariosRepository);
+    // private usuariosRepository = DEPENDENCY_CONTAINER.get<UsuariosRepository>(TYPESDEPENDENCIES.UsuariosRepository);
+    constructor(@inject(TYPESDEPENDENCIES.UsuariosRepository) private usuariosRepository: UsuariosRepository) {}
 
-    private perfilesRepository = DEPENDENCY_CONTAINER.get<PerfilesRepository>(TYPESDEPENDENCIES.PerfilesRepository);
-
-    async execute(data: IGuardarUsuariosFIn, codigoCliente: string | undefined): Promise<string> {
-        if (!codigoCliente) {
-            throw new BadMessageException('Código cliente no existe', 'El código cliente no se encuentra registrado');
-        }
-        const consultarUsuario = await this.usuariosRepository.consultarUsuarioPorCorreos(data.correo);
-        if (consultarUsuario) {
-            throw new BadMessageException('Correo existe', 'El correo del usuario ya fue creado');
+    async execute(data: ICrearUsuariosIn): Promise<void> {
+        const usuarioExistente = await this.usuariosRepository.consultarUsuarioPorCorreo(data.correo);
+        if (usuarioExistente) {
+            throw new BadMessageException('El usuario ya existe', 'El correo del usuario ya fue creado');
         }
 
-        if (data?.id_perfil !== null) {
-            const perfil = await this.perfilesRepository.consultarPorId(data?.id_perfil as number);
-            if (!perfil) {
-                throw new BadMessageException('Perfil no existe', 'El perfil no se encuentra registrado');
-            }
-        }
+        // Hashear la contraseña
+        const saltRounds = 10;
+        const hashContrasena = await bcrypt.hash(data.contrasena, saltRounds);
 
-        const objUsuario: Usuario = {
+        const nuevoUsuario = new Usuarios({
+            nombre_usuario: data.nombre_usuario,
             correo: data.correo,
-            activo: true,
-            sincronizacionSuite: false,
-            estadoSincronizacion: 'pendiente_sincronizacion',
-            idPerfil: data.id_perfil,
-        };
+            contrasena: data.contrasena,
+            hash_contrasena: hashContrasena,
+            perfil_id: data.perfil_id,
+        });
 
-        const usuario = await this.usuariosRepository.guardar(objUsuario);
-        const claveAleatoria = generarClaveAleatoria();
-        if (usuario) {
-            const stageUsuario: NotificacionUsuarioCreado = {
-                id_usuario: usuario.idUsuario,
-                parametros: {
-                    codigo_cliente: parseInt(codigoCliente, 10),
-                    contrasena: claveAleatoria,
-                    nombres: data.nombres,
-                    apellidos: data.apellidos,
-                    tipo_identificacion: data.tipo_identificacion,
-                    identificacion: data.identificacion,
-                    telefono: data.telefono,
-                    correo: data.correo,
-                },
-                codigo_cliente: parseInt(codigoCliente, 10),
-                estado: 'pendiente',
-                reintentos: 0,
-            };
-        }
-        return 'El usuario se guardo correctamente';
+        await this.usuariosRepository.guardar(nuevoUsuario);
     }
 }

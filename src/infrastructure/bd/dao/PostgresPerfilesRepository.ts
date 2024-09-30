@@ -12,7 +12,7 @@ import Perfiles from '@modules/Perfiles/domain/entities/Perfiles';
 @injectable()
 export default class PostgresPerfilesRepository implements PerfilesRepository {
     get db(): IDatabase<IMain> {
-        return DEPENDENCY_CONTAINER.get<IDatabase<IMain>>(TYPESDEPENDENCIES.dbCm);
+        return DEPENDENCY_CONTAINER.get<IDatabase<IMain>>(TYPESDEPENDENCIES.db);
     }
 
     schema = '"public"';

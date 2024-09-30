@@ -7,7 +7,6 @@ export type Req = {
     body: unknown;
     params: unknown;
     data: unknown;
-    tenantId?: string;
 };
 
 export interface Status {

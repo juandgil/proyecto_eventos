@@ -5,18 +5,14 @@ import { validateData } from '@common/util/Schemas';
 import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
 import Result from '@common/http/Result';
 import { Status } from '../../shared/infrastructure/Controller';
-import { IGuardarUsuariosFIn } from '../usecase/dto/in';
-
+import { ICrearUsuariosIn, ILoginUsuariosIn, IAsociarPerfilIn } from '../usecase/dto/in';
 import TYPESDEPENDENCIES from '../dependencies/TypesDependencies';
 import ICrearUsuariosSchema from './schemas/ICrearUsuariosSchema';
-import CrearUsuariosUseCase from '../usecase/services/CrearUsuariosUseCase';
-import ICrearUsuariosSuiteSchema from './schemas/ICrearUsuariosSuiteSchema';
-import CrearUsuariosSuiteUseCase from '../usecase/services/CrearUsuariosSuiteUseCase';
-import { ICrearUsuariosSuiteIn } from '../usecase/dto/in/ICrearUsuariosSuiteIn';
-import AsociarPerfilUseCase from '../usecase/services/AsociarPerfilUseCase';
-import { IAsociarPerfilIn } from '../usecase/dto/in/IAsociarPerfilIn';
 import IAsociarPerfilSchema from './schemas/IAsociarPerfilSchema';
-import IResponseCrearUsuarioOut from '../usecase/dto/out/IResponseCrearUsuarioOut';
+import LoginUsuariosSchema from './schemas/LoginUsuariosSchema';
+import AsociarPerfilUseCase from '../usecase/services/AsociarPerfilUseCase';
+import CrearUsuariosUseCase from '../usecase/services/CrearUsuariosUseCase';
+import GenerarTokenUseCase from '../usecase/services/GenerarTokenUseCase';
 
 @injectable()
 export default class UsuariosController {
@@ -24,32 +20,27 @@ export default class UsuariosController {
         TYPESDEPENDENCIES.CrearUsuariosUseCase,
     );
 
-    private crearUsuarioSuiteUseCase = DEPENDENCY_CONTAINER.get<CrearUsuariosSuiteUseCase>(
-        TYPESDEPENDENCIES.CrearUsuariosSuiteUseCase,
-    );
-
     private asociarPerfilUseCase = DEPENDENCY_CONTAINER.get<AsociarPerfilUseCase>(
         TYPESDEPENDENCIES.AsociarPerfilUseCase,
     );
 
-    async crearUsuario(_req: Req): Promise<Response<Status | null>> {
-        const data = validateData<IGuardarUsuariosFIn>(ICrearUsuariosSchema, _req.body);
-        const resultado = await this.crearUsuarioUseCase.execute(data, _req?.tenantId);
-        return Result.ok<Status>({ ok: resultado });
+    private generarTokenUseCase = DEPENDENCY_CONTAINER.get<GenerarTokenUseCase>(TYPESDEPENDENCIES.GenerarTokenUseCase);
+
+    async crearUsuario(req: Req): Promise<Response<Status | null>> {
+        const data = validateData<ICrearUsuariosIn>(ICrearUsuariosSchema, req.body);
+        await this.crearUsuarioUseCase.execute(data);
+        return Result.ok<Status>({ ok: 'Usuario creado exitosamente' });
     }
 
-    async crearUsuarioSuite(_req: Req): Promise<Response<Status | null>> {
-        const data = validateData<ICrearUsuariosSuiteIn>(ICrearUsuariosSuiteSchema, _req.body);
-        const resultado = await this.crearUsuarioSuiteUseCase.execute(data);
-        return Result.ok<Status>({
-            ok: 'El usuario se guardo correctamente',
-            resultado: new IResponseCrearUsuarioOut(resultado),
-        });
+    async iniciarSesion(req: Req) {
+        const data = validateData<ILoginUsuariosIn>(LoginUsuariosSchema, req.body);
+        const token = await this.generarTokenUseCase.execute(data);
+        return Result.ok<Status>({ ok: 'Inicio de sesión exitoso', data: { token } });
     }
 
-    async asociarPerfil(_req: Req): Promise<Response<Status | null>> {
-        const data = validateData<IAsociarPerfilIn>(IAsociarPerfilSchema, _req.body);
-        const params = _req.params as { idUsuario: number };
+    async asociarPerfil(req: Req): Promise<Response<Status | null>> {
+        const data = validateData<IAsociarPerfilIn>(IAsociarPerfilSchema, req.body);
+        const params = req.params as { idUsuario: number };
         await this.asociarPerfilUseCase.execute(data, params.idUsuario);
         return Result.ok<Status>({
             ok: 'El usuario fue asociado correctamente',

@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "${PORT:-8081}:${PORT:-8081}"
+    environment:
+      - POSTGRES_HOST=db  # Cambia esto a 'db'
+      - PG_PORT=${PG_PORT:-5432}  # Cambia esto al puerto por defecto de PostgreSQL
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASS=${POSTGRES_PASS:-123456}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE:-eventos}
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./nodemon.json:/usr/src/app/nodemon.json
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS:-123456}
+      - POSTGRES_DB=${POSTGRES_DATABASE:-eventos}
+    ports:
+      - "${PG_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
