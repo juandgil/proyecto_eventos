@@ -35,11 +35,4 @@ export const mockConfiguracionesDB = (): IDatabase<IMain> => {
     return configuracionesDB;
 };
 
-const tenantDBs: { [key: string]: IDatabase<IMain> } = {};
-
-export const mockTenantDB = (tenantId: string): IDatabase<IMain> => {
-    if (!tenantDBs[tenantId]) {
-        tenantDBs[tenantId] = createMemoryDB(`./${tenantId}.sql`);
-    }
-    return tenantDBs[tenantId];
-};
+export default mockConfiguracionesDB;

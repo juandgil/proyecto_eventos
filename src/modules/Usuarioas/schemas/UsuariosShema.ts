@@ -87,6 +87,33 @@ const UsuariosShema = {
             500: RepositoryErrorSchema,
         },
     },
+    asociarPerfil: {
+        description: 'Asociar un perfil a un usuario',
+        tags: ['Usuarios'],
+        body: {
+            type: 'object',
+            properties: {
+                id_usuario: { type: 'integer', example: 1 },
+                perfil: { type: 'integer', example: 1 },
+            },
+        },
+        response: {
+            200: {
+                description: 'Succesful response',
+                type: 'object',
+                properties: {
+                    isError: { type: 'boolean', example: false },
+                    data: {
+                        type: 'object',
+                        properties: { ok: { type: 'string', example: 'El usuario fue asociado correctamente' } },
+                    },
+                    timestamp: { type: 'string', format: 'date-time', example: '2030-07-21T17:32:28Z' },
+                },
+            },
+            400: BadRequestSchema,
+            500: RepositoryErrorSchema,
+        },
+    },
 };
 
 export default UsuariosShema;

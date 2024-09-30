@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { mockConfiguracionesDB, mockTenantDB } from './mocks/postgresql/crear-pg-mem';
+import { mockConfiguracionesDB } from './mocks/postgresql/crear-pg-mem';
 import UsuariosController from '../controllers/UsuariosController';
 import { Req, Status } from '@modules/shared/infrastructure';
 import { Response } from '@common/http/Response';
@@ -29,7 +29,7 @@ beforeAll(async () => {
         .inSingletonScope();
 
     DEPENDENCY_CONTAINER.bind<IDatabase<IMain>>(TYPESDEPENDENCIESGLOBAL.db).toConstantValue(db);
-    
+
     usuariosController = new UsuariosController();
 });
 

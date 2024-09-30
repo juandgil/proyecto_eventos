@@ -40,8 +40,7 @@ export default class UsuariosController {
 
     async asociarPerfil(req: Req): Promise<Response<Status | null>> {
         const data = validateData<IAsociarPerfilIn>(IAsociarPerfilSchema, req.body);
-        const params = req.params as { idUsuario: number };
-        await this.asociarPerfilUseCase.execute(data, params.idUsuario);
+        await this.asociarPerfilUseCase.execute(data);
         return Result.ok<Status>({
             ok: 'El usuario fue asociado correctamente',
         });

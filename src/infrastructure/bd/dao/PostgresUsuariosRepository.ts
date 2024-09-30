@@ -83,7 +83,7 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
             });
             return usuario;
         } catch (error) {
-            logger.error('USUARIOS', '798779654316', [`Error actualizando perfil: ${error}`]);
+            logger.error('USUARIOS', 'asociarPerfil', [`Error actualizando perfil: ${error}`]);
             throw new PostgresException(500, `Error actualizando perfil: ${error.message}`);
         }
     }
@@ -94,7 +94,7 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
             const usuario = await this.db.oneOrNone(sqlQuery, { idUsuario });
             return usuario;
         } catch (error) {
-            logger.error('USUARIOS', '798779654317', [`Error consultando el usuario: ${error}`]);
+            logger.error('USUARIOS', 'consultarUsuarioPorIdUsuario', [`Error consultando el usuario: ${error}`]);
             throw new PostgresException(500, `Error al consultar el usuario de postgres: ${error.message}`);
         }
     }

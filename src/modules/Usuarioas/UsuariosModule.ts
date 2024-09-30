@@ -31,8 +31,9 @@ export default class UsuariosModules implements IModule {
             },
             {
                 metodo: HTTPMETODO.PUT,
-                url: '/:tenantId/usuarios/:idUsuario/perfil',
+                url: '/asociar/perfil',
                 evento: usuariosController.asociarPerfil.bind(usuariosController),
+                schema: UsuariosShema.asociarPerfil,
                 handler: {
                     preHandler: [authMiddleware],
                 },

@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="15" failures="0" time="9.625">
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2024-09-28T04:05:37" time="7.085" tests="10">
-    <testcase classname=" Validar que el perfil exista en la base de datos tenant" name=" Validar que el perfil exista en la base de datos tenant" time="0.272">
+<testsuites name="jest tests" tests="5" failures="3" time="3.913">
+  <testsuite name="undefined" errors="0" failures="3" skipped="0" timestamp="2024-09-30T06:12:45" time="0.587" tests="3">
+    <testcase classname=" Validar que el perfil exista" name=" Validar que el perfil exista" time="0.017">
+      <failure>Error: expect(received).toBeInstanceOf(expected)
+
+Expected constructor: BadMessageException
+Received constructor: PostgresException
+
+    at Object.&lt;anonymous&gt; (C:\www\wms\proyecto-events\src\modules\Usuarioas\test\AsociarPerfil.test.ts:47:23)</failure>
     </testcase>
-    <testcase classname=" Crear usuario perfil null satisfactoriamente" name=" Crear usuario perfil null satisfactoriamente" time="0.011">
+    <testcase classname=" Validar que el usuario exista" name=" Validar que el usuario exista" time="0.003">
+      <failure>Error: expect(received).toBeInstanceOf(expected)
+
+Expected constructor: BadMessageException
+Received constructor: PostgresException
+
+    at Object.&lt;anonymous&gt; (C:\www\wms\proyecto-events\src\modules\Usuarioas\test\AsociarPerfil.test.ts:64:23)</failure>
     </testcase>
-    <testcase classname=" Crear usuario sin perfil satisfactoriamente" name=" Crear usuario sin perfil satisfactoriamente" time="0.009">
-    </testcase>
-    <testcase classname=" validar Codigo cliente no existe" name=" validar Codigo cliente no existe" time="0.001">
-    </testcase>
-    <testcase classname=" validar Usuario ya fue creado" name=" validar Usuario ya fue creado" time="0.003">
-    </testcase>
-    <testcase classname=" Verificar Campos Obligatorios" name=" Verificar Campos Obligatorios" time="0.001">
-    </testcase>
-    <testcase classname=" Verificar correo valido" name=" Verificar correo valido" time="0">
-    </testcase>
-    <testcase classname=" validar correo es requerido" name=" validar correo es requerido" time="0.001">
-    </testcase>
-    <testcase classname=" Campo Teléfono no Obligatorio" name=" Campo Teléfono no Obligatorio" time="0.007">
-    </testcase>
-    <testcase classname=" Los valores de entrada no son correctos" name=" Los valores de entrada no son correctos" time="0.002">
+    <testcase classname=" Asociar perfil exitosamente" name=" Asociar perfil exitosamente" time="0.002">
+      <failure>Error: Error al consultar el usuario de postgres: relation &quot;usuarios&quot; does not exist
+
+🐜 This seems to be an execution error, which means that your request syntax seems okay,
+    but the resulting statement cannot be executed → Probably not a pg-mem error.
+
+*️⃣ Failed SQL statement: SELECT * FROM usuarios WHERE id_usuario = 2 LIMIT 1;
+
+👉 You can file an issue at https://github.com/oguimbal/pg-mem along with a way to reproduce this error (if you can), and  the stacktrace:
+
+
+    at PostgresUsuariosRepository.consultarUsuarioPorIdUsuario (C:\www\wms\proyecto-events\src\infrastructure\bd\dao\PostgresUsuariosRepository.ts:98:19)
+    at AsociarPerfilUseCase.execute (C:\www\wms\proyecto-events\src\modules\Usuarioas\usecase\services\AsociarPerfilUseCase.ts:14:34)
+    at UsuariosController.asociarPerfil (C:\www\wms\proyecto-events\src\modules\Usuarioas\controllers\UsuariosController.ts:43:9)
+    at Object.&lt;anonymous&gt; (C:\www\wms\proyecto-events\src\modules\Usuarioas\test\AsociarPerfil.test.ts:77:47)</failure>
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2024-09-28T04:05:45" time="0.311" tests="3">
-    <testcase classname=" Validar que el perfil exista" name=" Validar que el perfil exista" time="0.126">
-    </testcase>
-    <testcase classname=" Validar que el usuario exista" name=" Validar que el usuario exista" time="0.001">
-    </testcase>
-    <testcase classname=" Asociar perfil exitosamente" name=" Asociar perfil exitosamente" time="0.003">
-    </testcase>
-  </testsuite>
-  <testsuite name="Testing: Pruebas unitarias funciones" errors="0" failures="0" skipped="0" timestamp="2024-09-28T04:05:45" time="0.042" tests="2">
+  <testsuite name="Testing: Pruebas unitarias funciones" errors="0" failures="0" skipped="0" timestamp="2024-09-30T06:12:45" time="0.093" tests="2">
     <testcase classname="Testing: Pruebas unitarias funciones Testing: Funcion OnCreate always be true" name="Testing: Pruebas unitarias funciones Testing: Funcion OnCreate always be true" time="0.001">
     </testcase>
     <testcase classname="Testing: Pruebas unitarias funciones Testing: Funcion OnUpdate always be true" name="Testing: Pruebas unitarias funciones Testing: Funcion OnUpdate always be true" time="0">
