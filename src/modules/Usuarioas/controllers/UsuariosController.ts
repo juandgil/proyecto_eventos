@@ -32,7 +32,7 @@ export default class UsuariosController {
         return Result.ok<Status>({ ok: 'Usuario creado exitosamente' });
     }
 
-    async iniciarSesion(req: Req) {
+    async iniciarSesion(req: Req): Promise<Response<Status | null>> {
         const data = validateData<ILoginUsuariosIn>(LoginUsuariosSchema, req.body);
         const token = await this.generarTokenUseCase.execute(data);
         return Result.ok<Status>({ ok: 'Inicio de sesión exitoso', data: { token } });

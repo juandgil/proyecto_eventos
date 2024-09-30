@@ -12,11 +12,11 @@ export default class GenerarTokenUseCase {
 
     async execute(data: ILoginUsuariosIn): Promise<string> {
         const usuario = await this.obtenerUsuarioPorCorreo(data.correo);
-        if (!usuario?.id) {
+        if (!usuario?.id_usuario) {
             throw new BadMessageException('Usuario no encontrado', 'Usuario no encontrado');
         }
-        this.validarUsuario(usuario, data.contrasena);
-        return this.generarToken(usuario.id.toString());
+        await this.validarUsuario(usuario, data.contrasena);
+        return this.generarToken(usuario.id_usuario.toString());
     }
 
     private async obtenerUsuarioPorCorreo(correo: string) {

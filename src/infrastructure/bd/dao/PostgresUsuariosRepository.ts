@@ -21,13 +21,13 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
     async guardar(data: Usuarios): Promise<void> {
         try {
             const sqlQuery = `
-            INSERT INTO Usuarios (nombre_usuario, correo, hash_contrasena, perfil_id)
-            VALUES ($/nombre_usuario/, $/correo/, $/hash_contrasena/, $/perfil_id/)`;
+            INSERT INTO Usuarios (nombre_usuario, correo, hash_contrasena, id_perfil)
+            VALUES ($/nombre_usuario/, $/correo/, $/hash_contrasena/, $/id_perfil/)`;
             await this.db.query(sqlQuery, {
                 nombre_usuario: data.nombreUsuario,
                 correo: data.correo,
                 hash_contrasena: data.hashContrasena,
-                perfil_id: data.perfilId,
+                id_perfil: data.idPerfil,
             });
         } catch (error) {
             logger.error('USUARIOS', 'guardar', [`Error creando usuario: ${error}`]);

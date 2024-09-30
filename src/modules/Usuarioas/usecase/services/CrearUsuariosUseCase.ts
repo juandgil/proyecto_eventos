@@ -5,6 +5,7 @@ import { UsuariosRepository } from '../../domain/repositories/UsuariosRepository
 import Usuarios from '../../domain/entities/Usuarios';
 import { ICrearUsuariosIn } from '../dto/in';
 import TYPESDEPENDENCIES from '../../dependencies/TypesDependencies';
+import AuthService from '../../../services/AuthService';
 
 /**
  * @description: Crear un nuevo usuario
@@ -23,15 +24,14 @@ export default class CrearUsuariosUseCase {
         }
 
         // Hashear la contraseña
-        const saltRounds = 10;
-        const hashContrasena = await bcrypt.hash(data.contrasena, saltRounds);
+        const hashContrasena = await AuthService.hashPassword(data.contrasena);
 
         const nuevoUsuario = new Usuarios({
             nombre_usuario: data.nombre_usuario,
             correo: data.correo,
             contrasena: data.contrasena,
             hash_contrasena: hashContrasena,
-            perfil_id: data.perfil_id,
+            id_perfil: data.id_perfil,
         });
 
         await this.usuariosRepository.guardar(nuevoUsuario);
