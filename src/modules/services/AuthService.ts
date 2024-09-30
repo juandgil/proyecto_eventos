@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import ENV from '@common/envs/Envs';
 
-const SECRET_KEY = 'tu_clave_secreta'; // Cambia esto por una clave más segura
+const SECRET_KEY = ENV.JWT_SECRET;
 
 export default class AuthService {
-    static hashPassword(password: string): Promise<string> {
+    static async hashPassword(password: string): Promise<string> {
         return bcrypt.hash(password, 10);
     }
 
-    static compararContrasenas(password: string, hash: string): Promise<boolean> {
+    static async compararContrasenas(password: string, hash: string): Promise<boolean> {
         return bcrypt.compare(password, hash);
     }
 

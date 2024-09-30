@@ -23,7 +23,7 @@ export default class FastifyServer implements IServer {
             genReqId: (_) => randomBytes(20).toString('hex'),
         });
         this.app.register(fastifyJwt, {
-            secret: process.env.JWT_SECRET || 'tu_clave_secreta',
+            secret: ENV.JWT_SECRET || 'tu_clave_secreta',
         });
         this.app.register(swagger, swaggerConfig);
         this.printRoutes();

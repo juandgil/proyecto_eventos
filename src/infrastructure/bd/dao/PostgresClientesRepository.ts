@@ -2,10 +2,10 @@ import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
 import TYPESDEPENDENCIES from '@common/dependencies/TypesDependencies';
 import PostgresException from '@common/http/exceptions/PostgresException';
 import { logger } from '@common/logger';
-import { ClientesRepository } from '@modules/Usuarioas/domain/repositories/ClientesRepository';
+import { ClientesRepository } from '@modules/Usuarios/domain/repositories/ClientesRepository';
 import { injectable } from 'inversify';
 import { IDatabase, IMain } from 'pg-promise';
-import Clientes from '@modules/Usuarioas/domain/entities/Clientes';
+import Clientes from '@modules/Usuarios/domain/entities/Clientes';
 
 @injectable()
 export default class PostgresClientesRepository implements ClientesRepository {

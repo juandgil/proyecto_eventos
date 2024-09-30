@@ -2,7 +2,7 @@ import 'module-alias/register';
 import 'reflect-metadata';
 import ModulesFactory from '@common/modules/ModulesFactory';
 import TYPESSERVER from '@infrastructure/app/server/TypeServer';
-import UsuariosModules from '@modules/Usuarioas/UsuariosModule';
+import UsuariosModules from '@modules/Usuarios/UsuariosModule';
 import PerfilesModule from '@modules/Perfiles/PerfilesModule';
 import { globalDependencies } from '@common/dependencies/DependencyContainer';
 

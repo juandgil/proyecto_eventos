@@ -2,13 +2,13 @@ import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
 import TYPESDEPENDENCIES from '@common/dependencies/TypesDependencies';
 import PostgresException from '@common/http/exceptions/PostgresException';
 import { logger } from '@common/logger';
-import Usuarios from '@modules/Usuarioas/domain/entities/Usuarios';
-import { UsuariosRepository } from '@modules/Usuarioas/domain/repositories/UsuariosRepository';
-import { IConstultarUsuariosOut } from '@modules/Usuarioas/usecase/dto/out/IConstultarUsuariosOut';
+import Usuarios from '@modules/Usuarios/domain/entities/Usuarios';
+import { UsuariosRepository } from '@modules/Usuarios/domain/repositories/UsuariosRepository';
+import { IConstultarUsuariosOut } from '@modules/Usuarios/usecase/dto/out/IConstultarUsuariosOut';
 import { injectable } from 'inversify';
 import { IDatabase, IMain } from 'pg-promise';
-import { TokenUsuario } from '@modules/Usuarioas/usecase/dto/in/INotificacionesUsuariosSuiteIn';
-import TokenUsuarios from '@modules/Usuarioas/domain/entities/TokenUsuarios';
+import { TokenUsuario } from '@modules/Usuarios/usecase/dto/in/INotificacionesUsuariosSuiteIn';
+import TokenUsuarios from '@modules/Usuarios/domain/entities/TokenUsuarios';
 
 @injectable()
 export default class PostgresUsuariosRepository implements UsuariosRepository {
@@ -22,12 +22,12 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
         try {
             const sqlQuery = `
             INSERT INTO Usuarios (nombre_usuario, correo, hash_contrasena, id_perfil)
-            VALUES ($/nombre_usuario/, $/correo/, $/hash_contrasena/, $/id_perfil/)`;
+            VALUES ($/nombreUsuario/, $/correo/, $/hashContrasena/, $/idPerfil/)`;
             await this.db.query(sqlQuery, {
-                nombre_usuario: data.nombreUsuario,
+                nombreUsuario: data.nombreUsuario,
                 correo: data.correo,
-                hash_contrasena: data.hashContrasena,
-                id_perfil: data.idPerfil,
+                hashContrasena: data.hashContrasena,
+                idPerfil: data.idPerfil,
             });
         } catch (error) {
             logger.error('USUARIOS', 'guardar', [`Error creando usuario: ${error}`]);

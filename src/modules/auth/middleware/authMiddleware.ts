@@ -6,18 +6,16 @@ const authMiddleware = async (request: FastifyRequest, reply: FastifyReply): Pro
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-        return reply.code(401).send({ isError: true, message: 'Token no proporcionado' });
+        reply.code(401).send({ isError: true, message: 'Token no proporcionado' });
+        return;
     }
 
     try {
         const decoded = AuthService.verificarToken(token);
         request.user = decoded;
-        console.log(request.user);
     } catch (error) {
-        return reply.code(403).send({ isError: true, message: 'Token inválido' });
+        reply.code(403).send({ isError: true, message: 'Token inválido' });
     }
-
-    return reply.code(200).send({ isError: false, message: 'Token válido' });
 };
 
 export default authMiddleware;

@@ -9,6 +9,7 @@ dotenv.config({
 });
 
 const ENV = {
+    JWT_SECRET: process.env.JWT_SECRET || 'tu_clave_secreta',
     POSTGRES_HOST: process.env.POSTGRES_HOST || 'localhost',
     DOMAIN: process.env.DOMAIN || 'domain',
     SERVICE_NAME: process.env.SERVICE_NAME || 'proyecto-events',
