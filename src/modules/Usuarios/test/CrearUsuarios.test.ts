@@ -6,7 +6,7 @@ import { Response } from '@common/http/Response';
 import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
 import createDependencies from '../dependencies/Dependencies';
 import { IDatabase, IMain } from 'pg-promise';
-import { ICrearUsuariosIn } from '../usecase/dto/in/ICrearUsuariosIn';
+import { ICrearUsuariosIn } from '../usecase/dto/in/IUsuariosIn';
 import TYPESDEPENDENCIESPERFILES from '@modules/Perfiles/dependencies/TypesDependencies';
 import { PerfilesRepository } from '@modules/Perfiles/domain/repositories/PerfilesRepository';
 import PostgresPerfilesRepository from '@infrastructure/bd/dao/PostgresPerfilesRepository';

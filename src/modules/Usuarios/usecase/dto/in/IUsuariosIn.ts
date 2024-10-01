@@ -6,3 +6,8 @@ export interface ICrearUsuariosIn {
     hash_contrasena?: string;
     id_usuario?: number;
 }
+
+export interface ILoginUsuariosIn {
+    correo: string;
+    contrasena: string;
+}

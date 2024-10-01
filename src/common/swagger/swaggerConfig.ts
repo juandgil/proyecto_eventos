@@ -10,7 +10,7 @@ export const swaggerConfig: FastifyDynamicSwaggerOptions = {
             version: '1.0.0',
             termsOfService: 'http://ejemplo.com/terms/',
             contact: {
-                name: 'juan david gil alvarez',
+                name: 'Juan david gil alvarez',
                 email: 'juandavidgilalvarez@gmail.com',
                 url: 'http://ejemplo.com/contact',
             },
