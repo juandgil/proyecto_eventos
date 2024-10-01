@@ -15,7 +15,7 @@ export default class Usuarios {
         this.nombreUsuario = data.nombre_usuario;
         this.correo = data.correo;
         this.hashContrasena = data.hash_contrasena;
-        this.idPerfil = data.id_perfil;
+        this.idPerfil = data.id_perfil ?? 1;
         this.idUsuario = data.id_usuario;
     }
 }

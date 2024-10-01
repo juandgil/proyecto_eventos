@@ -2,6 +2,7 @@ import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
 
 import PostgresUsuariosRepository from '@infrastructure/bd/dao/PostgresUsuariosRepository';
 import PostgresClientesRepository from '@infrastructure/bd/dao/PostgresClientesRepository';
+import { PerfilesRepository } from '@modules/Perfiles/domain/repositories/PerfilesRepository';
 import StatusGetController from '../controllers/StatusGetController';
 
 import TYPESDEPENDENCIES from './TypesDependencies';
@@ -20,6 +21,7 @@ const createDependencies = (): void => {
         .toDynamicValue(() => {
             return new CrearUsuariosUseCase(
                 DEPENDENCY_CONTAINER.get<UsuariosRepository>(TYPESDEPENDENCIES.UsuariosRepository),
+                DEPENDENCY_CONTAINER.get<PerfilesRepository>(TYPESDEPENDENCIES.PerfilesRepository),
             );
         })
         .inSingletonScope();

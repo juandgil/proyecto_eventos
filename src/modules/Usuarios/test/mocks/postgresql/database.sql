@@ -49,8 +49,8 @@ CREATE TABLE public.ubicaciones (
     id_ubicacion SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     direccion VARCHAR(255) NOT NULL,
-    latitud DECIMAL(10, 8) NOT NULL,
-    longitud DECIMAL(11, 8) NOT NULL,
+    latitud FLOAT NOT NULL,
+    longitud FLOAT NOT NULL,
     creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

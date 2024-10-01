@@ -1,14 +1,12 @@
 import { IConstultarUsuariosOut } from '@modules/Usuarios/usecase/dto/out/IConstultarUsuariosOut';
-import { TokenUsuario } from '@modules/Usuarios/usecase/dto/in/INotificacionesUsuariosSuiteIn';
 import Usuarios from '../entities/Usuarios';
-import TokenUsuarios from '../entities/TokenUsuarios';
 
 export interface UsuariosRepository {
     guardar(usuarios: Usuarios): Promise<void>;
     consultarUsuarioPorCorreo(correoUsuario: string): Promise<Usuarios | null>;
-    actualizarEstadoSincronizacion(correoUsuario: string, estado: string): Promise<void>;
-    crearTokenUsuario(crearTokenUsuario: TokenUsuarios): Promise<TokenUsuario>;
+    validarNombreUsuario(nombreUsuario: string): Promise<Usuarios | null>;
     consultarUsuarioPorIdUsuario(idUsuario: number): Promise<IConstultarUsuariosOut>;
     asociarPerfil(perfil: number, idUsuario: number): Promise<IConstultarUsuariosOut>;
-    actualizarSincronizacionSuite(correo: string, sincronizado: boolean): Promise<void>;
+    eliminarUsuario(idUsuario: number): Promise<void>;
+    actualizarUsuario(usuario: Usuarios): Promise<number>;
 }

@@ -5,7 +5,7 @@ const ICrearUsuariosSchema = CustomJoi.object<ICrearUsuariosIn>({
     nombre_usuario: CustomJoi.string().required(),
     correo: CustomJoi.string().email().required(),
     contrasena: CustomJoi.string().required(),
-    id_perfil: CustomJoi.number().required(),
+    id_perfil: CustomJoi.number().optional().default(1),
 });
 
 export default ICrearUsuariosSchema;

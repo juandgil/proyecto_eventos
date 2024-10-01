@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="6" failures="0" time="4.06">
-  <testsuite name="CrearUsuarios" errors="0" failures="0" skipped="0" timestamp="2024-09-30T16:27:09" time="2.13" tests="1">
-    <testcase classname="CrearUsuarios Crear usuario con perfil existente" name="CrearUsuarios Crear usuario con perfil existente" time="0.084">
+<testsuites name="jest tests" tests="13" failures="0" time="6.012">
+  <testsuite name="CrearUsuarios" errors="0" failures="0" skipped="0" timestamp="2024-09-30T19:02:30" time="3.283" tests="8">
+    <testcase classname="CrearUsuarios Crear usuario con perfil existente correctamente" name="CrearUsuarios Crear usuario con perfil existente correctamente" time="0.123">
+    </testcase>
+    <testcase classname="CrearUsuarios No crear usuario con perfil inexistente" name="CrearUsuarios No crear usuario con perfil inexistente" time="0.016">
+    </testcase>
+    <testcase classname="CrearUsuarios No crear usuario con correo duplicado" name="CrearUsuarios No crear usuario con correo duplicado" time="0.004">
+    </testcase>
+    <testcase classname="CrearUsuarios No crear usuario con nombre de usuario duplicado" name="CrearUsuarios No crear usuario con nombre de usuario duplicado" time="0.006">
+    </testcase>
+    <testcase classname="CrearUsuarios No crear usuario con correo de usuario duplicado" name="CrearUsuarios No crear usuario con correo de usuario duplicado" time="0.003">
+    </testcase>
+    <testcase classname="CrearUsuarios No crear usuario con correo inválido" name="CrearUsuarios No crear usuario con correo inválido" time="0.007">
+    </testcase>
+    <testcase classname="CrearUsuarios No crear usuario con campos faltantes" name="CrearUsuarios No crear usuario con campos faltantes" time="0.001">
+    </testcase>
+    <testcase classname="CrearUsuarios Crear usuario con perfil por defecto si no se proporciona" name="CrearUsuarios Crear usuario con perfil por defecto si no se proporciona" time="0.102">
     </testcase>
   </testsuite>
-  <testsuite name="AsociarPerfil" errors="0" failures="0" skipped="0" timestamp="2024-09-30T16:27:11" time="0.627" tests="3">
-    <testcase classname="AsociarPerfil Validar que el perfil exista" name="AsociarPerfil Validar que el perfil exista" time="0.019">
+  <testsuite name="AsociarPerfil" errors="0" failures="0" skipped="0" timestamp="2024-09-30T19:02:34" time="0.753" tests="3">
+    <testcase classname="AsociarPerfil Validar que el perfil exista" name="AsociarPerfil Validar que el perfil exista" time="0.027">
     </testcase>
-    <testcase classname="AsociarPerfil Validar que el usuario exista" name="AsociarPerfil Validar que el usuario exista" time="0.002">
+    <testcase classname="AsociarPerfil Validar que el usuario exista" name="AsociarPerfil Validar que el usuario exista" time="0.005">
     </testcase>
-    <testcase classname="AsociarPerfil Asociar perfil exitosamente" name="AsociarPerfil Asociar perfil exitosamente" time="0.009">
+    <testcase classname="AsociarPerfil Asociar perfil exitosamente" name="AsociarPerfil Asociar perfil exitosamente" time="0.007">
     </testcase>
   </testsuite>
-  <testsuite name="Testing: Pruebas unitarias funciones" errors="0" failures="0" skipped="0" timestamp="2024-09-30T16:27:12" time="0.093" tests="2">
-    <testcase classname="Testing: Pruebas unitarias funciones Testing: Funcion OnCreate always be true" name="Testing: Pruebas unitarias funciones Testing: Funcion OnCreate always be true" time="0.002">
+  <testsuite name="Testing: Pruebas unitarias funciones" errors="0" failures="0" skipped="0" timestamp="2024-09-30T19:02:35" time="0.142" tests="2">
+    <testcase classname="Testing: Pruebas unitarias funciones Testing: Funcion OnCreate always be true" name="Testing: Pruebas unitarias funciones Testing: Funcion OnCreate always be true" time="0.001">
     </testcase>
-    <testcase classname="Testing: Pruebas unitarias funciones Testing: Funcion OnUpdate always be true" name="Testing: Pruebas unitarias funciones Testing: Funcion OnUpdate always be true" time="0.001">
+    <testcase classname="Testing: Pruebas unitarias funciones Testing: Funcion OnUpdate always be true" name="Testing: Pruebas unitarias funciones Testing: Funcion OnUpdate always be true" time="0">
     </testcase>
   </testsuite>
 </testsuites>

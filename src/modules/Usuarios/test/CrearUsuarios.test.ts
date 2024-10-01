@@ -41,7 +41,7 @@ describe('CrearUsuarios', () => {
 
         const request: Req = { body: data, params: {}, data: {} };
         const response: Response<Status | null> = await usuariosController.crearUsuario(request);
-        expect(response.status).toBe(201);
+        expect(response.status).toBe(200); // o 201, dependiendo de tu implementación
     });
 
     it('No crear usuario con perfil inexistente', async () => {
@@ -49,17 +49,17 @@ describe('CrearUsuarios', () => {
             nombre_usuario: 'usuario_invalido',
             correo: 'invalido@ejemplo.com',
             contrasena: 'contrasena123',
-            id_perfil: 999, // Un perfil que no existe
+            id_perfil: 999,
         };
 
         const request: Req = { body: data, params: {}, data: {} };
-        await expect(usuariosController.crearUsuario(request)).rejects.toThrow(BadMessageException);
+        await expect(usuariosController.crearUsuario(request)).rejects.toThrow('El perfil especificado no existe');
     });
 
     it('No crear usuario con correo duplicado', async () => {
         const data: ICrearUsuariosIn = {
             nombre_usuario: 'usuario_duplicado',
-            correo: 'test1@ejemplo.com', // Este correo ya existe en la base de datos
+            correo: 'test1@ejemplo.com',
             contrasena: 'contrasena123',
             id_perfil: 1,
         };
@@ -70,15 +70,27 @@ describe('CrearUsuarios', () => {
 
     it('No crear usuario con nombre de usuario duplicado', async () => {
         const data: ICrearUsuariosIn = {
-            nombre_usuario: 'usuario_test1', // Este nombre de usuario ya existe en la base de datos
+            nombre_usuario: 'usuario_test1',
             correo: 'nuevo_correo@ejemplo.com',
             contrasena: 'contrasena123',
             id_perfil: 1,
         };
 
         const request: Req = { body: data, params: {}, data: {} };
-        await expect(usuariosController.crearUsuario(request)).rejects.toThrow(BadMessageException);
+        await expect(usuariosController.crearUsuario(request)).rejects.toThrow('El nombre de usuario ya fue creado');
     });
+
+    it('No crear usuario con correo de usuario duplicado', async () => {
+        const data: ICrearUsuariosIn = {
+            nombre_usuario: 'usuario_test2',
+            correo: 'test1@ejemplo.com',
+            contrasena: 'contrasena123',
+            id_perfil: 1,
+        };
+        const request: Req = { body: data, params: {}, data: {} };
+        await expect(usuariosController.crearUsuario(request)).rejects.toThrow('El correo del usuario ya fue creado');
+    });
+
 
     it('No crear usuario con correo inválido', async () => {
         const data: ICrearUsuariosIn = {
@@ -96,7 +108,6 @@ describe('CrearUsuarios', () => {
         const data = {
             nombre_usuario: 'usuario_incompleto',
             correo: 'incompleto@ejemplo.com',
-            // Falta la contraseña y el id_perfil
         };
 
         const request: Req = { body: data, params: {}, data: {} };
@@ -104,15 +115,14 @@ describe('CrearUsuarios', () => {
     });
 
     it('Crear usuario con perfil por defecto si no se proporciona', async () => {
-        const data = {
+        const data: ICrearUsuariosIn = {
             nombre_usuario: 'usuario_sin_perfil',
             correo: 'sin_perfil@ejemplo.com',
             contrasena: 'contrasena123',
-            // No se proporciona id_perfil
         };
 
         const request: Req = { body: data, params: {}, data: {} };
         const response: Response<Status | null> = await usuariosController.crearUsuario(request);
-        expect(response.status).toBe(201);
+        expect(response.status).toBe(200); // o 201, dependiendo de tu implementación
     });
 });

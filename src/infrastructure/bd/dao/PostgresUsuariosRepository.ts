@@ -7,8 +7,6 @@ import { UsuariosRepository } from '@modules/Usuarios/domain/repositories/Usuari
 import { IConstultarUsuariosOut } from '@modules/Usuarios/usecase/dto/out/IConstultarUsuariosOut';
 import { injectable } from 'inversify';
 import { IDatabase, IMain } from 'pg-promise';
-import { TokenUsuario } from '@modules/Usuarios/usecase/dto/in/INotificacionesUsuariosSuiteIn';
-import TokenUsuarios from '@modules/Usuarios/domain/entities/TokenUsuarios';
 
 @injectable()
 export default class PostgresUsuariosRepository implements UsuariosRepository {
@@ -46,31 +44,14 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
         }
     }
 
-    async actualizarEstadoSincronizacion(correo: string, estado: string): Promise<void> {
+    async validarNombreUsuario(nombreUsuario: string): Promise<Usuarios | null> {
         try {
-            const sqlQuery = `UPDATE usuarios SET estado_sincronizacion = $/estado/ WHERE correo = $/correo/`;
-            await this.db.none(sqlQuery, { correo, estado });
+            const sqlQuery = `SELECT * FROM usuarios WHERE nombre_usuario = $/nombreUsuario/ LIMIT 1`;
+            const usuario = await this.db.oneOrNone(sqlQuery, { nombreUsuario });
+            return usuario ? new Usuarios(usuario) : null;
         } catch (error) {
-            logger.error('USUARIOS', 'actualizarEstadoSincronizacion', [
-                `Error actualizando el estado de sincronizacion: ${error}`,
-            ]);
-            throw new PostgresException(
-                500,
-                `Error al actualizar el estado de sincronizacion de postgres: ${error.message}`,
-            );
-        }
-    }
-
-    async crearTokenUsuario(crearTokenUsuario: TokenUsuarios): Promise<TokenUsuario> {
-        try {
-            const sqlQuery = `
-            INSERT INTO ${this.schema}.token_usuarios (valor, activo, id_usuario, fecha_hora_expiracion, fecha_hora_creacion)
-            VALUES ($/valor/, $/activo/, $/idUsuario/, $/fechaHoraExpiracion/, $/fechaHoraCreacion/) RETURNING *`;
-            const usuario = await this.db.oneOrNone(sqlQuery, crearTokenUsuario);
-            return usuario;
-        } catch (error) {
-            logger.error('USUARIOS', 'crearTokenUsuario', [`Error creando token: ${error}`]);
-            throw new PostgresException(500, `Error en insercion de postgres crearTokenUsuario: ${error.message}`);
+            logger.error('USUARIOS', 'validarNombreUsuario', [`Error consultando el usuario: ${error}`]);
+            throw new PostgresException(500, `Error al consultar el usuario de postgres: ${error.message}`);
         }
     }
 
@@ -99,18 +80,24 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
         }
     }
 
-    async actualizarSincronizacionSuite(correo: string, sincronizado: boolean): Promise<void> {
+    async actualizarUsuario(usuario: Usuarios): Promise<number> {
         try {
-            const sqlQuery = `UPDATE usuarios SET sincronizacion_suite = $/sincronizado/ WHERE correo = $/correo/`;
-            await this.db.none(sqlQuery, {
-                sincronizado,
-                correo,
-            });
+            const sqlQuery = `UPDATE usuarios SET nombre_usuario = $/nombreUsuario/, correo = $/correo/, hash_contrasena = $/hashContrasena/, id_perfil = $/idPerfil/ WHERE id_usuario = $/idUsuario/ RETURNING id_usuario`;
+            const idUsuario = await this.db.oneOrNone(sqlQuery, usuario);
+            return idUsuario.id_usuario;
         } catch (error) {
-            logger.error('USUARIOS', 'actualizarSincronizacionSuite', [
-                `Error actualizando sincronizacion suite: ${error.message}`,
-            ]);
-            throw new PostgresException(500, `Error actualizando sincronizacion suite: ${error.message}`);
+            logger.error('USUARIOS', 'actualizarUsuario', [`Error actualizando el usuario: ${error}`]);
+            throw new PostgresException(500, `Error actualizando el usuario: ${error.message}`);
+        }
+    }
+
+    async eliminarUsuario(idUsuario: number): Promise<void> {
+        try {
+            const sqlQuery = `DELETE FROM usuarios WHERE id_usuario = $/idUsuario/`;
+            await this.db.none(sqlQuery, { idUsuario });
+        } catch (error) {
+            logger.error('USUARIOS', 'eliminarUsuario', [`Error eliminando el usuario: ${error}`]);
+            throw new PostgresException(500, `Error eliminando el usuario: ${error.message}`);
         }
     }
 }
