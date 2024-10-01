@@ -3,6 +3,7 @@ import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
 import PostgresUsuariosRepository from '@infrastructure/bd/dao/PostgresUsuariosRepository';
 import PostgresClientesRepository from '@infrastructure/bd/dao/PostgresClientesRepository';
 import { PerfilesRepository } from '@modules/Perfiles/domain/repositories/PerfilesRepository';
+import { IAuthService } from '@modules/services/IAuthService';
 import StatusGetController from '../controllers/StatusGetController';
 
 import TYPESDEPENDENCIES from './TypesDependencies';
@@ -12,6 +13,7 @@ import { UsuariosRepository } from '../domain/repositories/UsuariosRepository';
 import { ClientesRepository } from '../domain/repositories/ClientesRepository';
 import AsociarPerfilUseCase from '../usecase/services/AsociarPerfilUseCase';
 import GenerarTokenUseCase from '../usecase/services/GenerarTokenUseCase';
+import AuthService from '../../services/AuthService';
 
 const createDependencies = (): void => {
     DEPENDENCY_CONTAINER.bind<UsuariosController>(TYPESDEPENDENCIES.UsuariosController)
@@ -22,6 +24,7 @@ const createDependencies = (): void => {
             return new CrearUsuariosUseCase(
                 DEPENDENCY_CONTAINER.get<UsuariosRepository>(TYPESDEPENDENCIES.UsuariosRepository),
                 DEPENDENCY_CONTAINER.get<PerfilesRepository>(TYPESDEPENDENCIES.PerfilesRepository),
+                DEPENDENCY_CONTAINER.get<IAuthService>(TYPESDEPENDENCIES.AuthService),
             );
         })
         .inSingletonScope();
@@ -42,6 +45,8 @@ const createDependencies = (): void => {
     DEPENDENCY_CONTAINER.bind<StatusGetController>(TYPESDEPENDENCIES.StatusGetController)
         .to(StatusGetController)
         .inSingletonScope();
+
+    DEPENDENCY_CONTAINER.bind<IAuthService>(TYPESDEPENDENCIES.AuthService).to(AuthService).inSingletonScope();
 };
 
 export default createDependencies;

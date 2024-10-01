@@ -13,6 +13,7 @@ const TYPESDEPENDENCIES = {
     dbCm: Symbol.for('dbCm'),
     NotificacionUsuariosCreadoRepository: Symbol.for('NotificacionUsuariosCreadoRepository'),
     EnviarCorreosRepository: Symbol.for('EnviarCorreosRepository'),
+    AuthService: Symbol.for('AuthService'),
 };
 
 export default TYPESDEPENDENCIES;

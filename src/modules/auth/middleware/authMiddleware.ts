@@ -1,5 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import AuthService from '@modules/services/AuthService';
+import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
+import TYPESDEPENDENCIES from '@modules/Usuarios/dependencies/TypesDependencies';
+import { IAuthService } from '@modules/services/IAuthService';
 
 const authMiddleware = async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
     const authHeader = request.headers.authorization;
@@ -11,7 +13,8 @@ const authMiddleware = async (request: FastifyRequest, reply: FastifyReply): Pro
     }
 
     try {
-        const decoded = AuthService.verificarToken(token);
+        const authService = DEPENDENCY_CONTAINER.get<IAuthService>(TYPESDEPENDENCIES.AuthService);
+        const decoded = authService.verificarToken(token);
         request.user = decoded;
     } catch (error) {
         reply.code(403).send({ isError: true, message: 'Token inválido' });

@@ -5,27 +5,33 @@ import { UsuariosRepository } from '../../domain/repositories/UsuariosRepository
 import Usuarios from '../../domain/entities/Usuarios';
 import { ICrearUsuariosIn } from '../dto/in';
 import TYPESDEPENDENCIES from '../../dependencies/TypesDependencies';
-import AuthService from '../../../services/AuthService';
-/**
- * @description: Crear un nuevo usuario
- * @param {ICrearUsuariosIn} data
- * @returns {Promise<Usuarios>}
- */
+import { IAuthService } from '../../../services/IAuthService';
+
 @injectable()
 export default class CrearUsuariosUseCase {
     constructor(
         @inject(TYPESDEPENDENCIES.UsuariosRepository) private usuariosRepository: UsuariosRepository,
         @inject(TYPESDEPENDENCIES.PerfilesRepository) private perfilesRepository: PerfilesRepository,
+        @inject(TYPESDEPENDENCIES.AuthService) private authService: IAuthService,
     ) {}
 
     async execute(data: ICrearUsuariosIn): Promise<void> {
-        if (data.id_perfil) {
-            const perfilExiste = await this.perfilesRepository.consultarPorId(data.id_perfil);
+        await this.validarPerfil(data.id_perfil);
+        await this.validarUsuarioNoExistente(data);
+        const nuevoUsuario = await this.crearNuevoUsuario(data);
+        await this.usuariosRepository.guardar(nuevoUsuario);
+    }
+
+    private async validarPerfil(idPerfil?: number): Promise<void> {
+        if (idPerfil) {
+            const perfilExiste = await this.perfilesRepository.consultarPorId(idPerfil);
             if (!perfilExiste) {
                 throw new BadMessageException('El perfil no existe', 'El perfil especificado no existe');
             }
         }
+    }
 
+    private async validarUsuarioNoExistente(data: ICrearUsuariosIn): Promise<void> {
         const usuarioExistente = await this.usuariosRepository.consultarUsuarioPorCorreo(data.correo);
         if (usuarioExistente) {
             throw new BadMessageException('El usuario ya existe', 'El correo del usuario ya fue creado');
@@ -35,17 +41,15 @@ export default class CrearUsuariosUseCase {
         if (usuarioExistenteNombreUsuario) {
             throw new BadMessageException('El usuario ya existe', 'El nombre de usuario ya fue creado');
         }
+    }
 
-        // Hashear la contraseña
-        const hashContrasena = await AuthService.hashPassword(data.contrasena);
-
-        const nuevoUsuario: Usuarios = {
+    private async crearNuevoUsuario(data: ICrearUsuariosIn): Promise<Usuarios> {
+        const hashContrasena = await this.authService.hashPassword(data.contrasena);
+        return {
             nombreUsuario: data.nombre_usuario,
             correo: data.correo,
             hashContrasena,
             idPerfil: data.id_perfil ?? 1,
         };
-
-        await this.usuariosRepository.guardar(nuevoUsuario);
     }
 }
