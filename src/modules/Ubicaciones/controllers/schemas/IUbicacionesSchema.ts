@@ -11,7 +11,6 @@ export const ICrearUbicacionSchema = Joi.object<ICrearUbicacionIn>({
     direccion: Joi.string().required(),
     latitud: Joi.number().required(),
     longitud: Joi.number().required(),
-    descripcion: Joi.string().optional(),
 });
 
 export const IActualizarUbicacionSchema = Joi.object<IActualizarUbicacionIn>({
@@ -20,7 +19,7 @@ export const IActualizarUbicacionSchema = Joi.object<IActualizarUbicacionIn>({
     direccion: Joi.string().optional(),
     latitud: Joi.number().optional(),
     longitud: Joi.number().optional(),
-    descripcion: Joi.string().optional(),
+    // Eliminar la validación de descripción
 });
 
 export const IConsultarUbicacionSchema = Joi.object<IConsultarUbicacionIn>({

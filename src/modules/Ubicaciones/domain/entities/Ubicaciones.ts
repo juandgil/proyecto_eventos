@@ -9,8 +9,6 @@ export default class Ubicaciones {
 
     longitud: number;
 
-    descripcion?: string;
-
     creado_en?: Date;
 
     actualizado_en?: Date;
@@ -21,7 +19,6 @@ export default class Ubicaciones {
         latitud: number;
         longitud: number;
         id_ubicacion?: number;
-        descripcion?: string;
         creado_en?: Date;
         actualizado_en?: Date;
     }) {
@@ -30,7 +27,6 @@ export default class Ubicaciones {
         this.direccion = data.direccion;
         this.latitud = data.latitud;
         this.longitud = data.longitud;
-        this.descripcion = data.descripcion;
         this.creado_en = data.creado_en;
         this.actualizado_en = data.actualizado_en;
     }

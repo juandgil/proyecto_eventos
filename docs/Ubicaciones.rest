@@ -1,0 +1,39 @@
+@baseUrl = http://localhost:8081/domain/proyecto-events
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc4ODEwMzAsImV4cCI6MTcyNzg4NDYzMH0.oXFWfaBav_31hft2J4hpKCQcEgvqv8DczIuNaWYpW9A
+
+### Crear una nueva ubicación
+POST {{baseUrl}}/ubicaciones/crear
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "nombre": "Nueva Ubicación",
+  "direccion": "Calle Principal 123",
+  "latitud": 40.4168,
+  "longitud": -3.7038
+}
+
+### Actualizar una ubicación existente
+PUT {{baseUrl}}/ubicaciones/actualizar
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "id_ubicacion": 1,
+  "nombre": "Ubicación Actualizada",
+  "direccion": "Avenida Central 456",
+  "latitud": 40.4169,
+  "longitud": -3.7039
+}
+
+### Eliminar una ubicación
+DELETE {{baseUrl}}/ubicaciones/eliminar/1
+Authorization: Bearer {{authToken}}
+
+### Consultar una ubicación por ID
+GET {{baseUrl}}/ubicaciones/consultar/1
+Authorization: Bearer {{authToken}}
+
+### Listar todas las ubicaciones
+GET {{baseUrl}}/ubicaciones/listar
+Authorization: Bearer {{authToken}}

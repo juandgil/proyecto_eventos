@@ -39,7 +39,6 @@ export default class ActualizarUbicacionUseCase {
         if (data.direccion) ubicacionExistente.direccion = data.direccion;
         if (data.latitud) ubicacionExistente.latitud = data.latitud;
         if (data.longitud) ubicacionExistente.longitud = data.longitud;
-        if (data.descripcion !== undefined) ubicacionExistente.descripcion = data.descripcion;
 
         return this.ubicacionesRepository.actualizar(data.id_ubicacion, ubicacionExistente);
     }

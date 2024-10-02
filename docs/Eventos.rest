@@ -1,0 +1,44 @@
+@baseUrl = http://localhost:3000/api
+@authToken = tu_token_jwt_aqui
+
+### Crear un nuevo evento
+POST {{baseUrl}}/eventos
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "titulo": "Evento de prueba",
+  "descripcion": "Esta es una descripción de prueba",
+  "fecha_inicio": "2023-06-01T10:00:00Z",
+  "fecha_fin": "2023-06-01T18:00:00Z",
+  "id_creador": 1,
+  "id_ubicacion": 1,
+  "id_categoria": 1
+}
+
+### Actualizar un evento existente
+PUT {{baseUrl}}/eventos
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "id_evento": 1,
+  "titulo": "Evento actualizado",
+  "descripcion": "Esta es una descripción actualizada",
+  "fecha_inicio": "2023-06-02T10:00:00Z",
+  "fecha_fin": "2023-06-02T18:00:00Z",
+  "id_ubicacion": 2,
+  "id_categoria": 2
+}
+
+### Eliminar un evento
+DELETE {{baseUrl}}/eventos/1
+Authorization: Bearer {{authToken}}
+
+### Consultar un evento por ID
+GET {{baseUrl}}/eventos/1
+Authorization: Bearer {{authToken}}
+
+### Listar eventos con filtros
+GET {{baseUrl}}/eventos?page=1&limit=10&fecha_inicio=2023-06-01T00:00:00Z&fecha_fin=2023-06-30T23:59:59Z&id_categoria=1&id_ubicacion=1
+Authorization: Bearer {{authToken}}

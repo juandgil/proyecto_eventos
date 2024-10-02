@@ -16,6 +16,6 @@ export default class CrearUbicacionUseCase {
         if (ubicacionExistente && ubicacionExistente.length > 0) {
             throw new BadMessageException('Ubicación ya existe', 'Ya existe una ubicación con el mismo nombre');
         }
-        return this.ubicacionesRepository.crear(data);
+        return this.ubicacionesRepository.crear(new Ubicaciones(data));
     }
 }

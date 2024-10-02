@@ -19,14 +19,16 @@ const createMemoryDB = (sqlFilePath: string): IDatabase<IMain> => {
         const sql = fs.readFileSync(path.join(__dirname, sqlFilePath), 'utf8');
         dbmem.public.none(sql);
 
-        // Simplificar la creación de la tabla para pg-mem
+        // Actualizar la creación de la tabla ubicaciones para que coincida con el DDL real
         dbmem.public.none(`
             CREATE TABLE IF NOT EXISTS public.ubicaciones (
-                id_ubicacion SERIAL,
-                nombre VARCHAR(100),
-                direccion VARCHAR(255),
-                creado_en TIMESTAMP,
-                actualizado_en TIMESTAMP
+                id_ubicacion SERIAL PRIMARY KEY,
+                nombre VARCHAR(100) NOT NULL,
+                direccion VARCHAR(255) NOT NULL,
+                latitud FLOAT NOT NULL,
+                longitud FLOAT NOT NULL,
+                creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `);
     } catch (error) {

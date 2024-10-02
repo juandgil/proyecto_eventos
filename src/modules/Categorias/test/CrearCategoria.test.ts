@@ -8,7 +8,7 @@ import createDependencies from '../dependencies/Dependencies';
 import { IDatabase, IMain } from 'pg-promise';
 import TYPESDEPENDENCIESGLOBAL from '@common/dependencies/TypesDependencies';
 import { beforeAll, describe, expect, it } from '@jest/globals';
-import limpiarBaseDeDatos from './mocks/postgresql/testUtils';
+import limpiarBaseDeDatos from '../../../common/util/testUtils';
 
 let db: ReturnType<typeof mockConfiguracionesDB>;
 let categoriasController: CategoriasController;

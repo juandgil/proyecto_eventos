@@ -8,6 +8,7 @@ import createDependencies from '../dependencies/Dependencies';
 import { IDatabase, IMain } from 'pg-promise';
 import TYPESDEPENDENCIESGLOBAL from '@common/dependencies/TypesDependencies';
 import { beforeAll, describe, expect, it } from '@jest/globals';
+import { ICrearUbicacionIn } from '../usecase/dto/in/IUbicacionesIn';
 
 let db: ReturnType<typeof mockConfiguracionesDB>;
 let ubicacionesController: UbicacionesController;
@@ -23,11 +24,10 @@ beforeAll(async () => {
 
 describe('Listar Ubicaciones', () => {
     it('Debe listar las ubicaciones correctamente', async () => {
-        // Primero, creamos algunas ubicaciones
-        const ubicaciones = [
-            { nombre: 'Ubicación 1', direccion: 'Dirección 1' },
-            { nombre: 'Ubicación 2', direccion: 'Dirección 2' },
-            { nombre: 'Ubicación 3', direccion: 'Dirección 3' },
+        const ubicaciones: ICrearUbicacionIn[] = [
+            { nombre: 'Ubicación 1', direccion: 'Dirección 1', latitud: 40.4168, longitud: -3.7038 },
+            { nombre: 'Ubicación 2', direccion: 'Dirección 2', latitud: 40.42, longitud: -3.71 },
+            { nombre: 'Ubicación 3', direccion: 'Dirección 3', latitud: 40.43, longitud: -3.72 },
         ];
 
         for (const ubicacion of ubicaciones) {

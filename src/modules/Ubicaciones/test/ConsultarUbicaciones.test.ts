@@ -9,6 +9,7 @@ import createDependencies from '../dependencies/Dependencies';
 import { IDatabase, IMain } from 'pg-promise';
 import TYPESDEPENDENCIESGLOBAL from '@common/dependencies/TypesDependencies';
 import { beforeAll, describe, expect, it } from '@jest/globals';
+import { ICrearUbicacionIn } from '../usecase/dto/in/IUbicacionesIn';
 
 let db: ReturnType<typeof mockConfiguracionesDB>;
 let ubicacionesController: UbicacionesController;
@@ -25,18 +26,20 @@ beforeAll(async () => {
 describe('Consultar Ubicacion', () => {
     it('Debe consultar una ubicación correctamente', async () => {
         // Primero, creamos una ubicación
-        const crearRequest: Req = {
-            body: { nombre: 'Ubicación para Consultar', direccion: 'Dirección de prueba' },
-            params: {},
-            data: {},
+        const crearData: ICrearUbicacionIn = {
+            nombre: 'Ubicación para Consultar',
+            direccion: 'Dirección de prueba',
+            latitud: 40.4168,
+            longitud: -3.7038,
         };
+        const crearRequest: Req = { body: crearData, params: {}, data: {} };
         const crearResponse: Response<any> = await ubicacionesController.crearUbicacion(crearRequest);
         const idUbicacion = crearResponse.response.data?.data.id_ubicacion;
 
         // Ahora, consultamos la ubicación
         const consultarRequest: Req = {
             body: {},
-            params: { id: idUbicacion.toString() },
+            params: { id: idUbicacion },
             data: {},
         };
         const consultarResponse: Response<any> = await ubicacionesController.consultarUbicacion(consultarRequest);

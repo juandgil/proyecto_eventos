@@ -8,7 +8,8 @@ import createDependencies from '../dependencies/Dependencies';
 import { IDatabase, IMain } from 'pg-promise';
 import TYPESDEPENDENCIESGLOBAL from '@common/dependencies/TypesDependencies';
 import { beforeAll, beforeEach, describe, expect, it } from '@jest/globals';
-import limpiarBaseDeDatos from './mocks/postgresql/testUtils';
+import limpiarBaseDeDatos from '../../../common/util/testUtils';
+import { ICrearUbicacionIn, IActualizarUbicacionIn } from '../usecase/dto/in/IUbicacionesIn';
 
 let db: ReturnType<typeof mockConfiguracionesDB>;
 let ubicacionesController: UbicacionesController;
@@ -29,20 +30,25 @@ beforeEach(async () => {
 describe('Actualizar Ubicacion', () => {
     it('Debe actualizar una ubicación correctamente', async () => {
         // Primero, creamos una ubicación
-        const crearRequest: Req = {
-            body: { nombre: 'Ubicación para Actualizar', direccion: 'Dirección inicial' },
-            params: {},
-            data: {},
+        const crearData: ICrearUbicacionIn = {
+            nombre: 'Ubicación para Actualizar',
+            direccion: 'Dirección inicial',
+            latitud: 40.4168,
+            longitud: -3.7038,
         };
+        const crearRequest: Req = { body: crearData, params: {}, data: {} };
         const crearResponse: Response<any> = await ubicacionesController.crearUbicacion(crearRequest);
         const idUbicacion = crearResponse.response.data?.data.id_ubicacion;
 
         // Ahora, actualizamos la ubicación
-        const actualizarRequest: Req = {
-            body: { id_ubicacion: idUbicacion, nombre: 'Ubicación Actualizada', direccion: 'Nueva dirección' },
-            params: {},
-            data: {},
+        const actualizarData: IActualizarUbicacionIn = {
+            id_ubicacion: idUbicacion,
+            nombre: 'Ubicación Actualizada',
+            direccion: 'Nueva dirección',
+            latitud: 40.42,
+            longitud: -3.71,
         };
+        const actualizarRequest: Req = { body: actualizarData, params: {}, data: {} };
         const actualizarResponse: Response<any> = await ubicacionesController.actualizarUbicacion(actualizarRequest);
         expect(actualizarResponse.status).toBe(200);
         expect(actualizarResponse.response.data?.ok).toBe('Ubicación actualizada exitosamente');

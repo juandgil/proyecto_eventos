@@ -6,12 +6,13 @@ import UsuariosModules from '@modules/Usuarios/UsuariosModule';
 import PerfilesModule from '@modules/Perfiles/PerfilesModule';
 import CategoriasModule from '@modules/Categorias/CategoriasModule';
 import { globalDependencies } from '@common/dependencies/DependencyContainer';
+import UbicacionesModule from '@modules/Ubicaciones/UbicacionesModule';
 
 async function bootstrap() {
     const modulesFactory = new ModulesFactory();
     const server = modulesFactory.createServer(TYPESSERVER.Fastify);
     globalDependencies();
-    modulesFactory.initModules([UsuariosModules, PerfilesModule, CategoriasModule]);
+    modulesFactory.initModules([UsuariosModules, PerfilesModule, CategoriasModule, UbicacionesModule]);
     server?.start();
 }
 bootstrap();

@@ -25,8 +25,8 @@ export default class PostgresUbicacionesRepository implements UbicacionesReposit
     async crear(ubicacion: Ubicaciones): Promise<Ubicaciones> {
         try {
             const result = await this.db.one(
-                'INSERT INTO public.ubicaciones(nombre, direccion, latitud, longitud, descripcion) VALUES($1, $2, $3, $4, $5) RETURNING *',
-                [ubicacion.nombre, ubicacion.direccion, ubicacion.latitud, ubicacion.longitud, ubicacion.descripcion]
+                'INSERT INTO public.ubicaciones(nombre, direccion, latitud, longitud) VALUES($1, $2, $3, $4) RETURNING *',
+                [ubicacion.nombre, ubicacion.direccion, ubicacion.latitud, ubicacion.longitud],
             );
             return new Ubicaciones(result);
         } catch (error) {
@@ -38,8 +38,8 @@ export default class PostgresUbicacionesRepository implements UbicacionesReposit
     async actualizar(id: number, ubicacion: Ubicaciones): Promise<Ubicaciones> {
         try {
             const result = await this.db.one(
-                'UPDATE public.ubicaciones SET nombre = $1, direccion = $2, latitud = $3, longitud = $4, descripcion = $5 WHERE id_ubicacion = $6 RETURNING *',
-                [ubicacion.nombre, ubicacion.direccion, ubicacion.latitud, ubicacion.longitud, ubicacion.descripcion, id]
+                'UPDATE public.ubicaciones SET nombre = $1, direccion = $2, latitud = $3, longitud = $4 WHERE id_ubicacion = $5 RETURNING *',
+                [ubicacion.nombre, ubicacion.direccion, ubicacion.latitud, ubicacion.longitud, id],
             );
             return new Ubicaciones(result);
         } catch (error) {
