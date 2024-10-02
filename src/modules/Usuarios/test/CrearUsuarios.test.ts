@@ -91,7 +91,6 @@ describe('CrearUsuarios', () => {
         await expect(usuariosController.crearUsuario(request)).rejects.toThrow('El correo del usuario ya fue creado');
     });
 
-
     it('No crear usuario con correo inválido', async () => {
         const data: ICrearUsuariosIn = {
             nombre_usuario: 'usuario_correo_invalido',

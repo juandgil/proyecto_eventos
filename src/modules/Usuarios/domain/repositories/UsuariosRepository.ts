@@ -5,8 +5,10 @@ export interface UsuariosRepository {
     guardar(usuarios: Usuarios): Promise<void>;
     consultarUsuarioPorCorreo(correoUsuario: string): Promise<Usuarios | null>;
     validarNombreUsuario(nombreUsuario: string): Promise<Usuarios | null>;
-    consultarUsuarioPorIdUsuario(idUsuario: number): Promise<IConstultarUsuariosOut>;
+    consultarUsuarioPorIdUsuario(idUsuario: number): Promise<Usuarios | null>;
     asociarPerfil(perfil: number, idUsuario: number): Promise<IConstultarUsuariosOut>;
     eliminarUsuario(idUsuario: number): Promise<void>;
     actualizarUsuario(usuario: Usuarios): Promise<number>;
+    inactivarUsuario(idUsuario: number): Promise<void>;
+    listarUsuarios(): Promise<Usuarios[]>;
 }

@@ -14,6 +14,10 @@ const TYPESDEPENDENCIES = {
     NotificacionUsuariosCreadoRepository: Symbol.for('NotificacionUsuariosCreadoRepository'),
     EnviarCorreosRepository: Symbol.for('EnviarCorreosRepository'),
     AuthService: Symbol.for('AuthService'),
+    ActualizarUsuarioUseCase: Symbol.for('ActualizarUsuarioUseCase'),
+    InactivarUsuarioUseCase: Symbol.for('InactivarUsuarioUseCase'), // Cambiado de InactivarUsuarioUseCase a InactivarUsuarioUseCase
+    ConsultarUsuarioUseCase: Symbol.for('ConsultarUsuarioUseCase'),
+    ListarUsuariosUseCase: Symbol.for('ListarUsuariosUseCase'),
 };
 
 export default TYPESDEPENDENCIES;

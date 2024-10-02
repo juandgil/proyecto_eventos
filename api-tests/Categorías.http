@@ -1,0 +1,33 @@
+@baseUrl = http://localhost:8081/domain/proyecto-events
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc4NDUyMDUsImV4cCI6MTcyNzg0ODgwNX0.1HAGwXd7_GpZ4EIYP1UQorhB0kXNOoy1tTO1cK9Ty5Q
+
+### Crear una nueva categoría
+POST {{baseUrl}}/categorias/crear
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "nombre": "Nueva Categoría"
+}
+
+### Actualizar una categoría existente
+PUT {{baseUrl}}/categorias/actualizar
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "id_categoria": 1,
+  "nombre": "Categoría Actualizada"
+}
+
+### Eliminar una categoría
+DELETE {{baseUrl}}/categorias/eliminar/1
+Authorization: Bearer {{authToken}}
+
+### Consultar una categoría por ID
+GET {{baseUrl}}/categorias/consultar/1
+Authorization: Bearer {{authToken}}
+
+### Listar todas las categorías
+GET {{baseUrl}}/categorias/listar
+Authorization: Bearer {{authToken}}

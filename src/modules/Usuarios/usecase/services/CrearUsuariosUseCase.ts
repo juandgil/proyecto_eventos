@@ -50,6 +50,7 @@ export default class CrearUsuariosUseCase {
             correo: data.correo,
             hashContrasena,
             idPerfil: data.id_perfil ?? 1,
+            activo: true,
         };
     }
 }

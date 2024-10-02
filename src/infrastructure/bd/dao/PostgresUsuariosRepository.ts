@@ -34,25 +34,15 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
     }
 
     async consultarUsuarioPorCorreo(correo: string): Promise<Usuarios | null> {
-        try {
-            const sqlQuery = `SELECT * FROM usuarios WHERE correo = $/correo/ LIMIT 1`;
-            const usuario = await this.db.oneOrNone(sqlQuery, { correo });
-            return usuario ? new Usuarios(usuario) : null;
-        } catch (error) {
-            logger.error('USUARIOS', 'consultarUsuarioPorCorreo', [`Error consultando el usuario: ${error}`]);
-            throw new PostgresException(500, `Error al consultar el usuario de postgres: ${error.message}`);
-        }
+        const result = await this.db.oneOrNone('SELECT * FROM usuarios WHERE correo = $1', [correo]);
+        logger.info('USUARIOS', 'consultarUsuarioPorCorreo', [`Resultado: ${JSON.stringify(result)}`]);
+        return result ? new Usuarios(result) : null;
     }
 
     async validarNombreUsuario(nombreUsuario: string): Promise<Usuarios | null> {
-        try {
-            const sqlQuery = `SELECT * FROM usuarios WHERE nombre_usuario = $/nombreUsuario/ LIMIT 1`;
-            const usuario = await this.db.oneOrNone(sqlQuery, { nombreUsuario });
-            return usuario ? new Usuarios(usuario) : null;
-        } catch (error) {
-            logger.error('USUARIOS', 'validarNombreUsuario', [`Error consultando el usuario: ${error}`]);
-            throw new PostgresException(500, `Error al consultar el usuario de postgres: ${error.message}`);
-        }
+        const result = await this.db.oneOrNone('SELECT * FROM usuarios WHERE nombre_usuario = $1', [nombreUsuario]);
+        logger.info('USUARIOS', 'validarNombreUsuario', [`Resultado: ${JSON.stringify(result)}`]);
+        return result ? new Usuarios(result) : null;
     }
 
     async asociarPerfil(perfil: number, idUsuario: number): Promise<IConstultarUsuariosOut> {
@@ -69,11 +59,11 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
         }
     }
 
-    async consultarUsuarioPorIdUsuario(idUsuario: number): Promise<IConstultarUsuariosOut> {
+    async consultarUsuarioPorIdUsuario(idUsuario: number): Promise<Usuarios | null> {
         try {
             const sqlQuery = `SELECT * FROM usuarios WHERE id_usuario = $/idUsuario/ LIMIT 1`;
             const usuario = await this.db.oneOrNone(sqlQuery, { idUsuario });
-            return usuario;
+            return usuario ? new Usuarios(usuario) : null;
         } catch (error) {
             logger.error('USUARIOS', 'consultarUsuarioPorIdUsuario', [`Error consultando el usuario: ${error}`]);
             throw new PostgresException(500, `Error al consultar el usuario de postgres: ${error.message}`);
@@ -98,6 +88,27 @@ export default class PostgresUsuariosRepository implements UsuariosRepository {
         } catch (error) {
             logger.error('USUARIOS', 'eliminarUsuario', [`Error eliminando el usuario: ${error}`]);
             throw new PostgresException(500, `Error eliminando el usuario: ${error.message}`);
+        }
+    }
+
+    async inactivarUsuario(idUsuario: number): Promise<void> {
+        try {
+            const sqlQuery = `UPDATE usuarios SET activo = false WHERE id_usuario = $/idUsuario/`;
+            await this.db.none(sqlQuery, { idUsuario });
+        } catch (error) {
+            logger.error('USUARIOS', 'inactivarUsuario', [`Error inactivando el usuario: ${error}`]);
+            throw new PostgresException(500, `Error inactivando el usuario: ${error.message}`);
+        }
+    }
+
+    async listarUsuarios(): Promise<Usuarios[]> {
+        try {
+            const sqlQuery = `SELECT * FROM usuarios`;
+            const usuarios = await this.db.manyOrNone(sqlQuery);
+            return usuarios.map((usuario) => new Usuarios(usuario));
+        } catch (error) {
+            logger.error('USUARIOS', 'listarUsuarios', [`Error listando usuarios: ${error}`]);
+            throw new PostgresException(500, `Error listando usuarios: ${error.message}`);
         }
     }
 }

@@ -1,1 +1,7 @@
-export * from './IConstultarPerfilesIn';
+export {
+    IConstultarPerfilesIn,
+    ICrearPerfilIn,
+    IActualizarPerfilIn,
+    IListarPerfilesIn,
+    IEliminarPerfilIn,
+} from './IPerfilesIn';

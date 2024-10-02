@@ -1,5 +1,5 @@
 import CustomJoi from '@common/util/JoiMessage';
-import { ICrearUsuariosIn, ILoginUsuariosIn } from '@modules/Usuarios/usecase/dto/in';
+import { ICrearUsuariosIn, ILoginUsuariosIn, IActualizarUsuarioIn } from '@modules/Usuarios/usecase/dto/in';
 
 export const ICrearUsuariosSchema = CustomJoi.object<ICrearUsuariosIn>({
     nombre_usuario: CustomJoi.string().required(),
@@ -11,4 +11,20 @@ export const ICrearUsuariosSchema = CustomJoi.object<ICrearUsuariosIn>({
 export const LoginUsuariosSchema = CustomJoi.object<ILoginUsuariosIn>({
     correo: CustomJoi.string().required(),
     contrasena: CustomJoi.string().required(),
+});
+
+export const IActualizarUsuarioSchema = CustomJoi.object<IActualizarUsuarioIn>({
+    id_usuario: CustomJoi.number().required(),
+    nombre_usuario: CustomJoi.string().optional(),
+    correo: CustomJoi.string().email().optional(),
+    contrasena: CustomJoi.string().optional(),
+    id_perfil: CustomJoi.number().optional(),
+});
+
+export const InactivarUsuarioUseCase = CustomJoi.object({
+    id: CustomJoi.number().required(),
+});
+
+export const InactivarUsuarioSchema = CustomJoi.object({
+    id: CustomJoi.number().required(),
 });

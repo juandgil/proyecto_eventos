@@ -1,2 +1,2 @@
 export * from './IAsociarPerfilIn';
-export { ICrearUsuariosIn, ILoginUsuariosIn } from './IUsuariosIn';
+export { ICrearUsuariosIn, ILoginUsuariosIn, IActualizarUsuarioIn, IEliminarUsuarioIn } from './IUsuariosIn';

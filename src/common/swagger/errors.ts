@@ -28,3 +28,31 @@ export const RepositoryErrorSchema = {
         defaultMessage: { type: 'string', example: 'Error handler log' },
     },
 };
+
+export const UnauthorizedSchema = {
+    description: 'No autorizado',
+    type: 'object',
+    properties: {
+        isError: { type: 'boolean', example: true },
+        message: { type: 'string', example: 'No autorizado' },
+        cause: { type: ['string', 'null'], example: 'Token inválido o expirado' },
+        stack: { type: ['string', 'null'], example: 'Error o null' },
+        statusCode: { type: 'number', example: 401 },
+        code: { type: 'string', example: 'UNAUTHORIZED' },
+        defaultMessage: { type: 'string', example: 'Error de autenticación' },
+    },
+};
+
+export const NotFoundSchema = {
+    description: 'Recurso no encontrado',
+    type: 'object',
+    properties: {
+        isError: { type: 'boolean', example: true },
+        message: { type: 'string', example: 'Recurso no encontrado' },
+        cause: { type: ['string', 'null'], example: 'El usuario solicitado no existe' },
+        stack: { type: ['string', 'null'], example: 'Error o null' },
+        statusCode: { type: 'number', example: 404 },
+        code: { type: 'string', example: 'NOT_FOUND' },
+        defaultMessage: { type: 'string', example: 'El recurso solicitado no se encontró' },
+    },
+};

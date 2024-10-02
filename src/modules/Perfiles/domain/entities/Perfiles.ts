@@ -1,15 +1,25 @@
-import { IConstultarPerfilesOut } from '@modules/Perfiles/usecase/dto/out';
-
 export default class Perfiles {
-    idPerfil: number;
-
-    esMaestro: boolean;
+    idPerfil?: number;
 
     nombre: string;
 
-    constructor(perfil: IConstultarPerfilesOut) {
-        this.idPerfil = perfil.id_perfil;
-        this.esMaestro = perfil.es_maestro;
-        this.nombre = perfil.nombre;
+    descripcion: string;
+
+    creadoEn?: Date;
+
+    actualizadoEn?: Date;
+
+    constructor(data: {
+        id_perfil?: number;
+        nombre: string;
+        descripcion: string;
+        creado_en?: Date;
+        actualizado_en?: Date;
+    }) {
+        this.idPerfil = data.id_perfil;
+        this.nombre = data.nombre;
+        this.descripcion = data.descripcion;
+        this.creadoEn = data.creado_en;
+        this.actualizadoEn = data.actualizado_en;
     }
 }

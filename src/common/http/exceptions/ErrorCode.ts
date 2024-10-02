@@ -5,6 +5,7 @@ export enum ErrorCode {
     REPOSITORY_ERROR = 'REPOSITORY_ERROR',
     PUBSUB_ERROR = 'PUBSUB_ERROR',
     POSTGRES_ERROR = 'POSTGRES_ERROR',
+    NOT_FOUND = 'NOT_FOUND',
 }
 
 export enum StatusCode {

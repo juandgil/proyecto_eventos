@@ -83,6 +83,11 @@ export default class FastifyServer implements IServer {
 
     addModule = async (module: IModule): Promise<void> => {
         const prefix = `/${ENV.DOMAIN}/${ENV.SERVICE_NAME}`;
+        logger.info(
+            'FASTIFY',
+            '',
+            `Registering module: ${module.constructor.name} with prefix: ${prefix}${module.ruta}`,
+        );
         const pluggin: FastifyPluginAsync = async (router) => {
             const rutas = module.getRutas();
             rutas.forEach((ruta) => {
@@ -132,7 +137,7 @@ export default class FastifyServer implements IServer {
     start = async (): Promise<void> => {
         try {
             await this.app.listen({ port: this.port });
-            // logger.info('FASTIFY', `Application running on port ${this.port}`, { rutas: this.routes });
+            logger.info('FASTIFY', `Application running on port ${this.port}`, { rutas: this.routes });
         } catch (err) {
             console.log(err);
             logger.error('Fastify error', 'Error al crear la instancia de fastify', err);

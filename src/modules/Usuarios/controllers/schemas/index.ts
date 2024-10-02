@@ -1,1 +1,6 @@
-export { ICrearUsuariosSchema, LoginUsuariosSchema } from './IUsuariosSchema';
+export {
+    ICrearUsuariosSchema,
+    LoginUsuariosSchema,
+    IActualizarUsuarioSchema,
+    InactivarUsuarioSchema,
+} from './IUsuariosSchema';

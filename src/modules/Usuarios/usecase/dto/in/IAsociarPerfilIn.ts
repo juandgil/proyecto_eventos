@@ -1,4 +1,4 @@
 export interface IAsociarPerfilIn {
-    perfil: number;
+    id_perfil: number;
     id_usuario: number;
 }

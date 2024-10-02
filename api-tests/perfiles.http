@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:8081/domain/proyecto-events
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc3OTc5MjMsImV4cCI6MTcyNzgwMTUyM30.SRvYEjflQ9JYL1nwShf4GhPQxS-3mY6c9OkKBFD6lOw
+
+### Crear un nuevo perfil
+POST {{baseUrl}}/crear_perfil
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "nombre": "Nuevo Perfil",
+  "descripcion": "Descripción del nuevo perfil"
+}
+
+### Actualizar perfil
+PUT {{baseUrl}}/actualizar_perfil
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "id_perfil": 1,
+  "nombre": "Perfil Actualizado",
+  "descripcion": "Descripción actualizada del perfil"
+}
+
+### Eliminar perfil
+DELETE {{baseUrl}}/eliminar_perfil/1
+Authorization: Bearer {{authToken}}
+
+### Consultar perfil por ID
+GET {{baseUrl}}/consultar_perfil/1
+Authorization: Bearer {{authToken}}
+
+### Listar perfiles
+GET {{baseUrl}}/listar_perfiles
+Authorization: Bearer {{authToken}}

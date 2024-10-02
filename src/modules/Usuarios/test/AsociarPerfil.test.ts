@@ -32,7 +32,7 @@ beforeAll(async () => {
 describe('AsociarPerfil', () => {
     it('Validar que el perfil exista', async () => {
         const data: IAsociarPerfilIn = {
-            perfil: 999, // Un perfil que no existe
+            id_perfil: 999, // Un perfil que no existe
             id_usuario: 1,
         };
 
@@ -43,7 +43,7 @@ describe('AsociarPerfil', () => {
 
     it('Validar que el usuario exista', async () => {
         const data: IAsociarPerfilIn = {
-            perfil: 1,
+            id_perfil: 1,
             id_usuario: 999, // Un usuario que no existe
         };
 
@@ -54,7 +54,7 @@ describe('AsociarPerfil', () => {
 
     it('Asociar perfil exitosamente', async () => {
         const data: IAsociarPerfilIn = {
-            perfil: 1,
+            id_perfil: 1,
             id_usuario: 1,
         };
 

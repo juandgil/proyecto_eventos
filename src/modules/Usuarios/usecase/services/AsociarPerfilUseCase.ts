@@ -16,12 +16,12 @@ export default class AsociarPerfilUseCase {
             throw new BadMessageException('Usuario no existe', 'El usuario no se encuentra registrado');
         }
 
-        const consultarPerfil = await this.perfilesRepository.consultarPorId(data.perfil);
+        const consultarPerfil = await this.perfilesRepository.consultarPorId(data.id_perfil);
 
         if (!consultarPerfil) {
-            throw new BadMessageException('Perfil no existe', 'El perfil no se encuentra registrado');
+            throw new BadMessageException('Perfil no existe', 'El perfil especificado no existe');
         }
 
-        await this.usuariosRepository.asociarPerfil(data.perfil, data.id_usuario);
+        await this.usuariosRepository.asociarPerfil(data.id_perfil, data.id_usuario);
     }
 }

@@ -24,6 +24,8 @@ CREATE TABLE Usuarios (
     CONSTRAINT usuarios_perfiles_fk FOREIGN KEY (id_perfil) REFERENCES Perfiles(id_perfil)
 );
 
+ALTER TABLE Usuarios ADD COLUMN activo BOOLEAN DEFAULT TRUE;
+
 -- Creación de la tabla Categorias_Eventos
 CREATE TABLE Categorias_Eventos (
     id_categoria SERIAL,

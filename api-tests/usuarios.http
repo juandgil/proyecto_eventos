@@ -1,0 +1,62 @@
+@baseUrl = http://localhost:8081/domain/proyecto-events
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc4NDUyMDUsImV4cCI6MTcyNzg0ODgwNX0.1HAGwXd7_GpZ4EIYP1UQorhB0kXNOoy1tTO1cK9Ty5Q
+
+### Crear un nuevo usuario
+POST {{baseUrl}}/crear_usuario
+Content-Type: application/json
+
+{
+  "nombre_usuario": "nuevoUsuario",
+  "correo": "nuevo@ejemplo.com",
+  "contrasena": "contraseña123",
+  "id_perfil": 1
+}
+
+### Iniciar sesión
+POST {{baseUrl}}/iniciar_sesion
+Content-Type: application/json
+
+{
+  "correo": "nuevo@ejemplo.com",
+  "contrasena": "contraseña123"
+}
+
+### Asociar perfil a usuario
+PUT {{baseUrl}}/asociar/perfil
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "id_usuario": 1,
+  "id_perfil": 2
+}
+
+### Actualizar usuario
+PUT {{baseUrl}}/actualizar_usuario
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "id_usuario": 1,
+  "nombre_usuario": "usuarioActualizado",
+  "correo": "actualizado@ejemplo.com"
+}
+
+### Eliminar usuario (ahora inactiva)
+DELETE {{baseUrl}}/eliminar_usuario/1
+Authorization: Bearer {{authToken}}
+
+### Inactivar usuario
+PUT {{baseUrl}}/inactivar_usuario/1
+Authorization: Bearer {{authToken}}
+
+# Nota: Las siguientes rutas no están definidas en UsuariosModule.ts,
+# pero las mantengo comentadas por si las implementas en el futuro
+
+### Consultar usuario por ID
+GET {{baseUrl}}/consultar_usuario/1
+Authorization: Bearer {{authToken}}
+
+### Listar usuarios
+GET {{baseUrl}}/listar_usuarios
+Authorization: Bearer {{authToken}}

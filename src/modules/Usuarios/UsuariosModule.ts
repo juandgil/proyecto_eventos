@@ -5,7 +5,7 @@ import authMiddleware from '@modules/auth/middleware/authMiddleware';
 import TYPESDEPENDENCIES from './dependencies/TypesDependencies';
 import createDependencies from './dependencies/Dependencies';
 import UsuariosController from './controllers/UsuariosController';
-import UsuariosShema from './schemas/UsuariosShema';
+import UsuariosShema from './schemas/UsuariosShemaSwagger';
 
 export default class UsuariosModules implements IModule {
     private moduloRuta = '/';
@@ -34,6 +34,51 @@ export default class UsuariosModules implements IModule {
                 url: '/asociar/perfil',
                 evento: usuariosController.asociarPerfil.bind(usuariosController),
                 schema: UsuariosShema.asociarPerfil,
+                handler: {
+                    preHandler: [authMiddleware],
+                },
+            },
+            {
+                metodo: HTTPMETODO.PUT,
+                url: '/actualizar_usuario',
+                evento: usuariosController.actualizarUsuario.bind(usuariosController),
+                schema: UsuariosShema.actualizarUsuario,
+                handler: {
+                    preHandler: [authMiddleware],
+                },
+            },
+            {
+                metodo: HTTPMETODO.DELETE,
+                url: '/eliminar_usuario/:id',
+                evento: usuariosController.inactivarUsuario.bind(usuariosController),
+                schema: UsuariosShema.eliminarUsuario,
+                handler: {
+                    preHandler: [authMiddleware],
+                },
+            },
+            {
+                metodo: HTTPMETODO.PUT,
+                url: '/inactivar_usuario/:id',
+                evento: usuariosController.inactivarUsuario.bind(usuariosController),
+                schema: UsuariosShema.inactivarUsuario,
+                handler: {
+                    preHandler: [authMiddleware],
+                },
+            },
+            {
+                metodo: HTTPMETODO.GET,
+                url: '/consultar_usuario/:id',
+                evento: usuariosController.consultarUsuario.bind(usuariosController),
+                schema: UsuariosShema.consultarUsuario,
+                handler: {
+                    preHandler: [authMiddleware],
+                },
+            },
+            {
+                metodo: HTTPMETODO.GET,
+                url: '/listar_usuarios',
+                evento: usuariosController.listarUsuarios.bind(usuariosController),
+                schema: UsuariosShema.listarUsuarios,
                 handler: {
                     preHandler: [authMiddleware],
                 },
