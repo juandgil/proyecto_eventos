@@ -10,7 +10,7 @@ import { IDatabase, IMain } from 'pg-promise';
 import TYPESDEPENDENCIESGLOBAL from '@common/dependencies/TypesDependencies';
 import { beforeAll, describe, expect, it } from '@jest/globals';
 import { ICrearEventoIn } from '../usecase/dto/in/IEventosIn';
-import limpiarBaseDeDatos  from '@common/util/testUtils';
+import limpiarBaseDeDatos from '@common/util/testUtils';
 
 let db: ReturnType<typeof mockConfiguracionesDB>;
 let eventosController: EventosController;

@@ -35,3 +35,7 @@ export const IListarUbicacionesSchema = Joi.object({
     // page: Joi.number().optional(),
     // limit: Joi.number().optional(),
 });
+
+export const IObtenerUbicacionesCercanasSchema = Joi.object({
+    direccion: Joi.string().required(),
+});

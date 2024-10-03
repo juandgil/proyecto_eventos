@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:8081/domain/proyecto-events
-@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc5MDY5MTUsImV4cCI6MTcyNzkxMDUxNX0.GPRe0WLBsftsSNCUxY2h759F6YWcHK_7ogsdAlBWsnI
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc5NjIzNTAsImV4cCI6MTcyNzk2NTk1MH0.tjf0-W-RtPKt-Oee7pIJdagrkal-NLUa-jz9gYYn1d8
 
 ### Crear un nuevo usuario
 POST {{baseUrl}}/crear_usuario

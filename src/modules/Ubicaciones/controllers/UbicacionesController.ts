@@ -11,17 +11,20 @@ import {
     IActualizarUbicacionSchema,
     IEliminarUbicacionSchema,
     IConsultarUbicacionSchema,
+    IObtenerUbicacionesCercanasSchema,
 } from './schemas/IUbicacionesSchema';
 import CrearUbicacionUseCase from '../usecase/services/CrearUbicacionUseCase';
 import ActualizarUbicacionUseCase from '../usecase/services/ActualizarUbicacionesUseCase';
 import EliminarUbicacionUseCase from '../usecase/services/EliminarUbicacionUseCase';
 import ConsultarUbicacionUseCase from '../usecase/services/ConsultarUbicacionesUseCase';
 import ListarUbicacionesUseCase from '../usecase/services/ListarUbicacionesUseCase';
+import ObtenerUbicacionesCercanasUseCase from '../usecase/services/ObtenerUbicacionesCercanasUseCase';
 import {
     ICrearUbicacionIn,
     IActualizarUbicacionIn,
     IEliminarUbicacionIn,
     IConsultarUbicacionIn,
+    IObtenerUbicacionesCercanasIn,
 } from '../usecase/dto/in/IUbicacionesIn';
 
 @injectable()
@@ -44,6 +47,10 @@ export default class UbicacionesController {
 
     private listarUbicacionesUseCase = DEPENDENCY_CONTAINER.get<ListarUbicacionesUseCase>(
         TYPESDEPENDENCIES.ListarUbicacionesUseCase,
+    );
+
+    private obtenerUbicacionesCercanasUseCase = DEPENDENCY_CONTAINER.get<ObtenerUbicacionesCercanasUseCase>(
+        TYPESDEPENDENCIES.ObtenerUbicacionesCercanasUseCase,
     );
 
     async crearUbicacion(req: Req): Promise<Response<Status | null>> {
@@ -73,5 +80,11 @@ export default class UbicacionesController {
     async listarUbicaciones(): Promise<Response<Status | null>> {
         const ubicaciones = await this.listarUbicacionesUseCase.execute();
         return Result.ok<Status>({ ok: 'Ubicaciones listadas exitosamente', data: ubicaciones });
+    }
+
+    async obtenerUbicacionesCercanas(req: Req): Promise<Response<Status | null>> {
+        const direccion = validateData<IObtenerUbicacionesCercanasIn>(IObtenerUbicacionesCercanasSchema, req.body);
+        const ubicacionesCercanas = await this.obtenerUbicacionesCercanasUseCase.execute(direccion);
+        return Result.ok<Status>({ ok: 'Ubicaciones cercanas obtenidas exitosamente', data: ubicacionesCercanas });
     }
 }

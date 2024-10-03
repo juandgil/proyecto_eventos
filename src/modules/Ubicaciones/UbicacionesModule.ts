@@ -64,6 +64,15 @@ export default class UbicacionesModule implements IModule {
                     preHandler: [authMiddleware],
                 },
             },
+            {
+                metodo: HTTPMETODO.POST,
+                url: '/cercanas',
+                evento: ubicacionesController.obtenerUbicacionesCercanas.bind(ubicacionesController),
+                schema: UbicacionesSchema.obtenerUbicacionesCercanas,
+                handler: {
+                    preHandler: [authMiddleware],
+                },
+            },
         ];
     };
 

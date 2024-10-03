@@ -32,7 +32,8 @@
             "@configuration": ["configuration/index"],
             "@configuration/*": ["configuration/*"],
             "@util": ["util/index"]
-        }
+        },
+        "allowSyntheticDefaultImports": true
     },
     "exclude": ["node_modules", "dist"]
 }

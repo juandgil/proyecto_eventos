@@ -25,3 +25,7 @@ export interface IConsultarUbicacionIn {
 export interface IEliminarUbicacionIn {
     id: number;
 }
+
+export interface IObtenerUbicacionesCercanasIn {
+    direccion: string;
+}

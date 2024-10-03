@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:8081/domain/proyecto-events
-@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc4ODEwMzAsImV4cCI6MTcyNzg4NDYzMH0.oXFWfaBav_31hft2J4hpKCQcEgvqv8DczIuNaWYpW9A
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc5NjIzNTAsImV4cCI6MTcyNzk2NTk1MH0.tjf0-W-RtPKt-Oee7pIJdagrkal-NLUa-jz9gYYn1d8
 
 ### Crear una nueva ubicación
 POST {{baseUrl}}/ubicaciones/crear
@@ -37,3 +37,22 @@ Authorization: Bearer {{authToken}}
 ### Listar todas las ubicaciones
 GET {{baseUrl}}/ubicaciones/listar
 Authorization: Bearer {{authToken}}
+
+### Obtener ubicaciones cercanas
+POST {{baseUrl}}/ubicaciones/cercanas
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "direccion": "Calle 93 #11A-31, Bogotá, Colombia"
+}
+
+### Obtener ubicaciones cercanas (dirección inválida)
+POST {{baseUrl}}/ubicaciones/cercanas
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "direccion": ""
+}
+

@@ -22,6 +22,9 @@ const ENV = {
     PORT: process.env.PORT || '8081',
     PREFIX_LOGGER: process.env.PREFIX_LOGGER || 'logg',
     LOGGER_LEVEL: process.env.LOGGER_LEVEL || 'false',
+    MAPBOX_ACCESS_TOKEN:
+        process.env.MAPBOX_ACCESS_TOKEN ||
+        'pk.eyJ1IjoianVhbmdpbG1hcGJveCIsImEiOiJjbTFzd3VkbmYwYW44MmtvZHhmdjdubnJtIn0.IP53IzbaUO5OUWMPczGlaw',
 };
 
 if (!isTestingJestEnv) validateEnvs(ENV);

@@ -175,6 +175,56 @@ const UbicacionesSchema = {
             500: RepositoryErrorSchema,
         },
     },
+    obtenerUbicacionesCercanas: {
+        description: 'Obtener ubicaciones cercanas',
+        tags: ['Ubicaciones'],
+        summary: 'Obtiene ubicaciones cercanas basadas en una dirección',
+        body: {
+            type: 'object',
+            required: ['direccion'],
+            properties: {
+                direccion: { type: 'string' },
+            },
+        },
+        response: {
+            200: {
+                description: 'Ubicaciones cercanas obtenidas exitosamente',
+                type: 'object',
+                properties: {
+                    isError: { type: 'boolean', example: false },
+                    data: {
+                        type: 'object',
+                        properties: {
+                            ok: { type: 'string', example: 'Ubicaciones cercanas obtenidas exitosamente' },
+                            data: {
+                                type: 'object',
+                                properties: {
+                                    ubicaciones: {
+                                        type: 'array',
+                                        items: {
+                                            type: 'object',
+                                            properties: {
+                                                nombre: { type: 'string' },
+                                                direccion: { type: 'string' },
+                                                coordenadas: {
+                                                    type: 'array',
+                                                    items: { type: 'number' },
+                                                    minItems: 2,
+                                                    maxItems: 2,
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+            400: BadRequestSchema,
+            500: RepositoryErrorSchema,
+        },
+    },
 };
 
 export default UbicacionesSchema;

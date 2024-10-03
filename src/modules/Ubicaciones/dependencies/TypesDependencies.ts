@@ -6,6 +6,8 @@ const TYPESDEPENDENCIES = {
     EliminarUbicacionUseCase: Symbol.for('EliminarUbicacionUseCase'),
     ConsultarUbicacionUseCase: Symbol.for('ConsultarUbicacionUseCase'),
     ListarUbicacionesUseCase: Symbol.for('ListarUbicacionesUseCase'),
+    ObtenerUbicacionesCercanasUseCase: Symbol.for('ObtenerUbicacionesCercanasUseCase'),
+    ApiServiceAxios: Symbol.for('ApiServiceAxios'),
 };
 
 export default TYPESDEPENDENCIES;

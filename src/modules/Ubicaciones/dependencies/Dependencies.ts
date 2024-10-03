@@ -1,5 +1,7 @@
 import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
+import ApiServiceAxios from '@common/http/services/apiServiceAxios';
 import PostgresUbicacionesRepository from '@infrastructure/bd/dao/PostgresUbicacionesRepository';
+import { AxiosRepository } from '@common/http/repositories/AxiosRepository';
 import TYPESDEPENDENCIES from './TypesDependencies';
 import UbicacionesController from '../controllers/UbicacionesController';
 import { UbicacionesRepository } from '../domain/repositories/UbicacionesRepository';
@@ -8,6 +10,7 @@ import ActualizarUbicacionUseCase from '../usecase/services/ActualizarUbicacione
 import EliminarUbicacionUseCase from '../usecase/services/EliminarUbicacionUseCase';
 import ConsultarUbicacionUseCase from '../usecase/services/ConsultarUbicacionesUseCase';
 import ListarUbicacionesUseCase from '../usecase/services/ListarUbicacionesUseCase';
+import ObtenerUbicacionesCercanasUseCase from '../usecase/services/ObtenerUbicacionesCercanasUseCase';
 
 export default function createDependencies(): void {
     DEPENDENCY_CONTAINER.bind<UbicacionesController>(TYPESDEPENDENCIES.UbicacionesController).to(UbicacionesController);
@@ -27,4 +30,8 @@ export default function createDependencies(): void {
     DEPENDENCY_CONTAINER.bind<ListarUbicacionesUseCase>(TYPESDEPENDENCIES.ListarUbicacionesUseCase).to(
         ListarUbicacionesUseCase,
     );
+    DEPENDENCY_CONTAINER.bind<ObtenerUbicacionesCercanasUseCase>(
+        TYPESDEPENDENCIES.ObtenerUbicacionesCercanasUseCase,
+    ).to(ObtenerUbicacionesCercanasUseCase);
+    DEPENDENCY_CONTAINER.bind<AxiosRepository>(TYPESDEPENDENCIES.ApiServiceAxios).to(ApiServiceAxios);
 }
