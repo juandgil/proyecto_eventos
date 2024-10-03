@@ -1,0 +1,52 @@
+@baseUrl = http://localhost:8081/domain/proyecto-events
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc5ODQ0NzcsImV4cCI6MTcyNzk4ODA3N30.52Ayc8vozMKjOADRzc0sOcsqXa-vWso0MDrEmXp-GFc
+
+### Crear una nueva asistencia
+POST {{baseUrl}}/asistencias/crear
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "id_usuario": 3,
+  "id_evento": 1
+}
+
+### Consultar una asistencia por ID
+GET {{baseUrl}}/asistencias/consultar/1
+Authorization: Bearer {{authToken}}
+
+### Listar asistencias
+POST {{baseUrl}}/asistencias/listar
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "page": 1,
+  "limit": 10,
+  "id_usuario": 1,
+  "id_evento": 1
+}
+
+### Listar todas las asistencias sin filtros
+POST {{baseUrl}}/asistencias/listar
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "page": 1,
+  "limit": 10
+}
+
+### Intentar crear una asistencia duplicada (debería fallar)
+POST {{baseUrl}}/asistencias/crear
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "id_usuario": 1,
+  "id_evento": 1
+}
+
+### Consultar una asistencia inexistente (debería fallar)
+GET {{baseUrl}}/asistencias/consultar/9999
+Authorization: Bearer {{authToken}}

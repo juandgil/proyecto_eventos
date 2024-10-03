@@ -8,12 +8,20 @@ import CategoriasModule from '@modules/Categorias/CategoriasModule';
 import { globalDependencies } from '@common/dependencies/DependencyContainer';
 import UbicacionesModule from '@modules/Ubicaciones/UbicacionesModule';
 import EventosModule from '@modules/eventos/EventosModule';
+import AsistenciasModule from '@modules/Asistencias/AsistenciasModule';
 
 async function bootstrap() {
     const modulesFactory = new ModulesFactory();
     const server = modulesFactory.createServer(TYPESSERVER.Fastify);
     globalDependencies();
-    modulesFactory.initModules([UsuariosModules, PerfilesModule, CategoriasModule, UbicacionesModule, EventosModule]);
+    modulesFactory.initModules([
+        UsuariosModules,
+        PerfilesModule,
+        CategoriasModule,
+        UbicacionesModule,
+        EventosModule,
+        AsistenciasModule,
+    ]);
     server?.start();
 }
 bootstrap();
