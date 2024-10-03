@@ -9,7 +9,7 @@ import { IDatabase, IMain } from 'pg-promise';
 import TYPESDEPENDENCIESGLOBAL from '@common/dependencies/TypesDependencies';
 import { beforeAll, describe, expect, it } from '@jest/globals';
 import NotFoundException from '@common/http/exceptions/NotFoundException';
-import limpiarBaseDeDatos from '@common/util/testUtils';
+import limpiarBaseDeDatos  from '@common/util/testUtils';
 import { ICrearUbicacionIn } from '../usecase/dto/in/IUbicacionesIn';
 
 let db: ReturnType<typeof mockConfiguracionesDB>;

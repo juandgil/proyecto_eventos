@@ -70,7 +70,6 @@ const EventosSchema = {
                 descripcion: { type: 'string' },
                 fecha_inicio: { type: 'string', format: 'date-time' },
                 fecha_fin: { type: 'string', format: 'date-time' },
-                id_creador: { type: 'integer' },
                 id_ubicacion: { type: 'integer' },
                 id_categoria: { type: 'integer' },
             },
@@ -86,7 +85,7 @@ const EventosSchema = {
                     descripcion: { type: 'string' },
                     fecha_inicio: { type: 'string', format: 'date-time' },
                     fecha_fin: { type: 'string', format: 'date-time' },
-                    id_creador: { type: 'integer' },
+                    id_usuario: { type: 'integer' },
                     id_ubicacion: { type: 'integer' },
                     id_categoria: { type: 'integer' },
                     creado_en: { type: 'string', format: 'date-time' },
@@ -188,7 +187,7 @@ const EventosSchema = {
         description: 'Listar eventos con filtros opcionales',
         tags: ['Eventos'],
         security: [{ JWT: [] }],
-        querystring: {
+        body: {
             type: 'object',
             properties: {
                 page: { type: 'integer', minimum: 1 },
@@ -214,7 +213,7 @@ const EventosSchema = {
                                 descripcion: { type: 'string' },
                                 fecha_inicio: { type: 'string', format: 'date-time' },
                                 fecha_fin: { type: 'string', format: 'date-time' },
-                                id_creador: { type: 'integer' },
+                                id_usuario: { type: 'integer' },
                                 id_ubicacion: { type: 'integer' },
                                 id_categoria: { type: 'integer' },
                                 creado_en: { type: 'string', format: 'date-time' },
@@ -222,15 +221,9 @@ const EventosSchema = {
                             },
                         },
                     },
-                    paginacion: {
-                        type: 'object',
-                        properties: {
-                            paginaActual: { type: 'integer' },
-                            totalPaginas: { type: 'integer' },
-                            totalEventos: { type: 'integer' },
-                            eventosPorPagina: { type: 'integer' },
-                        },
-                    },
+                    total: { type: 'integer' },
+                    pagina: { type: 'integer' },
+                    limite: { type: 'integer' },
                 },
             },
             401: UnauthorizedSchema,

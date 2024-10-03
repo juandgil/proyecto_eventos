@@ -22,6 +22,14 @@ beforeAll(async () => {
     DEPENDENCY_CONTAINER.bind<IDatabase<IMain>>(TYPESDEPENDENCIESGLOBAL.db).toConstantValue(db);
 
     eventosController = new EventosController();
+
+    // Verificar que la base de datos se ha inicializado correctamente
+    const categorias = await db.query('SELECT * FROM public.categorias_eventos');
+    console.log('Categorías en la base de datos:', categorias);
+
+    if (categorias.length === 0) {
+        throw new Error('La tabla de categorías está vacía. La base de datos no se ha inicializado correctamente.');
+    }
 });
 
 describe('Eliminar Evento', () => {
@@ -30,16 +38,20 @@ describe('Eliminar Evento', () => {
     });
 
     it('Debe eliminar un evento correctamente', async () => {
-        const crearData: ICrearEventoIn = {
+        const fechaFutura = new Date();
+        fechaFutura.setDate(fechaFutura.getDate() + 1); // Establece la fecha para mañana
+
+        const eventoMock = {
             titulo: 'Evento para Eliminar',
             descripcion: 'Descripción de prueba',
-            fecha_inicio: new Date(),
-            fecha_fin: new Date(),
+            fecha_inicio: new Date('2023-06-01T10:00:00Z'),
+            fecha_fin: fechaFutura,
             id_creador: 1,
             id_ubicacion: 1,
             id_categoria: 1,
         };
-        const crearRequest: Req = { body: crearData, params: {}, data: {} };
+
+        const crearRequest: Req = { body: eventoMock, params: {}, data: {} };
         const eventoCreado = await eventosController.crearEvento(crearRequest);
         const idEvento = (eventoCreado.response.data as any).data.id_evento;
 

@@ -1,61 +1,33 @@
 import { newDb } from 'pg-mem';
-import fs from 'fs';
-import path from 'path';
 import { IMain, IDatabase } from 'pg-promise';
 import { logger } from '@common/logger';
 
-const createMemoryDB = (sqlFilePath: string): IDatabase<IMain> => {
+const createMemoryDB = (): IDatabase<IMain> => {
     const dbmem = newDb();
-    dbmem.public.interceptQueries((sql) => {
-        let newSql = sql.replace(/\bnumeric\s*\(\s*\d+\s*,\s*\d+\s*\)/g, 'float');
-        newSql = newSql.replace(/serial4/g, 'serial');
-        if (sql !== newSql) {
-            return dbmem.public.many(newSql);
-        }
-        return null;
-    });
+
+    // Registrar el lenguaje PL/pgSQL
+    dbmem.registerLanguage('plpgsql', () => () => ({}));
 
     try {
-        const sql = fs.readFileSync(path.join(__dirname, sqlFilePath), 'utf8');
-        dbmem.public.none(sql);
-
-        // Actualizar la creación de la tabla eventos para que coincida con el DDL real
         dbmem.public.none(`
-            CREATE TABLE IF NOT EXISTS public.eventos (
-                id_evento SERIAL PRIMARY KEY,
-                titulo VARCHAR(100) NOT NULL,
-                descripcion TEXT,
-                fecha_inicio TIMESTAMP NOT NULL,
-                fecha_fin TIMESTAMP NOT NULL,
-                id_creador INTEGER,
-                id_ubicacion INTEGER,
-                id_categoria INTEGER,
-                creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                CONSTRAINT eventos_usuarios_fk FOREIGN KEY (id_creador) REFERENCES Usuarios(id_usuario),
-                CONSTRAINT eventos_ubicaciones_fk FOREIGN KEY (id_ubicacion) REFERENCES Ubicaciones(id_ubicacion),
-                CONSTRAINT eventos_categorias_fk FOREIGN KEY (id_categoria) REFERENCES Categorias_Eventos(id_categoria)
+            CREATE TABLE IF NOT EXISTS public.perfiles (
+                id_perfil SERIAL PRIMARY KEY,
+                nombre VARCHAR(50) UNIQUE NOT NULL,
+                descripcion TEXT
             );
-        `);
 
-        // Crear tablas adicionales necesarias para los eventos
-        dbmem.public.none(`
             CREATE TABLE IF NOT EXISTS public.usuarios (
                 id_usuario SERIAL PRIMARY KEY,
-                nombre_usuario VARCHAR(50) NOT NULL,
-                correo VARCHAR(100) NOT NULL,
+                nombre_usuario VARCHAR(50) UNIQUE NOT NULL,
+                correo VARCHAR(100) UNIQUE NOT NULL,
                 hash_contrasena VARCHAR(255) NOT NULL,
-                id_perfil INTEGER,
-                activo BOOLEAN DEFAULT TRUE,
-                creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                id_perfil INTEGER REFERENCES public.perfiles(id_perfil),
+                activo BOOLEAN DEFAULT TRUE
             );
 
             CREATE TABLE IF NOT EXISTS public.categorias_eventos (
                 id_categoria SERIAL PRIMARY KEY,
-                nombre VARCHAR(50) NOT NULL,
-                creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                nombre VARCHAR(50) UNIQUE NOT NULL
             );
 
             CREATE TABLE IF NOT EXISTS public.ubicaciones (
@@ -63,24 +35,61 @@ const createMemoryDB = (sqlFilePath: string): IDatabase<IMain> => {
                 nombre VARCHAR(100) NOT NULL,
                 direccion VARCHAR(255) NOT NULL,
                 latitud FLOAT NOT NULL,
-                longitud FLOAT NOT NULL,
-                creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                longitud FLOAT NOT NULL
             );
+
+            CREATE TABLE IF NOT EXISTS public.eventos (
+                id_evento SERIAL PRIMARY KEY,
+                titulo VARCHAR(100) NOT NULL,
+                descripcion TEXT,
+                fecha_inicio TIMESTAMP NOT NULL,
+                fecha_fin TIMESTAMP NOT NULL,
+                id_creador INTEGER REFERENCES public.usuarios(id_usuario),
+                id_ubicacion INTEGER REFERENCES public.ubicaciones(id_ubicacion),
+                id_categoria INTEGER REFERENCES public.categorias_eventos(id_categoria)
+            );
+
+            CREATE TABLE IF NOT EXISTS public.asistencias (
+                id_asistencia SERIAL PRIMARY KEY,
+                id_usuario INTEGER REFERENCES public.usuarios(id_usuario),
+                id_evento INTEGER REFERENCES public.eventos(id_evento),
+                UNIQUE(id_usuario, id_evento)
+            );
+
+            -- Insertar datos de prueba
+            INSERT INTO public.perfiles (id_perfil, nombre, descripcion) VALUES
+            (1, 'Usuario Regular', 'Usuario estándar con acceso básico'),
+            (2, 'Organizador', 'Usuario con permisos para crear y gestionar eventos'),
+            (3, 'Administrador', 'Usuario con acceso completo al sistema')
+            ON CONFLICT (id_perfil) DO NOTHING;
+
+            INSERT INTO public.usuarios (id_usuario, nombre_usuario, correo, hash_contrasena, id_perfil) VALUES
+            (1, 'usuario_test', 'test@example.com', 'hash_password', 1)
+            ON CONFLICT (id_usuario) DO NOTHING;
+
+            INSERT INTO public.categorias_eventos (id_categoria, nombre) VALUES
+            (1, 'Categoría de prueba 1'),
+            (2, 'Categoría de prueba 2')
+            ON CONFLICT (id_categoria) DO NOTHING;
+
+            INSERT INTO public.ubicaciones (id_ubicacion, nombre, direccion, latitud, longitud) VALUES
+            (1, 'Ubicación de prueba 1', 'Dirección 1', 0, 0),
+            (2, 'Ubicación de prueba 2', 'Dirección 2', 0, 0)
+            ON CONFLICT (id_ubicacion) DO NOTHING;
         `);
     } catch (error) {
         logger.error('TEST', '182946189264', [`Error creando la base de datos: ${error}`]);
+        throw error;
     }
 
-    const pg = dbmem.adapters.createPgPromise();
-    return pg;
+    return dbmem.adapters.createPgPromise();
 };
 
 let eventosDB: IDatabase<IMain>;
 
 export const mockConfiguracionesDB = (): IDatabase<IMain> => {
     if (!eventosDB) {
-        eventosDB = createMemoryDB('./database.sql');
+        eventosDB = createMemoryDB();
     }
     return eventosDB;
 };

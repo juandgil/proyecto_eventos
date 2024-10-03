@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { mockConfiguracionesDB } from './mocks/postgresql/crear-pg-mem';
+import { mockConfiguracionesDB } from '@modules/eventos/test/mocks/postgresql/crear-pg-mem';
 import CategoriasController from '../controllers/CategoriasController';
 import { Req } from '@modules/shared/infrastructure';
 import { Response } from '@common/http/Response';
@@ -8,7 +8,7 @@ import createDependencies from '../dependencies/Dependencies';
 import { IDatabase, IMain } from 'pg-promise';
 import TYPESDEPENDENCIESGLOBAL from '@common/dependencies/TypesDependencies';
 import { beforeAll, describe, expect, it } from '@jest/globals';
-import limpiarBaseDeDatos from '../../../common/util/testUtils';
+import limpiarBaseDeDatos from '@common/util/testUtils';
 
 let db: ReturnType<typeof mockConfiguracionesDB>;
 let categoriasController: CategoriasController;
@@ -25,6 +25,8 @@ beforeAll(async () => {
 describe('Crear Categoria', () => {
     beforeEach(async () => {
         await limpiarBaseDeDatos();
+        // Limpia la tabla de categorías
+        await db.none('TRUNCATE TABLE categorias_eventos RESTART IDENTITY CASCADE');
     });
 
     it('Debe crear una categoría correctamente', async () => {

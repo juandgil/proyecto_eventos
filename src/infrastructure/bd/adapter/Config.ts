@@ -7,7 +7,7 @@ const configuracionesBD: IConnectionParameters = {
     port: +ENV.PG_PORT,
     user: ENV.POSTGRES_USER,
     password: ENV.POSTGRES_PASS,
-    database: 'postgres',
+    database: ENV.POSTGRES_DATABASE,
     connectionTimeoutMillis: 10000000,
     max: 30,
     idleTimeoutMillis: 30000000,

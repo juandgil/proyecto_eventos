@@ -1,8 +1,8 @@
-@baseUrl = http://localhost:3000/api
-@authToken = tu_token_jwt_aqui
+@baseUrl = http://localhost:8081/domain/proyecto-events
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJpYXQiOjE3Mjc5MDY5MTUsImV4cCI6MTcyNzkxMDUxNX0.GPRe0WLBsftsSNCUxY2h759F6YWcHK_7ogsdAlBWsnI
 
 ### Crear un nuevo evento
-POST {{baseUrl}}/eventos
+POST {{baseUrl}}/eventos/crear
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -17,7 +17,7 @@ Authorization: Bearer {{authToken}}
 }
 
 ### Actualizar un evento existente
-PUT {{baseUrl}}/eventos
+PUT {{baseUrl}}/eventos/actualizar
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -32,13 +32,21 @@ Authorization: Bearer {{authToken}}
 }
 
 ### Eliminar un evento
-DELETE {{baseUrl}}/eventos/1
+DELETE {{baseUrl}}/eventos/eliminar/1
 Authorization: Bearer {{authToken}}
 
 ### Consultar un evento por ID
-GET {{baseUrl}}/eventos/1
+GET {{baseUrl}}/eventos/consultar/1
 Authorization: Bearer {{authToken}}
 
 ### Listar eventos con filtros
-GET {{baseUrl}}/eventos?page=1&limit=10&fecha_inicio=2023-06-01T00:00:00Z&fecha_fin=2023-06-30T23:59:59Z&id_categoria=1&id_ubicacion=1
+POST {{baseUrl}}/eventos/listar
+Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+{
+  "page": 1,
+  "limit": 50,
+  "fecha_inicio": "2023-01-01T00:00:00Z",
+  "fecha_fin": "2024-12-31T23:59:59Z"
+}

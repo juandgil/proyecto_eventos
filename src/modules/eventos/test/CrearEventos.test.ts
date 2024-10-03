@@ -8,7 +8,7 @@ import createDependencies from '../dependencies/Dependencies';
 import { IDatabase, IMain } from 'pg-promise';
 import TYPESDEPENDENCIESGLOBAL from '@common/dependencies/TypesDependencies';
 import { beforeAll, describe, expect, it } from '@jest/globals';
-import limpiarBaseDeDatos from '../../../common/util/testUtils';
+import limpiarBaseDeDatos from '@common/util/testUtils';
 import { ICrearEventoIn } from '../usecase/dto/in/IEventosIn';
 
 let db: ReturnType<typeof mockConfiguracionesDB>;
@@ -21,6 +21,14 @@ beforeAll(async () => {
     DEPENDENCY_CONTAINER.bind<IDatabase<IMain>>(TYPESDEPENDENCIESGLOBAL.db).toConstantValue(db);
 
     eventosController = new EventosController();
+
+    // Verificar que la base de datos se ha inicializado correctamente
+    const categorias = await db.query('SELECT * FROM public.categorias_eventos');
+    console.log('Categorías en la base de datos:', categorias);
+
+    if (categorias.length === 0) {
+        throw new Error('La tabla de categorías está vacía. La base de datos no se ha inicializado correctamente.');
+    }
 });
 
 describe('Crear Evento', () => {
@@ -32,8 +40,8 @@ describe('Crear Evento', () => {
         const data: ICrearEventoIn = {
             titulo: 'Evento Test',
             descripcion: 'Descripción Test',
-            fecha_inicio: new Date(),
-            fecha_fin: new Date(),
+            fecha_inicio: new Date('2023-06-01T10:00:00Z'),
+            fecha_fin: new Date('2023-06-01T12:00:00Z'),
             id_creador: 1,
             id_ubicacion: 1,
             id_categoria: 1,
@@ -51,8 +59,8 @@ describe('Crear Evento', () => {
         const data: ICrearEventoIn = {
             titulo: 'Evento Test Duplicado',
             descripcion: 'Descripción Test',
-            fecha_inicio: new Date(),
-            fecha_fin: new Date(),
+            fecha_inicio: new Date('2023-06-01T10:00:00Z'),
+            fecha_fin: new Date('2023-06-01T12:00:00Z'),
             id_creador: 1,
             id_ubicacion: 1,
             id_categoria: 1,
@@ -65,7 +73,7 @@ describe('Crear Evento', () => {
             fail('Se esperaba que la creación del evento duplicado fallara');
         } catch (error) {
             expect(error).toHaveProperty('statusCode', 400);
-            expect(error).toHaveProperty('message', 'Ya existe un evento con el mismo nombre');
+            expect(error).toHaveProperty('message', 'Ya existe un evento con el mismo título');
         }
     });
 });

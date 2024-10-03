@@ -8,7 +8,7 @@ import createDependencies from '../dependencies/Dependencies';
 import { IDatabase, IMain } from 'pg-promise';
 import TYPESDEPENDENCIESGLOBAL from '@common/dependencies/TypesDependencies';
 import { beforeAll, beforeEach, describe, expect, it } from '@jest/globals';
-import limpiarBaseDeDatos from '../../../common/util/testUtils';
+import limpiarBaseDeDatos  from '@common/util/testUtils';
 import { ICrearEventoIn, IActualizarEventoIn } from '../usecase/dto/in/IEventosIn';
 
 let db: ReturnType<typeof mockConfiguracionesDB>;
@@ -21,6 +21,14 @@ beforeAll(async () => {
     DEPENDENCY_CONTAINER.bind<IDatabase<IMain>>(TYPESDEPENDENCIESGLOBAL.db).toConstantValue(db);
 
     eventosController = new EventosController();
+
+    // Verificar que la base de datos se ha inicializado correctamente
+    const categorias = await db.query('SELECT * FROM public.categorias_eventos');
+    console.log('Categorías en la base de datos:', categorias);
+
+    if (categorias.length === 0) {
+        throw new Error('La tabla de categorías está vacía. La base de datos no se ha inicializado correctamente.');
+    }
 });
 
 beforeEach(async () => {
@@ -32,8 +40,8 @@ describe('Actualizar Evento', () => {
         const crearData: ICrearEventoIn = {
             titulo: 'Evento para Actualizar',
             descripcion: 'Descripción inicial',
-            fecha_inicio: new Date(),
-            fecha_fin: new Date(),
+            fecha_inicio: new Date('2023-06-01T10:00:00Z'),
+            fecha_fin: new Date('2023-06-01T12:00:00Z'),
             id_creador: 1, // Asume que existe un usuario con este ID
             id_ubicacion: 1,
             id_categoria: 1, // Asume que existe una categoría con este ID
@@ -46,8 +54,8 @@ describe('Actualizar Evento', () => {
             id_evento: idEvento,
             titulo: 'Evento Actualizado',
             descripcion: 'Nueva descripción',
-            fecha_inicio: new Date(),
-            fecha_fin: new Date(),
+            fecha_inicio: new Date('2023-06-01T11:00:00Z'),
+            fecha_fin: new Date('2023-06-01T13:00:00Z'),
             id_creador: 1,
             id_ubicacion: 2,
             id_categoria: 2,

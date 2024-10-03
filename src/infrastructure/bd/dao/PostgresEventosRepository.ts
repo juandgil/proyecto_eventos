@@ -106,7 +106,10 @@ export default class PostgresEventosRepository implements EventosRepository {
 
     async existeCreador(idCreador: number): Promise<boolean> {
         try {
-            const result = await this.db.oneOrNone('SELECT id_usuario FROM public.usuarios WHERE id_usuario = $/idCreador/', { idCreador });
+            const result = await this.db.oneOrNone(
+                'SELECT id_usuario FROM public.usuarios WHERE id_usuario = $/idCreador/',
+                { idCreador },
+            );
             return !!result;
         } catch (error) {
             logger.error('EVENTOS', 'existeCreador', [`Error verificando existencia de creador: ${error}`]);
@@ -116,7 +119,10 @@ export default class PostgresEventosRepository implements EventosRepository {
 
     async existeUbicacion(idUbicacion: number): Promise<boolean> {
         try {
-            const result = await this.db.oneOrNone('SELECT id_ubicacion FROM public.ubicaciones WHERE id_ubicacion = $/idUbicacion/', { idUbicacion });
+            const result = await this.db.oneOrNone(
+                'SELECT id_ubicacion FROM public.ubicaciones WHERE id_ubicacion = $/idUbicacion/',
+                { idUbicacion },
+            );
             return !!result;
         } catch (error) {
             logger.error('EVENTOS', 'existeUbicacion', [`Error verificando existencia de ubicación: ${error}`]);
@@ -126,7 +132,10 @@ export default class PostgresEventosRepository implements EventosRepository {
 
     async existeCategoria(idCategoria: number): Promise<boolean> {
         try {
-            const result = await this.db.oneOrNone('SELECT id_categoria FROM public.categorias_eventos WHERE id_categoria = $/idCategoria/', { idCategoria });
+            const result = await this.db.oneOrNone(
+                'SELECT id_categoria FROM public.categorias_eventos WHERE id_categoria = $/idCategoria/',
+                { idCategoria },
+            );
             return !!result;
         } catch (error) {
             logger.error('EVENTOS', 'existeCategoria', [`Error verificando existencia de categoría: ${error}`]);
@@ -136,7 +145,10 @@ export default class PostgresEventosRepository implements EventosRepository {
 
     async tieneAsistentes(idEvento: number): Promise<boolean> {
         try {
-            const result = await this.db.oneOrNone('SELECT id_asistencia FROM public.asistencias WHERE id_evento = $/idEvento/ LIMIT 1', { idEvento });
+            const result = await this.db.oneOrNone(
+                'SELECT id_asistencia FROM public.asistencias WHERE id_evento = $/idEvento/ LIMIT 1',
+                { idEvento },
+            );
             return !!result;
         } catch (error) {
             logger.error('EVENTOS', 'tieneAsistentes', [`Error verificando asistentes del evento: ${error}`]);
@@ -146,7 +158,10 @@ export default class PostgresEventosRepository implements EventosRepository {
 
     async obtenerCreador(idCreador: number): Promise<{ id_usuario: number; nombre_usuario: string }> {
         try {
-            const result = await this.db.one('SELECT id_usuario, nombre_usuario FROM public.usuarios WHERE id_usuario = $/idCreador/', { idCreador });
+            const result = await this.db.one(
+                'SELECT id_usuario, nombre_usuario FROM public.usuarios WHERE id_usuario = $/idCreador/',
+                { idCreador },
+            );
             return result;
         } catch (error) {
             logger.error('EVENTOS', 'obtenerCreador', [`Error obteniendo creador: ${error}`]);
@@ -156,7 +171,10 @@ export default class PostgresEventosRepository implements EventosRepository {
 
     async obtenerUbicacion(idUbicacion: number): Promise<{ id_ubicacion: number; nombre: string; direccion: string }> {
         try {
-            const result = await this.db.one('SELECT id_ubicacion, nombre, direccion FROM public.ubicaciones WHERE id_ubicacion = $/idUbicacion/', { idUbicacion });
+            const result = await this.db.one(
+                'SELECT id_ubicacion, nombre, direccion FROM public.ubicaciones WHERE id_ubicacion = $/idUbicacion/',
+                { idUbicacion },
+            );
             return result;
         } catch (error) {
             logger.error('EVENTOS', 'obtenerUbicacion', [`Error obteniendo ubicación: ${error}`]);
@@ -166,7 +184,10 @@ export default class PostgresEventosRepository implements EventosRepository {
 
     async obtenerCategoria(idCategoria: number): Promise<{ id_categoria: number; nombre: string }> {
         try {
-            const result = await this.db.one('SELECT id_categoria, nombre FROM public.categorias_eventos WHERE id_categoria = $/idCategoria/', { idCategoria });
+            const result = await this.db.one(
+                'SELECT id_categoria, nombre FROM public.categorias_eventos WHERE id_categoria = $/idCategoria/',
+                { idCategoria },
+            );
             return result;
         } catch (error) {
             logger.error('EVENTOS', 'obtenerCategoria', [`Error obteniendo categoría: ${error}`]);
