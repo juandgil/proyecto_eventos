@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="70" failures="0" time="18.529">
-  <testsuite name="Listar Eventos" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:17" time="1.905" tests="1">
-    <testcase classname="Listar Eventos Debe listar los eventos correctamente" name="Listar Eventos Debe listar los eventos correctamente" time="0.067">
+<testsuites name="jest tests" tests="70" failures="0" time="18.758">
+  <testsuite name="Listar Eventos" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:04" time="2.083" tests="1">
+    <testcase classname="Listar Eventos Debe listar los eventos correctamente" name="Listar Eventos Debe listar los eventos correctamente" time="0.06">
     </testcase>
   </testsuite>
-  <testsuite name="CrearUsuarios" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:19" time="1.286" tests="8">
-    <testcase classname="CrearUsuarios Crear usuario con perfil existente correctamente" name="CrearUsuarios Crear usuario con perfil existente correctamente" time="0.088">
+  <testsuite name="CrearUsuarios" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:06" time="1.316" tests="8">
+    <testcase classname="CrearUsuarios Crear usuario con perfil existente correctamente" name="CrearUsuarios Crear usuario con perfil existente correctamente" time="0.096">
     </testcase>
-    <testcase classname="CrearUsuarios No crear usuario con perfil inexistente" name="CrearUsuarios No crear usuario con perfil inexistente" time="0.012">
+    <testcase classname="CrearUsuarios No crear usuario con perfil inexistente" name="CrearUsuarios No crear usuario con perfil inexistente" time="0.011">
     </testcase>
     <testcase classname="CrearUsuarios No crear usuario con correo duplicado" name="CrearUsuarios No crear usuario con correo duplicado" time="0.004">
     </testcase>
-    <testcase classname="CrearUsuarios No crear usuario con nombre de usuario duplicado" name="CrearUsuarios No crear usuario con nombre de usuario duplicado" time="0.007">
+    <testcase classname="CrearUsuarios No crear usuario con nombre de usuario duplicado" name="CrearUsuarios No crear usuario con nombre de usuario duplicado" time="0.005">
     </testcase>
     <testcase classname="CrearUsuarios No crear usuario con correo de usuario duplicado" name="CrearUsuarios No crear usuario con correo de usuario duplicado" time="0.003">
     </testcase>
@@ -19,182 +19,182 @@
     </testcase>
     <testcase classname="CrearUsuarios No crear usuario con campos faltantes" name="CrearUsuarios No crear usuario con campos faltantes" time="0.001">
     </testcase>
-    <testcase classname="CrearUsuarios Crear usuario con perfil por defecto si no se proporciona" name="CrearUsuarios Crear usuario con perfil por defecto si no se proporciona" time="0.071">
+    <testcase classname="CrearUsuarios Crear usuario con perfil por defecto si no se proporciona" name="CrearUsuarios Crear usuario con perfil por defecto si no se proporciona" time="0.073">
     </testcase>
   </testsuite>
-  <testsuite name="Listar Asistencias" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:21" time="0.689" tests="1">
-    <testcase classname="Listar Asistencias Debe listar las asistencias correctamente" name="Listar Asistencias Debe listar las asistencias correctamente" time="0.048">
+  <testsuite name="Crear Ubicacion" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:08" time="0.889" tests="2">
+    <testcase classname="Crear Ubicacion Debe crear una ubicación correctamente" name="Crear Ubicacion Debe crear una ubicación correctamente" time="0.019">
+    </testcase>
+    <testcase classname="Crear Ubicacion Debe fallar al crear una ubicación con nombre duplicado" name="Crear Ubicacion Debe fallar al crear una ubicación con nombre duplicado" time="0.005">
     </testcase>
   </testsuite>
-  <testsuite name="Consultar Asistencia" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:21" time="0.449" tests="2">
-    <testcase classname="Consultar Asistencia Debe consultar una asistencia correctamente" name="Consultar Asistencia Debe consultar una asistencia correctamente" time="0.031">
-    </testcase>
-    <testcase classname="Consultar Asistencia Debe fallar al consultar una asistencia inexistente" name="Consultar Asistencia Debe fallar al consultar una asistencia inexistente" time="0.018">
+  <testsuite name="Listar Asistencias" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:08" time="0.663" tests="1">
+    <testcase classname="Listar Asistencias Debe listar las asistencias correctamente" name="Listar Asistencias Debe listar las asistencias correctamente" time="0.038">
     </testcase>
   </testsuite>
-  <testsuite name="Crear Asistencia" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:22" time="0.418" tests="2">
-    <testcase classname="Crear Asistencia Debe crear una asistencia correctamente" name="Crear Asistencia Debe crear una asistencia correctamente" time="0.028">
+  <testsuite name="Eliminar Categoria" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:09" time="0.723" tests="2">
+    <testcase classname="Eliminar Categoria Debe eliminar una categoría correctamente" name="Eliminar Categoria Debe eliminar una categoría correctamente" time="0.021">
     </testcase>
-    <testcase classname="Crear Asistencia Debe fallar al crear una asistencia duplicada" name="Crear Asistencia Debe fallar al crear una asistencia duplicada" time="0.015">
+    <testcase classname="Eliminar Categoria Debe fallar al eliminar una categoría inexistente" name="Eliminar Categoria Debe fallar al eliminar una categoría inexistente" time="0.012">
     </testcase>
   </testsuite>
-  <testsuite name="ActualizarUsuario" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:22" time="0.566" tests="5">
-    <testcase classname="ActualizarUsuario Actualizar usuario correctamente" name="ActualizarUsuario Actualizar usuario correctamente" time="0.02">
+  <testsuite name="Eliminar Perfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:10" time="0.598" tests="2">
+    <testcase classname="Eliminar Perfil Debe eliminar un perfil correctamente" name="Eliminar Perfil Debe eliminar un perfil correctamente" time="0.018">
     </testcase>
-    <testcase classname="ActualizarUsuario No actualizar usuario con ID inexistente" name="ActualizarUsuario No actualizar usuario con ID inexistente" time="0.013">
+    <testcase classname="Eliminar Perfil Debe fallar al eliminar un perfil inexistente" name="Eliminar Perfil Debe fallar al eliminar un perfil inexistente" time="0.003">
     </testcase>
-    <testcase classname="ActualizarUsuario Actualizar contraseña de usuario correctamente" name="ActualizarUsuario Actualizar contraseña de usuario correctamente" time="0.077">
+  </testsuite>
+  <testsuite name="ActualizarUsuario" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:11" time="0.529" tests="5">
+    <testcase classname="ActualizarUsuario Actualizar usuario correctamente" name="ActualizarUsuario Actualizar usuario correctamente" time="0.019">
     </testcase>
-    <testcase classname="ActualizarUsuario Actualizar perfil de usuario correctamente" name="ActualizarUsuario Actualizar perfil de usuario correctamente" time="0.005">
+    <testcase classname="ActualizarUsuario No actualizar usuario con ID inexistente" name="ActualizarUsuario No actualizar usuario con ID inexistente" time="0.01">
+    </testcase>
+    <testcase classname="ActualizarUsuario Actualizar contraseña de usuario correctamente" name="ActualizarUsuario Actualizar contraseña de usuario correctamente" time="0.072">
+    </testcase>
+    <testcase classname="ActualizarUsuario Actualizar perfil de usuario correctamente" name="ActualizarUsuario Actualizar perfil de usuario correctamente" time="0.01">
     </testcase>
     <testcase classname="ActualizarUsuario No actualizar usuario con perfil inexistente" name="ActualizarUsuario No actualizar usuario con perfil inexistente" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="Actualizar Evento" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:23" time="0.447" tests="2">
-    <testcase classname="Actualizar Evento Debe actualizar un evento correctamente" name="Actualizar Evento Debe actualizar un evento correctamente" time="0.033">
+  <testsuite name="AsociarPerfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:11" time="0.458" tests="3">
+    <testcase classname="AsociarPerfil Validar que el perfil exista" name="AsociarPerfil Validar que el perfil exista" time="0.016">
     </testcase>
-    <testcase classname="Actualizar Evento Debe fallar al actualizar un evento inexistente" name="Actualizar Evento Debe fallar al actualizar un evento inexistente" time="0.016">
+    <testcase classname="AsociarPerfil Validar que el usuario exista" name="AsociarPerfil Validar que el usuario exista" time="0.002">
+    </testcase>
+    <testcase classname="AsociarPerfil Asociar perfil exitosamente" name="AsociarPerfil Asociar perfil exitosamente" time="0.006">
     </testcase>
   </testsuite>
-  <testsuite name="ConsultarUsuario" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:23" time="0.46" tests="4">
-    <testcase classname="ConsultarUsuario Consultar usuario existente correctamente" name="ConsultarUsuario Consultar usuario existente correctamente" time="0.007">
+  <testsuite name="ConsultarUsuario" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:12" time="0.427" tests="4">
+    <testcase classname="ConsultarUsuario Consultar usuario existente correctamente" name="ConsultarUsuario Consultar usuario existente correctamente" time="0.006">
     </testcase>
-    <testcase classname="ConsultarUsuario No consultar usuario inexistente" name="ConsultarUsuario No consultar usuario inexistente" time="0.01">
+    <testcase classname="ConsultarUsuario No consultar usuario inexistente" name="ConsultarUsuario No consultar usuario inexistente" time="0.009">
     </testcase>
     <testcase classname="ConsultarUsuario Manejar error con ID de usuario inválido" name="ConsultarUsuario Manejar error con ID de usuario inválido" time="0.003">
     </testcase>
     <testcase classname="ConsultarUsuario Verificar que se devuelven todos los campos esperados del usuario" name="ConsultarUsuario Verificar que se devuelven todos los campos esperados del usuario" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="Crear Evento" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:24" time="0.399" tests="2">
-    <testcase classname="Crear Evento Debe crear un evento correctamente" name="Crear Evento Debe crear un evento correctamente" time="0.017">
+  <testsuite name="Eliminar Ubicacion" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:12" time="0.422" tests="2">
+    <testcase classname="Eliminar Ubicacion Debe eliminar una ubicación correctamente" name="Eliminar Ubicacion Debe eliminar una ubicación correctamente" time="0.016">
     </testcase>
-    <testcase classname="Crear Evento Debe fallar al crear un evento con nombre duplicado" name="Crear Evento Debe fallar al crear un evento con nombre duplicado" time="0.008">
-    </testcase>
-  </testsuite>
-  <testsuite name="Consultar Evento" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:24" time="0.416" tests="2">
-    <testcase classname="Consultar Evento Debe consultar un evento correctamente" name="Consultar Evento Debe consultar un evento correctamente" time="0.029">
-    </testcase>
-    <testcase classname="Consultar Evento Debe fallar al consultar un evento inexistente" name="Consultar Evento Debe fallar al consultar un evento inexistente" time="0.014">
+    <testcase classname="Eliminar Ubicacion Debe fallar al eliminar una ubicación inexistente" name="Eliminar Ubicacion Debe fallar al eliminar una ubicación inexistente" time="0.009">
     </testcase>
   </testsuite>
-  <testsuite name="Crear Ubicacion" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:25" time="0.82" tests="2">
-    <testcase classname="Crear Ubicacion Debe crear una ubicación correctamente" name="Crear Ubicacion Debe crear una ubicación correctamente" time="0.016">
+  <testsuite name="Consultar Asistencia" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:13" time="0.44" tests="2">
+    <testcase classname="Consultar Asistencia Debe consultar una asistencia correctamente" name="Consultar Asistencia Debe consultar una asistencia correctamente" time="0.039">
     </testcase>
-    <testcase classname="Crear Ubicacion Debe fallar al crear una ubicación con nombre duplicado" name="Crear Ubicacion Debe fallar al crear una ubicación con nombre duplicado" time="0.007">
-    </testcase>
-  </testsuite>
-  <testsuite name="Actualizar Ubicacion" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:26" time="0.426" tests="2">
-    <testcase classname="Actualizar Ubicacion Debe actualizar una ubicación correctamente" name="Actualizar Ubicacion Debe actualizar una ubicación correctamente" time="0.021">
-    </testcase>
-    <testcase classname="Actualizar Ubicacion Debe fallar al actualizar una ubicación inexistente" name="Actualizar Ubicacion Debe fallar al actualizar una ubicación inexistente" time="0.014">
+    <testcase classname="Consultar Asistencia Debe fallar al consultar una asistencia inexistente" name="Consultar Asistencia Debe fallar al consultar una asistencia inexistente" time="0.022">
     </testcase>
   </testsuite>
-  <testsuite name="InactivarUsuarios" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:26" time="0.437" tests="4">
-    <testcase classname="InactivarUsuarios Inactivar usuario existente correctamente" name="InactivarUsuarios Inactivar usuario existente correctamente" time="0.012">
+  <testsuite name="Actualizar Evento" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:13" time="0.424" tests="2">
+    <testcase classname="Actualizar Evento Debe actualizar un evento correctamente" name="Actualizar Evento Debe actualizar un evento correctamente" time="0.031">
+    </testcase>
+    <testcase classname="Actualizar Evento Debe fallar al actualizar un evento inexistente" name="Actualizar Evento Debe fallar al actualizar un evento inexistente" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="InactivarUsuarios" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:13" time="0.446" tests="4">
+    <testcase classname="InactivarUsuarios Inactivar usuario existente correctamente" name="InactivarUsuarios Inactivar usuario existente correctamente" time="0.008">
     </testcase>
     <testcase classname="InactivarUsuarios No inactivar usuario inexistente" name="InactivarUsuarios No inactivar usuario inexistente" time="0.009">
     </testcase>
-    <testcase classname="InactivarUsuarios Manejar error con ID de usuario inválido" name="InactivarUsuarios Manejar error con ID de usuario inválido" time="0.003">
+    <testcase classname="InactivarUsuarios Manejar error con ID de usuario inválido" name="InactivarUsuarios Manejar error con ID de usuario inválido" time="0.004">
     </testcase>
     <testcase classname="InactivarUsuarios No permitir inactivar un usuario ya inactivo" name="InactivarUsuarios No permitir inactivar un usuario ya inactivo" time="0.004">
     </testcase>
   </testsuite>
-  <testsuite name="Eliminar Evento" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:27" time="0.405" tests="2">
-    <testcase classname="Eliminar Evento Debe eliminar un evento correctamente" name="Eliminar Evento Debe eliminar un evento correctamente" time="0.025">
+  <testsuite name="Actualizar Ubicacion" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:14" time="0.426" tests="2">
+    <testcase classname="Actualizar Ubicacion Debe actualizar una ubicación correctamente" name="Actualizar Ubicacion Debe actualizar una ubicación correctamente" time="0.034">
     </testcase>
-    <testcase classname="Eliminar Evento Debe fallar al eliminar un evento inexistente" name="Eliminar Evento Debe fallar al eliminar un evento inexistente" time="0.013">
+    <testcase classname="Actualizar Ubicacion Debe fallar al actualizar una ubicación inexistente" name="Actualizar Ubicacion Debe fallar al actualizar una ubicación inexistente" time="0.018">
     </testcase>
   </testsuite>
-  <testsuite name="ListarUsuarios" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:27" time="0.42" tests="3">
-    <testcase classname="ListarUsuarios Listar usuarios correctamente" name="ListarUsuarios Listar usuarios correctamente" time="0.004">
+  <testsuite name="ListarUsuarios" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:14" time="0.486" tests="3">
+    <testcase classname="ListarUsuarios Listar usuarios correctamente" name="ListarUsuarios Listar usuarios correctamente" time="0.005">
     </testcase>
     <testcase classname="ListarUsuarios Verificar que la lista de usuarios no está vacía" name="ListarUsuarios Verificar que la lista de usuarios no está vacía" time="0.001">
     </testcase>
     <testcase classname="ListarUsuarios Verificar que cada usuario en la lista tiene los campos esperados" name="ListarUsuarios Verificar que cada usuario en la lista tiene los campos esperados" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="Consultar Ubicacion" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:27" time="0.411" tests="2">
-    <testcase classname="Consultar Ubicacion Debe consultar una ubicación correctamente" name="Consultar Ubicacion Debe consultar una ubicación correctamente" time="0.022">
+  <testsuite name="Crear Asistencia" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:15" time="0.409" tests="2">
+    <testcase classname="Crear Asistencia Debe crear una asistencia correctamente" name="Crear Asistencia Debe crear una asistencia correctamente" time="0.025">
     </testcase>
-    <testcase classname="Consultar Ubicacion Debe fallar al consultar una ubicación inexistente" name="Consultar Ubicacion Debe fallar al consultar una ubicación inexistente" time="0.014">
-    </testcase>
-  </testsuite>
-  <testsuite name="AsociarPerfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:28" time="0.467" tests="3">
-    <testcase classname="AsociarPerfil Validar que el perfil exista" name="AsociarPerfil Validar que el perfil exista" time="0.016">
-    </testcase>
-    <testcase classname="AsociarPerfil Validar que el usuario exista" name="AsociarPerfil Validar que el usuario exista" time="0.002">
-    </testcase>
-    <testcase classname="AsociarPerfil Asociar perfil exitosamente" name="AsociarPerfil Asociar perfil exitosamente" time="0.005">
+    <testcase classname="Crear Asistencia Debe fallar al crear una asistencia duplicada" name="Crear Asistencia Debe fallar al crear una asistencia duplicada" time="0.016">
     </testcase>
   </testsuite>
-  <testsuite name="Eliminar Ubicacion" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:28" time="0.452" tests="2">
-    <testcase classname="Eliminar Ubicacion Debe eliminar una ubicación correctamente" name="Eliminar Ubicacion Debe eliminar una ubicación correctamente" time="0.017">
+  <testsuite name="Consultar Evento" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:15" time="0.404" tests="2">
+    <testcase classname="Consultar Evento Debe consultar un evento correctamente" name="Consultar Evento Debe consultar un evento correctamente" time="0.025">
     </testcase>
-    <testcase classname="Eliminar Ubicacion Debe fallar al eliminar una ubicación inexistente" name="Eliminar Ubicacion Debe fallar al eliminar una ubicación inexistente" time="0.011">
-    </testcase>
-  </testsuite>
-  <testsuite name="Eliminar Perfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:29" time="0.608" tests="2">
-    <testcase classname="Eliminar Perfil Debe eliminar un perfil correctamente" name="Eliminar Perfil Debe eliminar un perfil correctamente" time="0.022">
-    </testcase>
-    <testcase classname="Eliminar Perfil Debe fallar al eliminar un perfil inexistente" name="Eliminar Perfil Debe fallar al eliminar un perfil inexistente" time="0.003">
+    <testcase classname="Consultar Evento Debe fallar al consultar un evento inexistente" name="Consultar Evento Debe fallar al consultar un evento inexistente" time="0.013">
     </testcase>
   </testsuite>
-  <testsuite name="Eliminar Categoria" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:30" time="0.631" tests="2">
-    <testcase classname="Eliminar Categoria Debe eliminar una categoría correctamente" name="Eliminar Categoria Debe eliminar una categoría correctamente" time="0.015">
+  <testsuite name="Consultar Ubicacion" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:16" time="0.412" tests="2">
+    <testcase classname="Consultar Ubicacion Debe consultar una ubicación correctamente" name="Consultar Ubicacion Debe consultar una ubicación correctamente" time="0.013">
     </testcase>
-    <testcase classname="Eliminar Categoria Debe fallar al eliminar una categoría inexistente" name="Eliminar Categoria Debe fallar al eliminar una categoría inexistente" time="0.009">
-    </testcase>
-  </testsuite>
-  <testsuite name="Actualizar Categoria" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:30" time="0.388" tests="2">
-    <testcase classname="Actualizar Categoria Debe actualizar una categoría correctamente" name="Actualizar Categoria Debe actualizar una categoría correctamente" time="0.017">
-    </testcase>
-    <testcase classname="Actualizar Categoria Debe fallar al actualizar una categoría inexistente" name="Actualizar Categoria Debe fallar al actualizar una categoría inexistente" time="0.01">
+    <testcase classname="Consultar Ubicacion Debe fallar al consultar una ubicación inexistente" name="Consultar Ubicacion Debe fallar al consultar una ubicación inexistente" time="0.009">
     </testcase>
   </testsuite>
-  <testsuite name="Listar Ubicaciones" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:31" time="0.403" tests="1">
-    <testcase classname="Listar Ubicaciones Debe listar las ubicaciones correctamente" name="Listar Ubicaciones Debe listar las ubicaciones correctamente" time="0.018">
+  <testsuite name="Crear Perfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:16" time="0.403" tests="2">
+    <testcase classname="Crear Perfil Debe crear un perfil correctamente" name="Crear Perfil Debe crear un perfil correctamente" time="0.01">
+    </testcase>
+    <testcase classname="Crear Perfil Debe fallar al crear un perfil con nombre duplicado" name="Crear Perfil Debe fallar al crear un perfil con nombre duplicado" time="0.014">
     </testcase>
   </testsuite>
-  <testsuite name="Actualizar Perfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:31" time="0.393" tests="2">
-    <testcase classname="Actualizar Perfil Debe actualizar un perfil correctamente" name="Actualizar Perfil Debe actualizar un perfil correctamente" time="0.01">
+  <testsuite name="Eliminar Evento" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:17" time="0.403" tests="2">
+    <testcase classname="Eliminar Evento Debe eliminar un evento correctamente" name="Eliminar Evento Debe eliminar un evento correctamente" time="0.026">
     </testcase>
-    <testcase classname="Actualizar Perfil Debe fallar al actualizar un perfil inexistente" name="Actualizar Perfil Debe fallar al actualizar un perfil inexistente" time="0.015">
+    <testcase classname="Eliminar Evento Debe fallar al eliminar un evento inexistente" name="Eliminar Evento Debe fallar al eliminar un evento inexistente" time="0.01">
     </testcase>
   </testsuite>
-  <testsuite name="Crear Categoria" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:32" time="0.404" tests="2">
-    <testcase classname="Crear Categoria Debe crear una categoría correctamente" name="Crear Categoria Debe crear una categoría correctamente" time="0.016">
+  <testsuite name="Crear Categoria" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:17" time="0.363" tests="2">
+    <testcase classname="Crear Categoria Debe crear una categoría correctamente" name="Crear Categoria Debe crear una categoría correctamente" time="0.017">
     </testcase>
     <testcase classname="Crear Categoria Debe fallar al crear una categoría con nombre duplicado" name="Crear Categoria Debe fallar al crear una categoría con nombre duplicado" time="0.01">
     </testcase>
   </testsuite>
-  <testsuite name="Consultar Categoria" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:32" time="0.402" tests="2">
+  <testsuite name="Listar Ubicaciones" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:18" time="0.41" tests="1">
+    <testcase classname="Listar Ubicaciones Debe listar las ubicaciones correctamente" name="Listar Ubicaciones Debe listar las ubicaciones correctamente" time="0.019">
+    </testcase>
+  </testsuite>
+  <testsuite name="Consultar Categoria" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:18" time="0.408" tests="2">
     <testcase classname="Consultar Categoria Debe consultar una categoría correctamente" name="Consultar Categoria Debe consultar una categoría correctamente" time="0.011">
     </testcase>
-    <testcase classname="Consultar Categoria Debe fallar al consultar una categoría inexistente" name="Consultar Categoria Debe fallar al consultar una categoría inexistente" time="0.008">
+    <testcase classname="Consultar Categoria Debe fallar al consultar una categoría inexistente" name="Consultar Categoria Debe fallar al consultar una categoría inexistente" time="0.009">
     </testcase>
   </testsuite>
-  <testsuite name="Consultar Perfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:32" time="0.383" tests="2">
-    <testcase classname="Consultar Perfil Debe consultar un perfil correctamente" name="Consultar Perfil Debe consultar un perfil correctamente" time="0.011">
+  <testsuite name="Crear Evento" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:19" time="0.403" tests="2">
+    <testcase classname="Crear Evento Debe crear un evento correctamente" name="Crear Evento Debe crear un evento correctamente" time="0.02">
     </testcase>
-    <testcase classname="Consultar Perfil Debe fallar al consultar un perfil inexistente" name="Consultar Perfil Debe fallar al consultar un perfil inexistente" time="0.008">
-    </testcase>
-  </testsuite>
-  <testsuite name="Listar Perfiles" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:33" time="0.365" tests="1">
-    <testcase classname="Listar Perfiles Debe listar los perfiles correctamente" name="Listar Perfiles Debe listar los perfiles correctamente" time="0.011">
+    <testcase classname="Crear Evento Debe fallar al crear un evento con nombre duplicado" name="Crear Evento Debe fallar al crear un evento con nombre duplicado" time="0.011">
     </testcase>
   </testsuite>
-  <testsuite name="Listar Categorias" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:33" time="0.389" tests="1">
+  <testsuite name="Actualizar Perfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:19" time="0.382" tests="2">
+    <testcase classname="Actualizar Perfil Debe actualizar un perfil correctamente" name="Actualizar Perfil Debe actualizar un perfil correctamente" time="0.009">
+    </testcase>
+    <testcase classname="Actualizar Perfil Debe fallar al actualizar un perfil inexistente" name="Actualizar Perfil Debe fallar al actualizar un perfil inexistente" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="Listar Categorias" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:19" time="0.375" tests="1">
     <testcase classname="Listar Categorias Debe listar las categorías correctamente" name="Listar Categorias Debe listar las categorías correctamente" time="0.015">
     </testcase>
   </testsuite>
-  <testsuite name="Crear Perfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:34" time="0.41" tests="2">
-    <testcase classname="Crear Perfil Debe crear un perfil correctamente" name="Crear Perfil Debe crear un perfil correctamente" time="0.008">
+  <testsuite name="Actualizar Categoria" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:20" time="0.393" tests="2">
+    <testcase classname="Actualizar Categoria Debe actualizar una categoría correctamente" name="Actualizar Categoria Debe actualizar una categoría correctamente" time="0.022">
     </testcase>
-    <testcase classname="Crear Perfil Debe fallar al crear un perfil con nombre duplicado" name="Crear Perfil Debe fallar al crear un perfil con nombre duplicado" time="0.013">
+    <testcase classname="Actualizar Categoria Debe fallar al actualizar una categoría inexistente" name="Actualizar Categoria Debe fallar al actualizar una categoría inexistente" time="0.01">
     </testcase>
   </testsuite>
-  <testsuite name="Testing: Pruebas unitarias funciones" errors="0" failures="0" skipped="0" timestamp="2024-10-03T20:14:34" time="0.087" tests="2">
+  <testsuite name="Consultar Perfil" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:20" time="0.393" tests="2">
+    <testcase classname="Consultar Perfil Debe consultar un perfil correctamente" name="Consultar Perfil Debe consultar un perfil correctamente" time="0.009">
+    </testcase>
+    <testcase classname="Consultar Perfil Debe fallar al consultar un perfil inexistente" name="Consultar Perfil Debe fallar al consultar un perfil inexistente" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="Listar Perfiles" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:21" time="0.371" tests="1">
+    <testcase classname="Listar Perfiles Debe listar los perfiles correctamente" name="Listar Perfiles Debe listar los perfiles correctamente" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="Testing: Pruebas unitarias funciones" errors="0" failures="0" skipped="0" timestamp="2024-10-03T21:05:21" time="0.08" tests="2">
     <testcase classname="Testing: Pruebas unitarias funciones Testing: Funcion OnCreate always be true" name="Testing: Pruebas unitarias funciones Testing: Funcion OnCreate always be true" time="0.001">
     </testcase>
     <testcase classname="Testing: Pruebas unitarias funciones Testing: Funcion OnUpdate always be true" name="Testing: Pruebas unitarias funciones Testing: Funcion OnUpdate always be true" time="0">

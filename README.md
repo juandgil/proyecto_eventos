@@ -2,6 +2,48 @@
 
 Este repositorio contiene una API RESTful en Fastify para la gestión de eventos, utilizando Docker y una base de datos relacional PostgreSQL.
 
+intenta seguir el patron de diseño de clean architecture.
+
+su desarrollo se centra en la calidad del codigo y la arquitectura.
+
+se valoro mas la calidad del codigo que la cantidad de funcionalidades.
+
+existen test unitario con jest para cada modulo.
+
+la cobertura es completa para cada modulo.
+
+existe una carpeta con el modelo de base de datos en bd/ddl.sql y bd/dml.sql
+
+existe una carpeta docs con las pruebas reales efectuadas con el pluguin Rest Client en la carpeta docs/test.http
+
+## Documentación en swagger
+
+en la ruta /domain/proyecto-events/docs/ se encuentra la documentacion de la api con swagger.
+
+## Pruebas unitarias
+la ruta a junit se encuentra en la ruta /domain/proyecto-events/coverage/lcov-report/index.html
+
+## Pruebas y Cobertura
+
+Para ejecutar las pruebas:
+
+```bash
+docker-compose exec app yarn test
+```
+
+Para generar el informe de cobertura:
+
+```bash
+docker-compose exec app yarn coverage
+```
+
+```bash
+docker-compose exec app yarn coverage
+```
+
+Contiene un endpoint que consume la API de Mapbox para obtener ubicaciones cercanas con solo pasar una dirección fisica en un rango de 1 kilometro.
+tener en cuenta que se debe tener una clave de acceso de mapbox en el archivo .env
+
 ## Requisitos previos
 
 - [Node.js](https://nodejs.org/) (versión LTS)
@@ -31,6 +73,7 @@ Este repositorio contiene una API RESTful en Fastify para la gestión de eventos
    PORT=8081
    PREFIX_LOGGER='PREFIX'
    LOGGER_LEVEL='debug'
+   MAPBOX_TOKEN='tu_token_de_mapbox'
    ```
 
 3. Construir y ejecutar los contenedores:
@@ -74,7 +117,7 @@ Este repositorio contiene una API RESTful en Fastify para la gestión de eventos
 Para ejecutar las pruebas:
 bash
 docker-compose exec app yarn test
-## Detener y limpiar
+
 
 Para detener y eliminar los contenedores y volúmenes:
 ## Detener y limpiar
@@ -82,6 +125,7 @@ Para detener y eliminar los contenedores y volúmenes:
 Para detener y eliminar los contenedores y volúmenes:
 bash
 docker-compose down -v
+
 ## Modelo de base de datos
 mermaid
 erDiagram
