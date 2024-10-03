@@ -5,19 +5,67 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  test-and-build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
       with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        node-version: '18'
 
-    - name: Deploy to App Engine
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Run tests
+      run: yarn test
+
+    - name: Build application
+      run: yarn build
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/proyecto-events-app:latest
+
+  deploy:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Copy files to VM
+      env:
+        VM_IP: 34.27.165.41
+        VM_USER: ${{ secrets.VM_USER }}
+        PRIVATE_KEY: ${{ secrets.VM_PRIVATE_KEY }}
       run: |
-        gcloud app deploy app.yaml --quiet
+        echo "$PRIVATE_KEY" > private_key.pem
+        chmod 600 private_key.pem
+        scp -i private_key.pem -o StrictHostKeyChecking=no docker-compose.yml $VM_USER@$VM_IP:/proyectos/
+        scp -i private_key.pem -o StrictHostKeyChecking=no .env $VM_USER@$VM_IP:/proyectos/
+
+    - name: Deploy to VM
+      env:
+        VM_IP: 34.27.165.41
+        VM_USER: ${{ secrets.VM_USER }}
+        PRIVATE_KEY: ${{ secrets.VM_PRIVATE_KEY }}
+      run: |
+        ssh -i private_key.pem -o StrictHostKeyChecking=no $VM_USER@$VM_IP << EOF
+          cd /proyectos
+          docker-compose pull
+          docker-compose up -d
+        EOF
+        rm -f private_key.pem

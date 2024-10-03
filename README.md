@@ -243,58 +243,7 @@ Luego, ejecuta docker-compose up --build para reconstruir y iniciar los contened
 Esto eliminará los contenedores y los volúmenes asociados.
 docker-compose down -v
 
-## Modelo Relacional de la Base de Datos
-
-mermaid
-erDiagram
-USUARIOS ||--o{ EVENTOS : crea
-USUARIOS ||--o{ ASISTENCIAS : participa
-EVENTOS ||--o{ ASISTENCIAS : tiene
-EVENTOS }|--|| UBICACIONES : se_realiza_en
-EVENTOS }|--|| CATEGORIAS_EVENTOS : pertenece_a
-USUARIOS {
-int id PK
-string nombre_usuario
-string correo
-string hash_contrasena
-datetime creado_en
-datetime actualizado_en
-}
-EVENTOS {
-int id PK
-string titulo
-string descripcion
-datetime fecha_inicio
-datetime fecha_fin
-int creador_id FK
-int ubicacion_id FK
-int categoria_id FK
-datetime creado_en
-datetime actualizado_en
-}
-ASISTENCIAS {
-int id PK
-int usuario_id FK
-int evento_id FK
-datetime creado_en
-}
-UBICACIONES {
-int id PK
-string nombre
-string direccion
-decimal latitud
-decimal longitud
-datetime creado_en
-datetime actualizado_en
-}
-CATEGORIAS_EVENTOS {
-int id PK
-string nombre
-datetime creado_en
-datetime actualizado_en
-}
-
-# Proyecto de Gestión de Eventos
+## Proyecto de Gestión de Eventos
 
 ## Configuración de la Base de Datos
 
@@ -306,148 +255,100 @@ Para configurar la base de datos y crear las tablas necesarias, sigue estos paso
    docker-compose up -d
    ```
 
-2. Conéctate a la base de datos PostgreSQL:
+2. Ejecuta el script DDL para crear las tablas:
 
    ```bash
-   docker-compose exec db psql -U postgres -d eventos
+   docker-compose exec db psql -U postgres -d eventos -f /db/DDL.sql
    ```
 
-3. Una vez en el prompt de psql, ejecuta las siguientes sentencias SQL para crear las tablas:
+3. Verifica que las tablas se hayan creado correctamente:
 
-   ```sql
-   -- Creación de la tabla Usuarios
-   CREATE TABLE IF NOT EXISTS Usuarios (
-       id SERIAL PRIMARY KEY,
-       nombre_usuario VARCHAR(50) UNIQUE NOT NULL,
-       correo VARCHAR(100) UNIQUE NOT NULL,
-       hash_contrasena VARCHAR(255) NOT NULL,
-       creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-       actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   );
-
-   -- Creación de la tabla Categorias_Eventos
-   CREATE TABLE IF NOT EXISTS Categorias_Eventos (
-       id SERIAL PRIMARY KEY,
-       nombre VARCHAR(50) UNIQUE NOT NULL,
-       creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-       actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   );
-
-   -- Creación de la tabla Ubicaciones
-   CREATE TABLE IF NOT EXISTS Ubicaciones (
-       id SERIAL PRIMARY KEY,
-       nombre VARCHAR(100) NOT NULL,
-       direccion VARCHAR(255) NOT NULL,
-       latitud DECIMAL(10, 8) NOT NULL,
-       longitud DECIMAL(11, 8) NOT NULL,
-       creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-       actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   );
-
-   -- Creación de la tabla Eventos
-   CREATE TABLE IF NOT EXISTS Eventos (
-       id SERIAL PRIMARY KEY,
-       titulo VARCHAR(100) NOT NULL,
-       descripcion TEXT,
-       fecha_inicio TIMESTAMP NOT NULL,
-       fecha_fin TIMESTAMP NOT NULL,
-       creador_id INTEGER REFERENCES Usuarios(id),
-       ubicacion_id INTEGER REFERENCES Ubicaciones(id),
-       categoria_id INTEGER REFERENCES Categorias_Eventos(id),
-       creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-       actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   );
-
-   -- Creación de la tabla Asistencias
-   CREATE TABLE IF NOT EXISTS Asistencias (
-       id SERIAL PRIMARY KEY,
-       usuario_id INTEGER REFERENCES Usuarios(id),
-       evento_id INTEGER REFERENCES Eventos(id),
-       creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-       UNIQUE(usuario_id, evento_id)
-   );
-   ```
-
-4. Verifica que las tablas se hayan creado correctamente:
-
-   ```sql
-   \dt
+   ```bash
+   docker-compose exec db psql -U postgres -d eventos -c "\dt"
    ```
 
    Deberías ver una lista de las tablas creadas.
 
-5. Para salir del prompt de psql, escribe:
-
-   ```
-   \q
-   ```
-
-
 ## Inserción de Datos Iniciales
 
-Después de crear las tablas, puedes insertar algunos datos iniciales siguiendo estos pasos:
+Después de crear las tablas, puedes insertar los datos iniciales siguiendo estos pasos:
 
-1. Asegúrate de que el contenedor de Docker esté en funcionamiento:
-
-   ```bash
-   docker-compose up -d
-   ```
-
-2. Conéctate a la base de datos PostgreSQL:
-
-   ```bash
-   docker-compose exec db psql -U postgres -d eventos
-   ```
-
-3. Una vez en el prompt de psql, ejecuta las siguientes sentencias SQL para insertar los datos iniciales:
-
-   ```sql
-   -- Insertar usuarios de ejemplo
-   INSERT INTO Usuarios (nombre_usuario, correo, hash_contrasena) VALUES
-   ('juan_perez', 'juan@ejemplo.com', 'hash_contrasena_1'),
-   ('maria_garcia', 'maria@ejemplo.com', 'hash_contrasena_2');
-
-   -- Insertar categorías de eventos
-   INSERT INTO Categorias_Eventos (nombre) VALUES
-   ('Concierto'),
-   ('Conferencia'),
-   ('Taller');
-
-   -- Insertar ubicaciones
-   INSERT INTO Ubicaciones (nombre, direccion, latitud, longitud) VALUES
-   ('Teatro Principal', 'Calle Mayor 1, Ciudad', 40.4168, -3.7038),
-   ('Centro de Convenciones', 'Avenida Central 123, Ciudad', 40.4000, -3.7100);
-
-   -- Insertar eventos
-   INSERT INTO Eventos (titulo, descripcion, fecha_inicio, fecha_fin, creador_id, ubicacion_id, categoria_id) VALUES
-   ('Concierto de Rock', 'Gran concierto de rock con bandas locales', '2024-06-15 20:00:00', '2024-06-15 23:00:00', 1, 1, 1),
-   ('Conferencia de Tecnología', 'Conferencia sobre las últimas tendencias en IA', '2024-07-10 09:00:00', '2024-07-10 18:00:00', 2, 2, 2);
-
-   -- Registrar asistencias
-   INSERT INTO Asistencias (usuario_id, evento_id) VALUES
-   (1, 2),
-   (2, 1);
-   ```
-
-4. Verifica que los datos se hayan insertado correctamente ejecutando consultas SELECT para cada tabla:
-
-   ```sql
-   SELECT * FROM Usuarios;
-   SELECT * FROM Categorias_Eventos;
-   SELECT * FROM Ubicaciones;
-   SELECT * FROM Eventos;
-   SELECT * FROM Asistencias;
-   ```
-
-5. Para salir del prompt de psql, escribe:
-
-   ```
-   \q
-   ```
-
-Ejecuta el siguiente comando para insertar los datos:
+1. Ejecuta el script DML para insertar los datos:
 
    ```bash
    docker-compose exec db psql -U postgres -d eventos -f /db/DML.sql
    ```
+
+2. Verifica que los datos se hayan insertado correctamente ejecutando consultas SELECT para cada tabla:
+
+   ```bash
+   docker-compose exec db psql -U postgres -d eventos -c "SELECT * FROM Perfiles;"
+   docker-compose exec db psql -U postgres -d eventos -c "SELECT * FROM Usuarios;"
+   docker-compose exec db psql -U postgres -d eventos -c "SELECT * FROM Categorias_Eventos;"
+   docker-compose exec db psql -U postgres -d eventos -c "SELECT * FROM Ubicaciones;"
+   docker-compose exec db psql -U postgres -d eventos -c "SELECT * FROM Eventos;"
+   docker-compose exec db psql -U postgres -d eventos -c "SELECT * FROM Asistencias;"
+   ```
+
+## Modelo Relacional de la Base de Datos
+
+```mermaid
+erDiagram
+    PERFILES ||--o{ USUARIOS : tiene
+    USUARIOS ||--o{ EVENTOS : crea
+    USUARIOS ||--o{ ASISTENCIAS : participa
+    EVENTOS ||--o{ ASISTENCIAS : tiene
+    EVENTOS }|--|| UBICACIONES : se_realiza_en
+    EVENTOS }|--|| CATEGORIAS_EVENTOS : pertenece_a
+    PERFILES {
+        int id_perfil PK
+        string nombre
+        string descripcion
+        datetime creado_en
+        datetime actualizado_en
+    }
+    USUARIOS {
+        int id_usuario PK
+        string nombre_usuario
+        string correo
+        string hash_contrasena
+        int id_perfil FK
+        boolean activo
+        datetime creado_en
+        datetime actualizado_en
+    }
+    EVENTOS {
+        int id_evento PK
+        string titulo
+        string descripcion
+        datetime fecha_inicio
+        datetime fecha_fin
+        int id_creador FK
+        int id_ubicacion FK
+        int id_categoria FK
+        datetime creado_en
+        datetime actualizado_en
+    }
+    ASISTENCIAS {
+        int id_asistencia PK
+        int id_usuario FK
+        int id_evento FK
+        datetime creado_en
+    }
+    UBICACIONES {
+        int id_ubicacion PK
+        string nombre
+        string direccion
+        decimal latitud
+        decimal longitud
+        datetime creado_en
+        datetime actualizado_en
+    }
+    CATEGORIAS_EVENTOS {
+        int id_categoria PK
+        string nombre
+        datetime creado_en
+        datetime actualizado_en
+    }
+```
 

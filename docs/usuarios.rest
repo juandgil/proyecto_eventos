@@ -17,7 +17,7 @@ POST {{baseUrl}}/iniciar_sesion
 Content-Type: application/json
 
 {
-  "correo": "nuevohola@ejemplo.com",
+  "correo": "nuevo@ejemplo.com",
   "contrasena": "contraseña123"
 }
 

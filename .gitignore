@@ -37,3 +37,5 @@ coverage
 .env.local
 local.env
 script-nys-bd.sql
+.cursorignore
+.env
