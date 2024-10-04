@@ -73,6 +73,7 @@ describe('Actualizar Evento', () => {
             body: { id_evento: 9999, nombre: 'Evento Inexistente', descripcion: 'Descripción inexistente' },
             params: {},
             data: {},
+            file: {},
         };
         await expect(eventosController.actualizarEvento(request)).rejects.toThrow();
     });

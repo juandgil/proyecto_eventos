@@ -38,7 +38,7 @@ describe('ActualizarUsuario', () => {
             correo: 'actualizado@ejemplo.com',
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         const response: Response<Status | null> = await usuariosController.actualizarUsuario(request);
         expect(response.response.isError).toBe(false);
         expect(response.status).toBe(200);
@@ -51,7 +51,7 @@ describe('ActualizarUsuario', () => {
             nombre_usuario: 'usuario_inexistente',
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await expect(usuariosController.actualizarUsuario(request)).rejects.toThrow(
             'El usuario especificado no existe',
         );
@@ -63,7 +63,7 @@ describe('ActualizarUsuario', () => {
             contrasena: 'nueva_contrasena_segura',
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         const response: Response<Status | null> = await usuariosController.actualizarUsuario(request);
         expect(response.response.isError).toBe(false);
         expect(response.status).toBe(200);
@@ -76,7 +76,7 @@ describe('ActualizarUsuario', () => {
             id_perfil: 2,
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         const response: Response<Status | null> = await usuariosController.actualizarUsuario(request);
         expect(response.response.isError).toBe(false);
         expect(response.status).toBe(200);
@@ -89,7 +89,7 @@ describe('ActualizarUsuario', () => {
             id_perfil: 999,
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await expect(usuariosController.actualizarUsuario(request)).rejects.toThrow('El perfil especificado no existe');
     });
 });

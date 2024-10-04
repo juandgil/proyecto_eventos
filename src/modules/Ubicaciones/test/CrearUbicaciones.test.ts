@@ -35,7 +35,7 @@ describe('Crear Ubicacion', () => {
             latitud: 40.4168,
             longitud: -3.7038,
         };
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         const response: Response<any> = await ubicacionesController.crearUbicacion(request);
         expect(response.status).toBe(200);
         expect(response.response.data?.ok).toBe('Ubicación creada exitosamente');
@@ -52,7 +52,7 @@ describe('Crear Ubicacion', () => {
             latitud: 40.4169,
             longitud: -3.7039,
         };
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await ubicacionesController.crearUbicacion(request);
 
         // Intentamos crear otra ubicación con el mismo nombre

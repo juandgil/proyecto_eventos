@@ -34,6 +34,7 @@ describe('Crear Categoria', () => {
             body: { nombre: 'Categoría Test' },
             params: {},
             data: {},
+            file: {},
         };
         const response: Response<any> = await categoriasController.crearCategoria(request);
         expect(response.status).toBe(200);

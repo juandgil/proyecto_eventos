@@ -84,7 +84,7 @@ describe('Crear Asistencia', () => {
             id_usuario: 1,
             id_evento: 1,
         };
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         const response: Response<any> = await asistenciasController.crearAsistencia(request);
 
         console.log('Respuesta de crearAsistencia:', JSON.stringify(response, null, 2));
@@ -101,7 +101,7 @@ describe('Crear Asistencia', () => {
             id_usuario: 1,
             id_evento: 1,
         };
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await asistenciasController.crearAsistencia(request);
 
         await expect(asistenciasController.crearAsistencia(request)).rejects.toThrow(

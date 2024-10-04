@@ -1,4 +1,5 @@
 import { fastify, FastifyInstance, FastifyReply, FastifyRequest, FastifyPluginAsync, FastifyError } from 'fastify';
+import fastifyMultipart, { MultipartFile } from 'fastify-multipart';
 import { IModule } from '@common/modules/IModule';
 import { HTTPMETODO } from '@common/modules/Ruta';
 import { randomBytes } from 'crypto';
@@ -10,6 +11,12 @@ import swaggerConfig from '@common/swagger/swaggerConfig';
 import fastifyJwt from '@fastify/jwt';
 import { IServer } from '../IServer';
 import { DefaultErrorModel } from './DefaultError';
+
+declare module 'fastify' {
+    interface FastifyRequest {
+        file: MultipartFile;
+    }
+}
 
 export default class FastifyServer implements IServer {
     port: number = +ENV.PORT;
@@ -23,12 +30,22 @@ export default class FastifyServer implements IServer {
             genReqId: (_) => randomBytes(20).toString('hex'),
         });
         this.app.register(fastifyJwt, {
-            secret: ENV.JWT_SECRET || 'tu_clave_secreta',
+            secret: ENV.JWT_SECRET,
         });
         this.app.register(swagger, swaggerConfig);
         this.printRoutes();
         this.configureDatabase();
         this.errorHandler();
+        this.app.register(fastifyMultipart, {
+            limits: {
+                fieldNameSize: 100, // Max field name size in bytes
+                fieldSize: 100, // Max field value size in bytes
+                fields: 10, // Max number of non-file fields
+                fileSize: 1000000, // For multipart forms, the max file size in bytes
+                files: 1, // Max number of file fields
+                headerPairs: 2000, // Max number of header key=>value pairs
+            },
+        });
     }
 
     private printRoutes = (): void => {

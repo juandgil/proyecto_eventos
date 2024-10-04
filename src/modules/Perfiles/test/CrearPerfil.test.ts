@@ -27,6 +27,7 @@ describe('Crear Perfil', () => {
             body: { nombre: 'Perfil Test', descripcion: 'Descripción del perfil de prueba' },
             params: {},
             data: {},
+            file: {},
         };
         const response: Response<any> = await perfilesController.crearPerfil(request);
         expect(response.status).toBe(200);
@@ -40,6 +41,7 @@ describe('Crear Perfil', () => {
             body: { nombre: 'Perfil Test', descripcion: 'Otro perfil con el mismo nombre' },
             params: {},
             data: {},
+            file: {},
         };
         await expect(perfilesController.crearPerfil(request)).rejects.toThrow();
     });

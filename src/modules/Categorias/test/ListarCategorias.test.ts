@@ -35,6 +35,7 @@ describe('Listar Categorias', () => {
             body: {},
             params: {},
             data: {},
+            file: {},
         };
         const listarResponse: Response<any> = await categoriasController.listarCategorias();
         expect(listarResponse.status).toBe(200);

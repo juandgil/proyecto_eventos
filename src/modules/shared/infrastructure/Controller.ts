@@ -7,6 +7,7 @@ export type Req = {
     body: unknown;
     params: unknown;
     data: unknown;
+    file?: unknown;
 };
 
 export interface Status {

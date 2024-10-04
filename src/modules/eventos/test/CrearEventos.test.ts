@@ -46,7 +46,7 @@ describe('Crear Evento', () => {
             id_ubicacion: 1,
             id_categoria: 1,
         };
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         const response: Response<any> = await eventosController.crearEvento(request);
         expect(response.status).toBe(200);
         expect(response.response.data?.ok).toBe('Evento creado exitosamente');
@@ -65,7 +65,7 @@ describe('Crear Evento', () => {
             id_ubicacion: 1,
             id_categoria: 1,
         };
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await eventosController.crearEvento(request);
 
         try {

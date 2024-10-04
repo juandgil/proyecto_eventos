@@ -29,6 +29,7 @@ describe('Consultar Perfil', () => {
             body: { nombre: 'Perfil para Consultar', descripcion: 'Este perfil será consultado' },
             params: {},
             data: {},
+            file: {},
         };
         const crearResponse: Response<any> = await perfilesController.crearPerfil(crearRequest);
         const idPerfil = crearResponse.response.data?.data.idPerfil;
@@ -38,6 +39,7 @@ describe('Consultar Perfil', () => {
             body: {},
             params: { id: idPerfil.toString() },
             data: {},
+            file: {},
         };
         const consultarResponse: Response<any> = await perfilesController.consultarPerfil(consultarRequest);
         expect(consultarResponse.status).toBe(200);
@@ -51,6 +53,7 @@ describe('Consultar Perfil', () => {
             body: {},
             params: { id: '9999' },
             data: {},
+            file: {},
         };
         await expect(perfilesController.consultarPerfil(request)).rejects.toThrow(NotFoundException);
     });

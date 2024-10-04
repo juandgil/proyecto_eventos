@@ -35,6 +35,7 @@ describe('Eliminar Categoria', () => {
             body: { nombre: 'Categoría para Eliminar', descripcion: 'Descripción' },
             params: {},
             data: {},
+            file: {},
         };
         const categoriaCreada = await categoriasController.crearCategoria(crearRequest);
         const idCategoria = (categoriaCreada.response.data as any).data.id_categoria;

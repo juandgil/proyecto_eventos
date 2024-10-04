@@ -31,7 +31,7 @@ describe('Listar Perfiles', () => {
         ];
 
         for (const perfil of perfiles) {
-            await perfilesController.crearPerfil({ body: perfil, params: {}, data: {} });
+            await perfilesController.crearPerfil({ body: perfil, params: {}, data: {}, file: {} });
         }
 
         // Ahora, listamos los perfiles
@@ -39,6 +39,7 @@ describe('Listar Perfiles', () => {
             body: {},
             params: {},
             data: {},
+            file: {},
         };
         const listarResponse: Response<any> = await perfilesController.listarPerfiles();
         expect(listarResponse.status).toBe(200);

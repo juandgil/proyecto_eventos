@@ -93,6 +93,7 @@ describe('Consultar Asistencia', () => {
             body: {},
             params: { id: '1' },
             data: {},
+            file: {},
         };
         const consultarResponse: Response<any> = await asistenciasController.consultarAsistencia(consultarRequest);
 
@@ -110,6 +111,7 @@ describe('Consultar Asistencia', () => {
             body: {},
             params: { id: '9999' },
             data: {},
+            file: {},
         };
         await expect(asistenciasController.consultarAsistencia(request)).rejects.toThrow(NotFoundException);
     });

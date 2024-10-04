@@ -3,7 +3,10 @@
         "skipLibCheck": true,
         "lib": ["es5", "es6", "es7", "es2015", "es2016", "es2017", "es2018", "esnext"],
         "types": ["reflect-metadata", "node", "jest"],
-        "typeRoots": ["@types", "./node_modules/@types"],
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/types"
+        ],
         "module": "CommonJS",
         "moduleResolution": "Node",
         "removeComments": true,

@@ -33,6 +33,7 @@ describe('Actualizar Categoria', () => {
             body: { nombre: 'Categoría para Actualizar' },
             params: {},
             data: {},
+            file: {},
         };
         const crearResponse: Response<any> = await categoriasController.crearCategoria(crearRequest);
         const idCategoria = crearResponse.response.data?.data.id_categoria;
@@ -42,6 +43,7 @@ describe('Actualizar Categoria', () => {
             body: { id_categoria: idCategoria, nombre: 'Categoría Actualizada' },
             params: {},
             data: {},
+            file: {},
         };
         const actualizarResponse: Response<any> = await categoriasController.actualizarCategoria(actualizarRequest);
         expect(actualizarResponse.status).toBe(200);
@@ -54,6 +56,7 @@ describe('Actualizar Categoria', () => {
             body: { id_categoria: 9999, nombre: 'Categoría Inexistente' },
             params: {},
             data: {},
+            file: {},
         };
         await expect(categoriasController.actualizarCategoria(request)).rejects.toThrow();
     });

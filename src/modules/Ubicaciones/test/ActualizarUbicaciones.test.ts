@@ -36,7 +36,7 @@ describe('Actualizar Ubicacion', () => {
             latitud: 40.4168,
             longitud: -3.7038,
         };
-        const crearRequest: Req = { body: crearData, params: {}, data: {} };
+        const crearRequest: Req = { body: crearData, params: {}, data: {}, file: {} };
         const crearResponse: Response<any> = await ubicacionesController.crearUbicacion(crearRequest);
         const idUbicacion = crearResponse.response.data?.data.id_ubicacion;
 
@@ -48,7 +48,7 @@ describe('Actualizar Ubicacion', () => {
             latitud: 40.42,
             longitud: -3.71,
         };
-        const actualizarRequest: Req = { body: actualizarData, params: {}, data: {} };
+        const actualizarRequest: Req = { body: actualizarData, params: {}, data: {}, file: {} };
         const actualizarResponse: Response<any> = await ubicacionesController.actualizarUbicacion(actualizarRequest);
         expect(actualizarResponse.status).toBe(200);
         expect(actualizarResponse.response.data?.ok).toBe('Ubicación actualizada exitosamente');
@@ -61,6 +61,7 @@ describe('Actualizar Ubicacion', () => {
             body: { id_ubicacion: 9999, nombre: 'Ubicación Inexistente', direccion: 'Dirección inexistente' },
             params: {},
             data: {},
+            file: {},
         };
         await expect(ubicacionesController.actualizarUbicacion(request)).rejects.toThrow();
     });

@@ -116,7 +116,7 @@ describe('Listar Asistencias', () => {
     });
 
     it('Debe listar las asistencias correctamente', async () => {
-        const listarRequest: Req = { body: {}, params: {}, data: {} };
+        const listarRequest: Req = { body: {}, params: {}, data: {}, file: {} };
         const listarResponse: Response<any> = await asistenciasController.listarAsistencias(listarRequest);
 
         console.log('Respuesta de listarAsistencias:', JSON.stringify(listarResponse, null, 2));

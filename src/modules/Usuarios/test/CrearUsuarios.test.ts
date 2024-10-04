@@ -39,7 +39,7 @@ describe('CrearUsuarios', () => {
             id_perfil: 1,
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         const response: Response<Status | null> = await usuariosController.crearUsuario(request);
         expect(response.status).toBe(200); // o 201, dependiendo de tu implementación
     });
@@ -52,7 +52,7 @@ describe('CrearUsuarios', () => {
             id_perfil: 999,
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await expect(usuariosController.crearUsuario(request)).rejects.toThrow('El perfil especificado no existe');
     });
 
@@ -64,7 +64,7 @@ describe('CrearUsuarios', () => {
             id_perfil: 1,
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await expect(usuariosController.crearUsuario(request)).rejects.toThrow(BadMessageException);
     });
 
@@ -76,7 +76,7 @@ describe('CrearUsuarios', () => {
             id_perfil: 1,
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await expect(usuariosController.crearUsuario(request)).rejects.toThrow('El nombre de usuario ya fue creado');
     });
 
@@ -87,7 +87,7 @@ describe('CrearUsuarios', () => {
             contrasena: 'contrasena123',
             id_perfil: 1,
         };
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await expect(usuariosController.crearUsuario(request)).rejects.toThrow('El correo del usuario ya fue creado');
     });
 
@@ -99,7 +99,7 @@ describe('CrearUsuarios', () => {
             id_perfil: 1,
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await expect(usuariosController.crearUsuario(request)).rejects.toThrow(BadMessageException);
     });
 
@@ -109,7 +109,7 @@ describe('CrearUsuarios', () => {
             correo: 'incompleto@ejemplo.com',
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         await expect(usuariosController.crearUsuario(request)).rejects.toThrow(BadMessageException);
     });
 
@@ -120,7 +120,7 @@ describe('CrearUsuarios', () => {
             contrasena: 'contrasena123',
         };
 
-        const request: Req = { body: data, params: {}, data: {} };
+        const request: Req = { body: data, params: {}, data: {}, file: {} };
         const response: Response<Status | null> = await usuariosController.crearUsuario(request);
         expect(response.status).toBe(200); // o 201, dependiendo de tu implementación
     });

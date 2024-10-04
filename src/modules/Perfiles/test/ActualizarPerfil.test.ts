@@ -28,6 +28,7 @@ describe('Actualizar Perfil', () => {
             body: { nombre: 'Perfil para Actualizar', descripcion: 'Descripción inicial' },
             params: {},
             data: {},
+            file: {},
         };
         const crearResponse: Response<any> = await perfilesController.crearPerfil(crearRequest);
         const idPerfil = crearResponse.response.data?.data.idPerfil;
@@ -37,6 +38,7 @@ describe('Actualizar Perfil', () => {
             body: { id_perfil: idPerfil, nombre: 'Perfil Actualizado', descripcion: 'Nueva descripción' },
             params: {},
             data: {},
+            file: {},
         };
         const actualizarResponse: Response<any> = await perfilesController.actualizarPerfil(actualizarRequest);
         expect(actualizarResponse.status).toBe(200);
@@ -50,6 +52,7 @@ describe('Actualizar Perfil', () => {
             body: { id_perfil: 9999, nombre: 'Perfil Inexistente', descripcion: 'No debería actualizarse' },
             params: {},
             data: {},
+            file: {},
         };
         await expect(perfilesController.actualizarPerfil(request)).rejects.toThrow();
     });

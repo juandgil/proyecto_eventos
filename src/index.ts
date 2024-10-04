@@ -9,6 +9,7 @@ import { globalDependencies } from '@common/dependencies/DependencyContainer';
 import UbicacionesModule from '@modules/Ubicaciones/UbicacionesModule';
 import EventosModule from '@modules/eventos/EventosModule';
 import AsistenciasModule from '@modules/Asistencias/AsistenciasModule';
+import ProcesarExcelModule from '@modules/procesarExcel/ProcesarExcelModule';
 
 async function bootstrap() {
     const modulesFactory = new ModulesFactory();
@@ -21,6 +22,7 @@ async function bootstrap() {
         UbicacionesModule,
         EventosModule,
         AsistenciasModule,
+        ProcesarExcelModule,
     ]);
     server?.start();
 }

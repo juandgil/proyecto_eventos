@@ -29,6 +29,7 @@ describe('Consultar Categoria', () => {
             body: { nombre: 'Categoría para Consultar' },
             params: {},
             data: {},
+            file: {},
         };
         const crearResponse: Response<any> = await categoriasController.crearCategoria(crearRequest);
         const idCategoria = crearResponse.response.data?.data.id_categoria;

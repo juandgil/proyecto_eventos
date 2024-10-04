@@ -32,7 +32,7 @@ describe('Consultar Ubicacion', () => {
             latitud: 40.4168,
             longitud: -3.7038,
         };
-        const crearRequest: Req = { body: crearData, params: {}, data: {} };
+        const crearRequest: Req = { body: crearData, params: {}, data: {}, file: {} };
         const crearResponse: Response<any> = await ubicacionesController.crearUbicacion(crearRequest);
         const idUbicacion = crearResponse.response.data?.data.id_ubicacion;
 
@@ -41,6 +41,7 @@ describe('Consultar Ubicacion', () => {
             body: {},
             params: { id: idUbicacion },
             data: {},
+            file: {},
         };
         const consultarResponse: Response<any> = await ubicacionesController.consultarUbicacion(consultarRequest);
         expect(consultarResponse.status).toBe(200);
@@ -55,6 +56,7 @@ describe('Consultar Ubicacion', () => {
             body: {},
             params: { id: '9999' },
             data: {},
+            file: {},
         };
         await expect(ubicacionesController.consultarUbicacion(request)).rejects.toThrow(NotFoundException);
     });

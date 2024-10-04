@@ -1,13 +1,22 @@
 export default class Eventos {
     id_evento?: number;
+
     titulo: string;
+
     descripcion?: string;
+
     fecha_inicio: Date;
+
     fecha_fin: Date;
+
     id_creador: number;
+
     id_ubicacion: number;
+
     id_categoria: number;
+
     creado_en?: Date;
+
     actualizado_en?: Date;
 
     constructor(data: {

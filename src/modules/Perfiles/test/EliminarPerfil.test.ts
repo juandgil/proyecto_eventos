@@ -29,6 +29,7 @@ describe('Eliminar Perfil', () => {
             body: { nombre: 'Perfil para Eliminar', descripcion: 'Este perfil será eliminado' },
             params: {},
             data: {},
+            file: {},
         };
         const crearResponse: Response<any> = await perfilesController.crearPerfil(crearRequest);
         const idPerfil = crearResponse.response.data?.data.idPerfil;
@@ -38,6 +39,7 @@ describe('Eliminar Perfil', () => {
             body: {},
             params: { id: idPerfil.toString() },
             data: {},
+            file: {},
         };
         const eliminarResponse: Response<any> = await perfilesController.eliminarPerfil(eliminarRequest);
         expect(eliminarResponse.status).toBe(200);
@@ -48,6 +50,7 @@ describe('Eliminar Perfil', () => {
             body: {},
             params: { id: idPerfil.toString() },
             data: {},
+            file: {},
         };
         await expect(perfilesController.consultarPerfil(consultarRequest)).rejects.toThrow(NotFoundException);
     });
@@ -57,6 +60,7 @@ describe('Eliminar Perfil', () => {
             body: {},
             params: { id: '9999' },
             data: {},
+            file: {},
         };
         await expect(perfilesController.eliminarPerfil(request)).rejects.toThrow(NotFoundException);
     });
