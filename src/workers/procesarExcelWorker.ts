@@ -1,5 +1,4 @@
 import Bull from 'bull';
-import xlsx from 'xlsx';
 import { DEPENDENCY_CONTAINER } from '@common/dependencies/DependencyContainer';
 import TYPESDEPENDENCIES from '@modules/procesarExcel/dependencies/TypesDependencies';
 import { ProcesarExcelRepository } from '@modules/procesarExcel/domain/repositories/ProcesarExcelRepository';
