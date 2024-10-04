@@ -37,11 +37,8 @@ Para generar el informe de cobertura:
 docker-compose exec app yarn coverage
 ```
 
-```bash
-docker-compose exec app yarn coverage
-```
-
 Contiene un endpoint que consume la API de Mapbox para obtener ubicaciones cercanas con solo pasar una dirección fisica en un rango de 1 kilometro.
+
 tener en cuenta que se debe tener una clave de acceso de mapbox en el archivo .env
 
 ## Requisitos previos
@@ -131,77 +128,86 @@ tener en cuenta que se debe tener una clave de acceso de mapbox en el archivo .e
 
 ## Pruebas
 
-Para ejecutar las pruebas:
-bash
+-Para ejecutar las pruebas:
+
+``` bash 
 docker-compose exec app yarn test
+```
 
-
-Para detener y eliminar los contenedores y volúmenes:
 ## Detener y limpiar
 
 Para detener y eliminar los contenedores y volúmenes:
-bash
+
+``` bash 
 docker-compose down -v
+```
 
 ## Modelo de base de datos
-mermaid
-erDiagram
-PERFILES ||--o{ USUARIOS : tiene
-USUARIOS ||--o{ EVENTOS : crea
-USUARIOS ||--o{ ASISTENCIAS : participa
-EVENTOS ||--o{ ASISTENCIAS : tiene
-EVENTOS }|--|| UBICACIONES : se_realiza_en
-EVENTOS }|--|| CATEGORIAS_EVENTOS : pertenece_a
-PERFILES {
-int id_perfil PK
-string nombre
-string descripcion
-datetime creado_en
-datetime actualizado_en
-}
-USUARIOS {
-int id_usuario PK
-string nombre_usuario
-string correo
-string hash_contrasena
-int id_perfil FK
-boolean activo
-datetime creado_en
-datetime actualizado_en
-}
-EVENTOS {
-int id_evento PK
-string titulo
-string descripcion
-datetime fecha_inicio
-datetime fecha_fin
-int id_creador FK
-int id_ubicacion FK
-int id_categoria FK
-datetime creado_en
-datetime actualizado_en
-}
-ASISTENCIAS {
-int id_asistencia PK
-int id_usuario FK
-int id_evento FK
-datetime creado_en
-}
-UBICACIONES {
-int id_ubicacion PK
-string nombre
-string direccion
-decimal latitud
-decimal longitud
-datetime creado_en
-datetime actualizado_en
-}
-CATEGORIAS_EVENTOS {
-int id_categoria PK
-string nombre
-datetime creado_en
-datetime actualizado_en
-}
+
+El modelo de base de datos consta de las siguientes tablas y relaciones:
+
+### Tablas
+
+1. **PERFILES**
+   - id_perfil (PK)
+   - nombre
+   - descripcion
+   - creado_en
+   - actualizado_en
+
+2. **USUARIOS**
+   - id_usuario (PK)
+   - nombre_usuario
+   - correo
+   - hash_contrasena
+   - id_perfil (FK -> PERFILES)
+   - activo
+   - creado_en
+   - actualizado_en
+
+3. **EVENTOS**
+   - id_evento (PK)
+   - titulo
+   - descripcion
+   - fecha_inicio
+   - fecha_fin
+   - id_creador (FK -> USUARIOS)
+   - id_ubicacion (FK -> UBICACIONES)
+   - id_categoria (FK -> CATEGORIAS_EVENTOS)
+   - creado_en
+   - actualizado_en
+
+4. **ASISTENCIAS**
+   - id_asistencia (PK)
+   - id_usuario (FK -> USUARIOS)
+   - id_evento (FK -> EVENTOS)
+   - creado_en
+
+5. **UBICACIONES**
+   - id_ubicacion (PK)
+   - nombre
+   - direccion
+   - latitud
+   - longitud
+   - creado_en
+   - actualizado_en
+
+6. **CATEGORIAS_EVENTOS**
+   - id_categoria (PK)
+   - nombre
+   - creado_en
+   - actualizado_en
+
+### Relaciones
+
+- Un PERFIL puede tener muchos USUARIOS
+- Un USUARIO puede crear muchos EVENTOS
+- Un USUARIO puede participar en muchas ASISTENCIAS
+- Un EVENTO puede tener muchas ASISTENCIAS
+- Un EVENTO se realiza en una UBICACION
+- Un EVENTO pertenece a una CATEGORIA_EVENTOS
+
+Esta estructura permite una gestión eficiente de usuarios, eventos, ubicaciones y asistencias, proporcionando la flexibilidad necesaria para la aplicación de gestión de eventos.
 
 ## Scripts útiles
 
