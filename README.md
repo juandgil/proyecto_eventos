@@ -55,7 +55,7 @@ tener en cuenta que se debe tener una clave de acceso de mapbox en el archivo .e
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/proyecto-eventos.git
+   git clone https://github.com/juandgil/proyecto_eventos.git
    cd proyecto-eventos
    ```
 
@@ -73,6 +73,7 @@ tener en cuenta que se debe tener una clave de acceso de mapbox en el archivo .e
    PORT=8081
    PREFIX_LOGGER='PREFIX'
    LOGGER_LEVEL='debug'
+   JWT_SECRET='tu_clave_secreta'
    MAPBOX_TOKEN='tu_token_de_mapbox'
    ```
 
@@ -81,7 +82,23 @@ tener en cuenta que se debe tener una clave de acceso de mapbox en el archivo .e
    docker-compose up --build
    ```
 
-4. Una vez que los contenedores estén en ejecución, la aplicación estará disponible en `http://localhost:8081`.
+4. Una vez que los contenedores estén en ejecución, la aplicación estará disponible en `http://localhost:8081/domain/proyecto-events`.
+
+    puedes usar los archivos
+
+    docs/Asistencias.http,
+    docs/Eventos.http,
+    docs/Usuarios.http,
+    docs/Perfiles.http,
+    docs/CategoriasEventos.http,
+    docs/Ubicaciones.http
+
+    para probar las funcionalidades
+
+    y la documentacion de la api con swagger en
+
+    http://localhost:8081/domain/proyecto-events/docs
+
 
 ## Configuración de la base de datos
 
