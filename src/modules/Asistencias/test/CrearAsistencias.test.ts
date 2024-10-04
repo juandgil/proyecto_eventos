@@ -104,6 +104,8 @@ describe('Crear Asistencia', () => {
         const request: Req = { body: data, params: {}, data: {} };
         await asistenciasController.crearAsistencia(request);
 
-        await expect(asistenciasController.crearAsistencia(request)).rejects.toThrow('Ya existe una asistencia para este usuario y evento');
+        await expect(asistenciasController.crearAsistencia(request)).rejects.toThrow(
+            'Ya existe una asistencia para este usuario y evento',
+        );
     });
 });
